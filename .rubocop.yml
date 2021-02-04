@@ -10,3 +10,5 @@ Metrics/PerceivedComplexity:
   Enabled: false
 Metrics/ClassLength:
   Enabled: false
+Naming/AccessorMethodName:
+  Enabled: false

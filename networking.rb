@@ -35,7 +35,7 @@ def login
 end
 
 def get_input
-  gets.chomp.downcase
+  gets.chomp.strip.downcase
 end
 
 def valid_input?(input)
@@ -50,9 +50,9 @@ def title_search(title)
   title_final = REQ_RELEASE + title_filter + title_options
 
   send title_final
-  puts JSON.pretty_generate(@last = (parse read))
+  puts JSON.pretty_generate(parsed = (parse read))
 
-  @last['items'].each_with_index do |release, index|
+  parsed['items'].each_with_index do |release, index|
     @releases << { id: (release['id']), date: (release['released']), title: release['title'],
                    original: release['original'], languages: release['languages'] }
     companyromaji = []
@@ -61,19 +61,23 @@ def title_search(title)
       companyromaji << producer['name']
       companyoriginal << producer['original']
     end
-    @releases[index][:companyromaji] = companyromaji
-    @releases[index][:companyoriginal] = companyoriginal
-    # puts "ID: #{release['id']}"
-    # puts "Date: #{release['released']}"
-    # puts "Company: "
-    # puts "Title: #{release['title']}"
-    # puts "Original:  #{release['original']}"
-    # puts "Languages:  #{release['languages']}"
-    # puts ''
+    @releases[index][:company] = companyromaji.zip(companyoriginal)
+  end
+
+  # p @releases
+end
+
+def display_title_search_results
+  @releases.each do |release|
+    puts "ID: #{release[:id]}"
+    puts "Date: #{release[:date]}"
+    puts "Company: #{release[:company]}"
+    puts "Title: #{release[:title]}"
+    puts "Original:  #{release[:original]}"
+    puts "Languages:  #{release[:languages]}"
+    puts ''
     # puts
   end
-  # p @releases
-  ask_user
 end
 
 def ask_user
@@ -89,6 +93,8 @@ end
 
 login
 title_search('ハロー・レディ！')
+display_title_search_results
+ask_user
 p @selected
 
 @socket.close
