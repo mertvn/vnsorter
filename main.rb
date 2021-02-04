@@ -5,6 +5,7 @@ require_relative 'extractor'
 
 @vndb = VNDB.new
 @search = Search.new(@vndb) # dunno if this is fine
+
 def search_by_title
   # extract
 

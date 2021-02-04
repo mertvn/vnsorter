@@ -31,6 +31,7 @@ class Search
 
   def display_title_query_results
     @releases.each do |release|
+      puts "https://vndb.org/r#{release[:id]}"
       puts "ID: #{release[:id]}"
       puts "Date: #{release[:date]}"
       puts "Company: #{release[:company]}"
