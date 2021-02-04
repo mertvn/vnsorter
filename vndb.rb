@@ -24,7 +24,7 @@ class VNDB
 
   def read
     message = ''
-    message << @socket.getc until message[-1] == "\x04"
+    message << @socket.getc until message[-1] == END_CHAR
     message[-1] = ''
     message
   end
