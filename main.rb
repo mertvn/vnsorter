@@ -1,22 +1,21 @@
-fields = []
-Dir.entries('.').each do |folder|
-  date = []
-  company = []
-  title = []
-  fields = folder.split(' ')
-  fields.each do |field|
-    puts "field is #{field}"
-    if /\[[0-9]{6}\]/.match(field)
-      date << field.gsub(/\[|\]/, '')
-      next
-    end
-    if /\[.+\]/.match(field)
-      company << field.gsub(/\[|\]/, '')
-      next
-    end
-    title << field if /.+/.match(field)
-  end
-  puts "date is #{date}"
-  puts "company is #{company}"
-  puts "title is #{title}"
+require_relative 'vndb'
+require_relative 'input'
+require_relative 'search'
+require_relative 'extractor'
+
+@vndb = VNDB.new
+@search = Search.new(@vndb) # dunno if this is fine
+def search_by_title
+  # extract
+
+  @vndb.connect
+  @vndb.login
+  @search.title_query('ハロー・レディ！')
+  @search.display_title_query_results
+  @search.ask_user
+  @vndb.disconnect
+
+  # move
 end
+
+search_by_title
