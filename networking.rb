@@ -9,10 +9,12 @@ port = 19_534
 END_CHAR = "\04".freeze
 @socket = TCPSocket.open(hostname, port)
 # @last = ''
-
+@title = 'ハロー・レディ！'
 login_req = 'login { "protocol": 1, "client": "test", "clientver": 0.1 }'
-release_req = 'get release basic (original~"ハロー・レディ！")'
-puts release_req
+release_req = 'get release basic '
+filter_title = "(title~\"#{@title}\" or original~\"#{@title}\")"
+final = release_req + filter_title
+puts final
 
 def read
   message = ''
@@ -33,7 +35,7 @@ def parse(message)
 end
 send login_req
 puts read
-send release_req
+send final
 puts parse read
 # puts read
 
