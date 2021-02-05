@@ -3,19 +3,16 @@ require_relative 'input'
 require_relative 'search'
 require_relative 'extractor'
 
-@vndb = VNDB.new
-
-@vndb.connect
-@vndb.login
+VNDB.connect
+VNDB.login
 
 def match_by_title(title)
-  @search = Search.new(@vndb) # dunno if this is fine
+  selected = []
+  return 'empty' unless Search.title_query(title)
 
-  return 'empty' unless @search.title_query(title)
-
-  @search.display_title_query_results
-  @search.ask_user while @search.selected.empty?
-  @search.selected
+  Search.display_title_query_results
+  Search.ask_user(selected) while selected.empty?
+  selected
 end
 
 extracted = Extractor.extract
@@ -48,4 +45,4 @@ extracted.each_with_index do |folder, index|
   end
 end
 p @map
-@vndb.disconnect
+VNDB.disconnect

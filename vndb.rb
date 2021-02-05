@@ -1,4 +1,5 @@
-class VNDB
+module VNDB
+  extend self
   require 'json'
   require 'socket'
 

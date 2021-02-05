@@ -1,10 +1,6 @@
-class Search
-  attr_reader :selected
+module Search
+  extend self
 
-  def initialize(vndb)
-    @vndb = vndb
-    @selected = []
-  end
   # no space between flags
   REQ_RELEASE = 'get release basic,producers '.freeze
 
@@ -15,9 +11,9 @@ class Search
     title_options = '{ "results": 25 }'
     title_final = REQ_RELEASE + title_filter + title_options
 
-    @vndb.send(title_final)
+    VNDB.send(title_final)
     # puts JSON.pretty_generate(parsed = (@vndb.parse @vndb.read))
-    parsed = @vndb.parse(@vndb.read)
+    parsed = VNDB.parse(VNDB.read)
     parsed['items'].each_with_index do |release, index|
       @releases << { id: (release['id']), date: (release['released']), title: release['title'],
                      original: release['original'], languages: release['languages'] }
@@ -49,23 +45,24 @@ class Search
     end
   end
 
-  def ask_user
+  def ask_user(selected)
+    # @selected = []
     puts 'Enter the ID of the correct release or "skip"'
     input = Input.get_input until Input.valid_input?(input)
     if input == 'skip'
-      @selected << 'skipped'
+      selected << 'skipped'
       return
     end
-    select_release(input)
+    select_release(input, selected)
   end
 end
 
 private
 
-def select_release(input)
+def select_release(input, selected)
   @releases.each do |release|
     if input == release[:id].to_s
-      @selected << release
+      selected << release
       return
     end
   end
