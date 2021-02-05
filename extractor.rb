@@ -1,10 +1,13 @@
 module Extractor
-  def extract
+  def self.extract(directory = Dir)
+    found_vns = []
     fields = []
-    Dir.entries('.').each do |folder|
+
+    directory.entries('.').each do |folder|
       date = []
       company = []
       title = []
+
       fields = folder.split(' ')
       fields.each do |field|
         puts "field is #{field}"
@@ -18,9 +21,11 @@ module Extractor
         end
         title << field if /.+/.match(field)
       end
-      puts "date is #{date}"
-      puts "company is #{company}"
-      puts "title is #{title}"
+      # puts "date is #{date}"
+      # puts "company is #{company}"
+      # puts "title is #{title}"
+      found_vns << { location: "#{__dir__}/#{folder}", date: date, company: company, title: title }
     end
+    found_vns
   end
 end

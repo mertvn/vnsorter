@@ -15,9 +15,9 @@ class Search
     title_options = '{ "results": 25 }'
     title_final = REQ_RELEASE + title_filter + title_options
 
-    @vndb.send title_final
-    puts JSON.pretty_generate(parsed = (@vndb.parse @vndb.read))
-
+    @vndb.send(title_final)
+    # puts JSON.pretty_generate(parsed = (@vndb.parse @vndb.read))
+    parsed = @vndb.parse(@vndb.read)
     parsed['items'].each_with_index do |release, index|
       @releases << { id: (release['id']), date: (release['released']), title: release['title'],
                      original: release['original'], languages: release['languages'] }
@@ -32,7 +32,7 @@ class Search
       @releases[index][:company] = companyromaji.zip(companyoriginal)
     end
 
-    # p @releases
+    !@releases.empty?
   end
 
   def display_title_query_results
@@ -53,13 +53,10 @@ class Search
     puts 'Enter the ID of the correct release or "skip"'
     input = Input.get_input until Input.valid_input?(input)
     if input == 'skip'
-      puts 'skipping'
       @selected << 'skipped'
       return
     end
-
     select_release(input)
-    # p @selected
   end
 end
 
