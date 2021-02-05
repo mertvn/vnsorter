@@ -11,3 +11,4 @@
 ## Features:
 * Extractor should have the option to work with files instead of folders
 * Implement Mover
+* Throttle control
