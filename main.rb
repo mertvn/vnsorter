@@ -6,17 +6,20 @@ require_relative 'extractor'
 @vndb = VNDB.new
 @search = Search.new(@vndb) # dunno if this is fine
 
-def search_by_title
+def match_by_title(title)
   # extract
 
   @vndb.connect
   @vndb.login
-  @search.title_query('ハロー・レディ！')
+
+  @search.title_query(title)
   @search.display_title_query_results
-  @search.ask_user
+  @search.ask_user while @search.selected.empty?
+  p @search.selected
+
   @vndb.disconnect
 
   # move
 end
 
-search_by_title
+match_by_title('ハロー・レディ！')

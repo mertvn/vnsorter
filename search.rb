@@ -1,12 +1,16 @@
 class Search
+  attr_reader :selected
+
   def initialize(vndb)
     @vndb = vndb
+    @selected = []
   end
-  REQ_RELEASE = 'get release basic,producers '.freeze # no space between flags
+  # no space between flags
+  REQ_RELEASE = 'get release basic,producers '.freeze
 
   def title_query(title)
     @releases = []
-    @selected = []
+
     title_filter = "(title~\"#{title}\" or original~\"#{title}\")"
     title_options = '{ "results": 25 }'
     title_final = REQ_RELEASE + title_filter + title_options
@@ -17,6 +21,8 @@ class Search
     parsed['items'].each_with_index do |release, index|
       @releases << { id: (release['id']), date: (release['released']), title: release['title'],
                      original: release['original'], languages: release['languages'] }
+
+      # should be able to do this without requiring extra arrays
       companyromaji = []
       companyoriginal = []
       release['producers'].each_with_index do |producer, _index|
@@ -46,13 +52,25 @@ class Search
   def ask_user
     puts 'Enter the ID of the correct release or "skip"'
     input = Input.get_input until Input.valid_input?(input)
-    return if input == 'skip'
-
-    @releases.each do |release|
-      @selected << release if input == release[:id].to_s
+    if input == 'skip'
+      puts 'skipping'
+      @selected << 'skipped'
+      return
     end
-    # if releases.find(|release.id| release.id == input)
-    p @selected
+
+    select_release(input)
+    # p @selected
   end
 end
-# vndb = Networking.new
+
+private
+
+def select_release(input)
+  @releases.each do |release|
+    if input == release[:id].to_s
+      @selected << release
+      return
+    end
+  end
+  puts "Didn't match any of the releases listed. Please make sure you've entered the correct number."
+end

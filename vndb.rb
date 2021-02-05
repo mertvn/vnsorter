@@ -19,7 +19,10 @@ class VNDB
     send REQ_LOGIN
     msg_login = read
     puts msg_login
-    abort unless msg_login == 'ok'
+    unless msg_login == 'ok'
+      disconnect
+      abort('Failed to login')
+    end
   end
 
   def read
