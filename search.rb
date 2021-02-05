@@ -61,10 +61,9 @@ private
 
 def select_release(input, selected)
   @releases.each do |release|
-    if input == release[:id].to_s
-      selected << release
-      return
-    end
+    selected << release if input == release[:id].to_s
   end
-  puts "Didn't match any of the releases listed. Please make sure you've entered the correct number."
+  return unless selected.empty?
+
+  puts "Didn't match. Did you enter the correct number?"
 end

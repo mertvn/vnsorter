@@ -18,7 +18,7 @@ end
 extracted = Extractor.extract
 p extracted
 
-@map = {}
+map = {}
 extracted.each_with_index do |folder, index|
   # match_by_all
 
@@ -41,8 +41,8 @@ extracted.each_with_index do |folder, index|
     #   next
     # end
 
-    @map[folder[:location]] = match
+    map[folder[:location]] = match
   end
 end
-p @map
+p map
 VNDB.disconnect
