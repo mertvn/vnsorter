@@ -4,6 +4,9 @@ module Search
   # no space between flags
   REQ_RELEASE = 'get release basic,producers '.freeze
 
+  # # remember that there might be multiple companies
+  # def company_query(company, date); end
+
   def title_query(title)
     @releases = []
 

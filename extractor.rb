@@ -43,7 +43,7 @@ module Extractor
       # puts "date is #{date}"
       # puts "company is #{company}"
       # puts "title is #{title}"
-      found_vns << { location: "#{__dir__}/#{folder}", date: date, company: company, title: title }
+      found_vns << { location: "#{directory}/#{folder}", date: date, company: company, title: title }
     end
     found_vns
   end

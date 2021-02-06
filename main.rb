@@ -4,9 +4,6 @@ require_relative 'search'
 require_relative 'extractor'
 require_relative 'mover'
 
-VNDB.connect
-VNDB.login
-
 FOLDER_TO_SORT = './tosort'.freeze
 
 def match_by_title(title)
@@ -18,34 +15,56 @@ def match_by_title(title)
   selected
 end
 
-extracted = Extractor.extract(FOLDER_TO_SORT)
-p extracted
+def match_by_all(company, date)
+  selected = []
+  return 'empty' unless Search.company_query(company, date)
 
-map = {}
-extracted.each do |folder|
-  # match_by_all
+  if @releases.length > 1
+    Search.display_all_query_results
+    Search.ask_user(selected) while selected.empty?
+  end
+  selected
+end
 
-  # p folder[:title]
-  puts 'new title search'
-  folder[:title].each do |subtitle|
-    puts 'new subtitle search'
-    match = match_by_title(subtitle)
-    # p "MATCH: #{match}"
-    if match == 'empty'
-      puts 'No results, skipping'
-      next
-    end
+def main
+  VNDB.connect
+  VNDB.login
 
-    # unnecessary for now
-    # if match[0] == 'skipped'
-    #   puts 'skipping'
-    #   next
+  extracted = Extractor.extract(FOLDER_TO_SORT)
+  p extracted
+
+  map = {}
+  extracted.each do |folder|
+    # p folder[:title]
+    match = []
+
+    # unless folder[:company].empty? || folder[:date].empty?
+    #   puts 'new all search'
+    #   match = match_by_all(folder[:company], folder[:date])
+
+    #   unless match == 'empty'
+    #     map[folder[:location]] = match[0]
+    #     next
+    #   end
     # end
 
-    map[folder[:location]] = match[0]
+    puts 'new title search'
+    folder[:title].each do |subtitle|
+      puts 'new subtitle search'
+      match = match_by_title(subtitle)
+      # p "MATCH: #{match}"
+      if match == 'empty'
+        puts 'No results, skipping'
+        next
+      end
+      map[folder[:location]] = match[0]
+    end
   end
-end
-p map
-Mover.move(map, './sorted')
+  p map
+  Mover.move(map, './sorted')
+  puts 'Sorted everything!'
 
-VNDB.disconnect
+  VNDB.disconnect
+end
+
+main
