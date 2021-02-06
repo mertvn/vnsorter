@@ -2,9 +2,12 @@ require_relative 'vndb'
 require_relative 'input'
 require_relative 'search'
 require_relative 'extractor'
+require_relative 'mover'
 
 VNDB.connect
 VNDB.login
+
+FOLDER_TO_SORT = './tosort'.freeze
 
 def match_by_title(title)
   selected = []
@@ -15,21 +18,19 @@ def match_by_title(title)
   selected
 end
 
-extracted = Extractor.extract
+extracted = Extractor.extract(FOLDER_TO_SORT)
 p extracted
 
 map = {}
-extracted.each_with_index do |folder, index|
+extracted.each do |folder|
   # match_by_all
-
-  next unless index > 9
 
   # p folder[:title]
   puts 'new title search'
   folder[:title].each do |subtitle|
     puts 'new subtitle search'
     match = match_by_title(subtitle)
-    # p match
+    # p "MATCH: #{match}"
     if match == 'empty'
       puts 'No results, skipping'
       next
@@ -41,8 +42,10 @@ extracted.each_with_index do |folder, index|
     #   next
     # end
 
-    map[folder[:location]] = match
+    map[folder[:location]] = match[0]
   end
 end
 p map
+Mover.move(map, './sorted')
+
 VNDB.disconnect

@@ -1,10 +1,26 @@
 module Extractor
   extend self
-  def extract(directory = Dir)
+
+  MIN_FOLDER_LENGTH = 3
+  MIN_TITLE_LENGTH = 3
+  BLACKLIST = %w[bonus
+                 manual
+                 soundtrack
+                 sofmap
+                 single
+                 maxi
+                 original
+                 tokuten
+                 crack
+                 update].freeze
+
+  def extract(directory)
     found_vns = []
     fields = []
 
-    directory.entries('.').each do |folder|
+    Dir.entries(directory).each do |folder|
+      next if folder.length < MIN_FOLDER_LENGTH
+
       date = []
       company = []
       title = []
@@ -20,6 +36,8 @@ module Extractor
           company << field.gsub(/\[|\]/, '')
           next
         end
+        next if field.length < MIN_TITLE_LENGTH || BLACKLIST.include?(field.downcase)
+
         title << field if /.+/.match(field)
       end
       # puts "date is #{date}"
