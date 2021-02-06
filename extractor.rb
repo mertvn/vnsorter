@@ -1,5 +1,6 @@
 module Extractor
-  def self.extract(directory = Dir)
+  extend self
+  def extract(directory = Dir)
     found_vns = []
     fields = []
 

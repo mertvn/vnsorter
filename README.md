@@ -2,6 +2,7 @@
 ## Fixes:
 * Find a better name for Input
 * Optimize company insertion in title_query
+* Click on the release ID to open the vndb page
 
 ### Organization
 * Move different search categories to different files

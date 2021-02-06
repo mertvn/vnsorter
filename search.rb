@@ -9,7 +9,8 @@ module Search
 
     title_filter = "(title~\"#{title}\" or original~\"#{title}\")"
     title_options = '{ "results": 25 }'
-    title_final = REQ_RELEASE + title_filter + title_options
+    # required to force-convert to UTF-8 or it doesn't work on windows console(???)
+    title_final = (REQ_RELEASE + title_filter + title_options).encode('UTF-8')
 
     VNDB.send(title_final)
     # puts JSON.pretty_generate(parsed = (@vndb.parse @vndb.read))
