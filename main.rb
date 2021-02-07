@@ -48,6 +48,7 @@ def main
     #   end
     # end
 
+    # this part needs a refactor
     puts 'new title search'
     folder[:title].each do |subtitle|
       puts 'new subtitle search'
@@ -57,7 +58,11 @@ def main
         puts 'No results, skipping'
         next
       end
+      next if match[0] == 'skipped'
+
       map[folder[:location]] = match[0]
+      p 'found match, breaking'
+      break
     end
   end
   p map

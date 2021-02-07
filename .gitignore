@@ -1,4 +1,5 @@
 .rubocop.yml
+rubyc
 
 /tosort/
 /sorted/

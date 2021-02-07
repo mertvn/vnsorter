@@ -10,15 +10,17 @@ module Mover
       vn = combination[1]
       next if vn == 'skipped'
 
-      title = vn[:original]
-
+      # apparently some vns don't have an original title
+      title = vn[:original] || vn[:title]
+      # p title
       # fix this later
       company = vn[:company][0][0]
       # p vn[:company].each do |companies|
       #   company = companies[0]
       # end
 
-      # convert date to YYMMDD
+      # convert date to YYMMDD for now
+      # allow more options later
       date = (vn[:date].split('-').join)[2..-1]
       date = date.length == 6 ? date : 'unknown'
 
@@ -34,8 +36,9 @@ module Mover
 
         puts "Moving #{origin}/#{file}"
         # don't use #move because it leaves the empty directory behind
-        FileUtils.copy("#{origin}/#{file}", destination, verbose: true, noop: false)
-        FileUtils.remove_dir(origin)
+        FileUtils.copy("#{origin}/#{file}".encode('UTF-8'), destination.encode('UTF-8'), verbose: true, noop: false)
+        # dir isn't removed if there are no files in it
+        FileUtils.remove_dir(origin.encode('UTF-8'))
         # add move history
       end
       puts "Move succeeded for #{title}"
