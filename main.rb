@@ -32,12 +32,11 @@ def match_by_all(producer, date)
 end
 
 def main
-  VNDB.connect
-  VNDB.login
-
   extracted = Extractor.extract(FOLDER_TO_SORT)
   p extracted
 
+  VNDB.connect
+  VNDB.login
   map = {}
   extracted.each do |folder|
     # p folder[:title]
