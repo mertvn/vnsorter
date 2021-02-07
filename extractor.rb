@@ -6,20 +6,29 @@ module Extractor
   BLACKLIST = %w[bonus
                  manual
                  マニュアル
-                 soundtrack
                  ドラマ
+                 soundtrack
+                 サウンドトラック
                  flac
                  wav
                  bin
                  cue
                  etc
-                 sofmap
                  single
                  maxi
                  original
                  tokuten
+                 予約特典
+                 sofmap
+                 sofmap特典
+                 ボーカル
+                 ソング
+                 ボーカルソング
                  crack
+                 認証回避
                  ※自炊
+                 patch
+                 パッチ
                  nodvd
                  nocd
                  update
@@ -44,8 +53,7 @@ module Extractor
       fields = folder.split(' ')
       fields.each do |field|
         field = field.encode('UTF-8')
-        next if BLACKLIST.include?(field.downcase) ||
-                /\(.+?\)/.match(field)
+        next if BLACKLIST.include?(field.downcase) || /\(.+?\)/.match(field)
 
         puts "field is #{field}"
         if /\[[0-9]{6}\]/.match(field)
@@ -61,9 +69,6 @@ module Extractor
 
         title << field if /.+/.match(field)
       end
-      # puts "date is #{date}"
-      # puts "producer is #{producer}"
-      # puts "title is #{title}"
       found_vns << { location: "#{directory}/#{folder}".encode('UTF-8'),
                      date: date,
                      producer: producer,
