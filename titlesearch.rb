@@ -1,12 +1,11 @@
-module Search
+module TitleSearch
   extend self
 
   # no space between flags
   REQ_RELEASE = 'get release basic,producers '.freeze
 
-  # # remember that there might be multiple companies
+  # # remember that there might be multiple producers
   # # remember it's "producer" filter on "get release", not "get producer" for getting vns
-  # def company_query(company, date); end
 
   # try using the "search" filter on "get vn" to get vns instead
   def title_query(title)
@@ -24,13 +23,13 @@ module Search
                      original: release['original'], languages: release['languages'] }
 
       # should be able to do this without requiring extra arrays
-      companyromaji = []
-      companyoriginal = []
+      producerromaji = []
+      produceroriginal = []
       release['producers'].each_with_index do |producer, _index|
-        companyromaji << producer['name']
-        companyoriginal << producer['original']
+        producerromaji << producer['name']
+        produceroriginal << producer['original']
       end
-      @releases[index][:company] = companyromaji.zip(companyoriginal)
+      @releases[index][:producer] = producerromaji.zip(produceroriginal)
     end
 
     !@releases.empty?
@@ -41,7 +40,7 @@ module Search
       puts "https://vndb.org/r#{release[:id]}"
       puts "ID: #{release[:id]}"
       puts "Date: #{release[:date]}"
-      puts "Company: #{release[:company]}"
+      puts "Producer: #{release[:producer]}"
       puts "Title: #{release[:title]}"
       puts "Original:  #{release[:original]}"
       puts "Languages:  #{release[:languages]}"

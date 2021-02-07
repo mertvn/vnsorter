@@ -1,6 +1,7 @@
 require_relative 'vndb'
 require_relative 'input'
-require_relative 'search'
+require_relative 'titlesearch'
+require_relative 'producersearch'
 require_relative 'extractor'
 require_relative 'mover'
 
@@ -9,20 +10,20 @@ LIBRARY_FOLDER = './sorted'.freeze
 
 def match_by_title(title)
   selected = []
-  return 'empty' unless Search.title_query(title)
+  return 'empty' unless TitleSearch.title_query(title)
 
-  Search.display_title_query_results
-  Search.ask_user(selected) while selected.empty?
+  TitleSearch.display_title_query_results
+  TitleSearch.ask_user(selected) while selected.empty?
   selected
 end
 
-def match_by_all(company, date)
+def match_by_all(producer, date)
   selected = []
-  return 'empty' unless Search.company_query(company, date)
+  return 'empty' unless ProducerSearch.producer_query(producer, date)
 
   if @releases.length > 1
-    Search.display_all_query_results
-    Search.ask_user(selected) while selected.empty?
+    ProducerSearch.display_all_query_results
+    ProducerSearch.ask_user(selected) while selected.empty?
   end
   selected
 end
@@ -39,15 +40,15 @@ def main
     # p folder[:title]
     match = []
 
-    # unless folder[:company].empty? || folder[:date].empty?
-    #   puts 'new all search'
-    #   match = match_by_all(folder[:company], folder[:date])
+    unless folder[:producer].empty? || folder[:date].empty?
+      puts 'new all search'
+      match = match_by_all(folder[:producer], folder[:date])
 
-    #   unless match == 'empty'
-    #     map[folder[:location]] = match[0]
-    #     next
-    #   end
-    # end
+      unless match == 'empty'
+        map[folder[:location]] = match[0]
+        next
+      end
+    end
 
     # this part needs a refactor
     puts 'new title search'

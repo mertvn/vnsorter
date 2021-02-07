@@ -30,9 +30,9 @@ module Mover
     # p title
 
     # fix this later
-    company = vn[:company][0][0]
-    # vn[:company].each do |companies|
-    #   p company = companies[0]
+    producer = vn[:producer][0][0]
+    # vn[:producer].each do |producers|
+    #   p producer = producers[0]
     # end
 
     # convert date to YYMMDD for now
@@ -43,9 +43,9 @@ module Mover
     # keep the repetition
     case naming_option
     when '1'
-      "#{library_folder}/#{company}/[#{date}] #{title}"
+      "#{library_folder}/#{producer}/[#{date}] #{title}"
     when '2'
-      "#{library_folder}/#{company}/#{title}"
+      "#{library_folder}/#{producer}/#{title}"
     when '3'
       "#{library_folder}/#{title}"
       # when "custom"
@@ -64,7 +64,6 @@ module Mover
       next if ['.', '..'].include?(file)
 
       puts "Moving #{origin}/#{file}"
-      # does this really create a string=>string hash? confirm it
       @move_history << { "#{origin}/#{file}" => destination }
       # don't use #move because it leaves the empty directory behind
       FileUtils.copy("#{origin}/#{file}".encode('UTF-8'), destination.encode('UTF-8'), verbose: false, noop: false)
