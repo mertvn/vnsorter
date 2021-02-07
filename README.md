@@ -4,10 +4,13 @@
 
 - Find better names for things in general (esp. "map", "selected", "title" and "subtitle", "search" and "query")
 - Optimize producer insertion in title_query
+- Move producer insertion to a method that both classes can use ^
 - Click on the release ID to open the vndb page
 - Find a way to not have to re-encode everything for Windows
-- Replace forbidden characters like ":" in filenames https://stackoverflow.com/a/31976060 - replace with jpn variants if possible
+- Replace forbidden characters like ":, /" in filenames https://stackoverflow.com/a/31976060 - replace with jpn variants if possible (check with unison shift:blossom and fate/stay night)
 - Use producer "type" to only get developers somehow
+- Fix Y2k80 problem
+- Extractor needs to ignore space inside brackets when splitting to fields
 
 - try using the "search" filter on "get vn" to get vns instead
 

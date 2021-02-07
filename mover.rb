@@ -31,6 +31,7 @@ module Mover
     # p title
 
     # fix this later
+    p vn
     producer = vn[:producer][0][0]
     # vn[:producer].each do |producers|
     #   p producer = producers[0]
@@ -63,8 +64,6 @@ module Mover
     puts "Moving #{origin}"
     @move_history << { origin.to_s => destination }
     FileUtils.cp_r("#{origin}/.".encode('UTF-8'), destination.encode('UTF-8'), verbose: false, noop: false)
-    # dir isn't removed if no files were moved
     FileUtils.remove_dir(origin.encode('UTF-8'))
-    # end
   end
 end

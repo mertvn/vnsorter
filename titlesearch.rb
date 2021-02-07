@@ -4,9 +4,6 @@ module TitleSearch
   # no space between flags
   REQ_RELEASE = 'get release basic,producers '.freeze
 
-  # # remember that there might be multiple producers
-  # # remember it's "producer" filter on "get release", not "get producer" for getting vns
-
   # try using the "search" filter on "get vn" to get vns instead
   def title_query(title)
     @releases = []
@@ -19,20 +16,23 @@ module TitleSearch
     # puts JSON.pretty_generate(parsed = (@vndb.parse @vndb.read))
     parsed = VNDB.parse(VNDB.read)
     parsed['items'].each_with_index do |release, index|
-      @releases << { id: (release['id']), date: (release['released']), title: release['title'],
+      @releases << { id: release['id'], date: release['released'], title: release['title'],
                      original: release['original'], languages: release['languages'] }
 
       # should be able to do this without requiring extra arrays
-      producerromaji = []
-      produceroriginal = []
-      release['producers'].each_with_index do |producer, _index|
-        producerromaji << producer['name']
-        produceroriginal << producer['original']
+      producer_romaji = []
+      producer_original = []
+      release['producers'].each do |producer|
+        # make this toggleable
+        next if producer['developer'] == false
+
+        producer_romaji << producer['name']
+        producer_original << producer['original']
       end
-      @releases[index][:producer] = producerromaji.zip(produceroriginal)
+      @releases[index][:producer] = producer_romaji.zip(producer_original)
     end
 
-    !@releases.empty?
+    @releases
   end
 
   def display_title_query_results

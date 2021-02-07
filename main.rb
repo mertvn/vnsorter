@@ -10,7 +10,7 @@ LIBRARY_FOLDER = './sorted'.freeze
 
 def match_by_title(title)
   selected = []
-  return 'empty' unless TitleSearch.title_query(title)
+  return 'empty' if TitleSearch.title_query(title).empty?
 
   TitleSearch.display_title_query_results
   TitleSearch.ask_user(selected) while selected.empty?
@@ -18,14 +18,17 @@ def match_by_title(title)
 end
 
 def match_by_all(producer, date)
-  selected = []
-  return 'empty' unless ProducerSearch.producer_query(producer, date)
+  # selected = []
+  releases = ProducerSearch.producer_query(producer, date)
+  return 'empty' if releases.empty?
 
-  if @releases.length > 1
-    ProducerSearch.display_all_query_results
-    ProducerSearch.ask_user(selected) while selected.empty?
-  end
-  selected
+  # if releases.length > 1
+  #   ProducerSearch.display_all_query_results
+  #   ProducerSearch.ask_user(selected) while selected.empty?
+  # end
+
+  releases
+  # selected
 end
 
 def main
@@ -50,6 +53,8 @@ def main
       end
     end
 
+    p 'title search is disabled'
+
     # this part needs a refactor
     puts 'new title search'
     folder[:title].each do |subtitle|
@@ -67,12 +72,12 @@ def main
       break
     end
   end
-  p map
+  VNDB.disconnect
+
+  puts "Map: #{map}"
   @move_history = Mover.move(map, LIBRARY_FOLDER)
   puts "Move history: #{@move_history}"
   puts 'Sorted everything!'
-
-  VNDB.disconnect
 end
 
 main

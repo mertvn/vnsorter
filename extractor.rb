@@ -17,6 +17,7 @@ module Extractor
                  single
                  maxi
                  original
+                 wallpaper
                  tokuten
                  予約特典
                  sofmap
@@ -50,6 +51,7 @@ module Extractor
       producer = []
       title = []
 
+      # needs to ignore space inside brackets
       fields = folder.split(' ')
       fields.each do |field|
         field = field.encode('UTF-8')
