@@ -17,6 +17,7 @@ module Mover
 
       create_folder(destination)
       move_files(origin, destination)
+      # do we want the title or the origin here?
       puts "Move succeeded for #{vn[:title]}"
     end
     @move_history
@@ -58,17 +59,12 @@ module Mover
     FileUtils.mkdir_p(destination, verbose: false, noop: false)
   end
 
-  # there must be a better way of doing this
   def move_files(origin, destination)
-    Dir.foreach(origin) do |file|
-      next if ['.', '..'].include?(file)
-
-      puts "Moving #{origin}/#{file}"
-      @move_history << { "#{origin}/#{file}" => destination }
-      # don't use #move because it leaves the empty directory behind
-      FileUtils.copy("#{origin}/#{file}".encode('UTF-8'), destination.encode('UTF-8'), verbose: false, noop: false)
-      # dir isn't removed if no files were moved
-      FileUtils.remove_dir(origin.encode('UTF-8'))
-    end
+    puts "Moving #{origin}"
+    @move_history << { origin.to_s => destination }
+    FileUtils.cp_r("#{origin}/.".encode('UTF-8'), destination.encode('UTF-8'), verbose: false, noop: false)
+    # dir isn't removed if no files were moved
+    FileUtils.remove_dir(origin.encode('UTF-8'))
+    # end
   end
 end

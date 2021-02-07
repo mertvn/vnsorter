@@ -69,7 +69,7 @@ def main
   end
   p map
   @move_history = Mover.move(map, LIBRARY_FOLDER)
-  puts @move_history
+  puts "Move history: #{@move_history}"
   puts 'Sorted everything!'
 
   VNDB.disconnect
