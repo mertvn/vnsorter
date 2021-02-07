@@ -5,14 +5,30 @@ module Extractor
   MIN_TITLE_LENGTH = 3
   BLACKLIST = %w[bonus
                  manual
+                 マニュアル
                  soundtrack
+                 ドラマ
+                 flac
+                 wav
+                 bin
+                 cue
+                 etc
                  sofmap
                  single
                  maxi
                  original
                  tokuten
                  crack
-                 update].freeze
+                 ※自炊
+                 nodvd
+                 nocd
+                 update
+                 iso
+                 mds
+                 mdf
+                 rar
+                 rr3
+                 txt].freeze
 
   def extract(directory)
     found_vns = []
@@ -27,6 +43,7 @@ module Extractor
 
       fields = folder.split(' ')
       fields.each do |field|
+        field = field.encode('UTF-8')
         puts "field is #{field}"
         if /\[[0-9]{6}\]/.match(field)
           date << field.gsub(/\[|\]/, '')
@@ -36,14 +53,20 @@ module Extractor
           company << field.gsub(/\[|\]/, '')
           next
         end
-        next if field.length < MIN_TITLE_LENGTH || BLACKLIST.include?(field.downcase)
+
+        next if field.length < MIN_TITLE_LENGTH ||
+                BLACKLIST.include?(field.downcase) ||
+                /\(.+?\)/.match(field)
 
         title << field if /.+/.match(field)
       end
       # puts "date is #{date}"
       # puts "company is #{company}"
       # puts "title is #{title}"
-      found_vns << { location: "#{directory}/#{folder}", date: date, company: company, title: title }
+      found_vns << { location: "#{directory}/#{folder}".encode('UTF-8'),
+                     date: date,
+                     company: company,
+                     title: title }
     end
     found_vns
   end

@@ -8,6 +8,7 @@ module Search
   # # remember it's "producer" filter on "get release", not "get producer" for getting vns
   # def company_query(company, date); end
 
+  # try using the "search" filter on "get vn" to get vns instead
   def title_query(title)
     @releases = []
 

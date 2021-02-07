@@ -30,6 +30,7 @@ module VNDB
     message = ''
     message << @socket.getc until message[-1] == END_CHAR
     message[-1] = ''
+    # replace this with actual error handling
     if message[0..4] == 'error'
       disconnect
       abort(message)

@@ -5,6 +5,7 @@ require_relative 'extractor'
 require_relative 'mover'
 
 FOLDER_TO_SORT = './tosort'.freeze
+LIBRARY_FOLDER = './sorted'.freeze
 
 def match_by_title(title)
   selected = []
@@ -66,7 +67,8 @@ def main
     end
   end
   p map
-  Mover.move(map, './sorted')
+  @move_history = Mover.move(map, LIBRARY_FOLDER)
+  puts @move_history
   puts 'Sorted everything!'
 
   VNDB.disconnect
