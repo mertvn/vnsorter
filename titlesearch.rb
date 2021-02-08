@@ -15,11 +15,11 @@ module TitleSearch
     VNDB.send(title_final)
     # puts JSON.pretty_generate(parsed = (@vndb.parse @vndb.read))
     parsed = VNDB.parse(VNDB.read)
-    parsed['items'].each_with_index do |release, index|
+    parsed['items'].each do |release|
       @releases << { id: release['id'], date: release['released'], title: release['title'],
                      original: release['original'], languages: release['languages'] }
 
-      @releases[index][:producer] = Search.insert_producers(release)
+      @releases[-1][:producer] = Search.insert_producers(release)
     end
 
     @releases

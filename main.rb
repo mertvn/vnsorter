@@ -25,7 +25,7 @@ def main
 
       unless match == 'empty'
         # p "MATCH: #{match}"
-        map[folder[:location]] = match[0]
+        map[folder[:location]] = match
         next
       end
     end
@@ -42,9 +42,9 @@ def main
         puts 'No results, skipping'
         next
       end
-      next if match[0] == 'skipped'
+      next if match == 'skipped'
 
-      map[folder[:location]] = match[0]
+      map[folder[:location]] = match
       p 'found match, breaking'
       break
     end

@@ -9,13 +9,15 @@ module Search
     return 'empty' if releases.empty?
 
     if releases.length > 1
+      JSON.pretty_generate(releases)
       display_query_results(releases)
       ask_user(selected, releases) while selected.empty?
     else
+      p 'Found accurate match automatically with AllSearch'
       selected = releases
     end
 
-    selected
+    selected[0]
   end
 
   def match_by_title(title)
@@ -25,7 +27,8 @@ module Search
 
     display_query_results(releases)
     ask_user(selected, releases) while selected.empty?
-    selected
+
+    selected[0]
   end
 
   # should be able to do this without requiring extra arrays

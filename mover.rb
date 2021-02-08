@@ -46,6 +46,7 @@ module Mover
     # fix this
     p vn
     producer = vn[:producer][0][0]
+    p producer
     producer = producer.tr(':/<>|*"!?\\', '：／＜＞｜＊”！？￥')
     # vn[:producer].each do |producers|
     #   p producer = producers[0]
