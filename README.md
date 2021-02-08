@@ -2,27 +2,27 @@
 
 ## Fixes:
 
-- Find better names for things in general (esp. "map", "selected", "title" and "subtitle", "search" and "query")
-- Optimize producer insertion in title_query
-- Move producer insertion to a method that both classes can use ^
+- Optimize producer insertion in insert_producers
 - Click on the release ID to open the vndb page
 - Find a way to not have to re-encode everything for Windows
-- Replace forbidden characters like ":, /" in filenames https://stackoverflow.com/a/31976060 - replace with jpn variants if possible (check with unison shift:blossom and fate/stay night)
-- Use producer "type" to only get developers somehow
+- ~~Replace forbidden characters like ":, /" in filenames https://stackoverflow.com/a/31976060 - replace with jpn variants if possible~~ (check vns that have those characters in producers and titles)
 - Fix Y2k80 problem
 - Extractor needs to ignore space inside brackets when splitting to fields
-
+- Split all search to producer and release searches maybe
+- Support aliases
+- Deal with multiple dates in filename
+- ~~Abstractize the parsed_ iteration in get_producer_ids and get_releases_with_producer_and_date~~ Decided against it
 - try using the "search" filter on "get vn" to get vns instead
+- return the result directly so you don't have to do "match[0]"
+- Deal with releases that have a publisher but no developer
 
 - Handle throttling properly
-- Send all API requests at once
-- Support more than 25 options per title
+
 
 ### Organization
 
-- Move different search categories to different files
-- Move main.rb contents into search
-- Rethink @selected
+- Find better names for things in general (esp. "map", "selected", "title" and "subtitle", "search" and "query")
+- Consider making Search, AllSearch, TitleSearch classes
 
 ## New features:
 
@@ -36,3 +36,8 @@
 - Support multiple producers for one release ^
 - Give different date options like YYMMDD YYYY-MM-DD etc. ^^
 - make the parenteses and blacklist ignoring optional ^^^
+- Send all API requests at once
+- Support more than 25 options per title
+- Offline ver. using data dumps
+- Proper exception handling; skip if anything goes wrong
+- if releases.length > 1 try to match the title

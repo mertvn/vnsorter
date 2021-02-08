@@ -1,39 +1,16 @@
 require_relative 'vndb'
 require_relative 'input'
+require_relative 'search'
 require_relative 'titlesearch'
-require_relative 'producersearch'
+require_relative 'allsearch'
 require_relative 'extractor'
 require_relative 'mover'
 
 FOLDER_TO_SORT = './tosort'.freeze
 LIBRARY_FOLDER = './sorted'.freeze
 
-def match_by_title(title)
-  selected = []
-  return 'empty' if TitleSearch.title_query(title).empty?
-
-  TitleSearch.display_title_query_results
-  TitleSearch.ask_user(selected) while selected.empty?
-  selected
-end
-
-def match_by_all(producer, date)
-  # selected = []
-  releases = ProducerSearch.producer_query(producer, date)
-  return 'empty' if releases.empty?
-
-  # if releases.length > 1
-  #   ProducerSearch.display_all_query_results
-  #   ProducerSearch.ask_user(selected) while selected.empty?
-  # end
-
-  releases
-  # selected
-end
-
 def main
-  extracted = Extractor.extract(FOLDER_TO_SORT)
-  p extracted
+  p extracted = Extractor.extract(FOLDER_TO_SORT)
 
   VNDB.connect
   VNDB.login
@@ -44,21 +21,22 @@ def main
 
     unless folder[:producer].empty? || folder[:date].empty?
       puts 'new all search'
-      match = match_by_all(folder[:producer], folder[:date])
+      match = Search.match_by_all(folder[:producer], folder[:date])
 
       unless match == 'empty'
+        # p "MATCH: #{match}"
         map[folder[:location]] = match[0]
         next
       end
     end
 
-    p 'title search is disabled'
+    p 'placeholder'
 
     # this part needs a refactor
     puts 'new title search'
     folder[:title].each do |subtitle|
       puts 'new subtitle search'
-      match = match_by_title(subtitle)
+      match = Search.match_by_title(subtitle)
       # p "MATCH: #{match}"
       if match == 'empty'
         puts 'No results, skipping'
@@ -74,8 +52,9 @@ def main
   VNDB.disconnect
 
   puts "Map: #{map}"
-  @move_history = Mover.move(map, LIBRARY_FOLDER)
-  puts "Move history: #{@move_history}"
+  move_history, failed_history = Mover.move(map, LIBRARY_FOLDER)
+  puts "Move history: #{move_history}"
+  puts "Failed history: #{failed_history}"
   puts 'Sorted everything!'
 end
 

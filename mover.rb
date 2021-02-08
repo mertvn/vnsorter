@@ -5,22 +5,32 @@ module Mover
 
   def move(map, library_folder)
     @move_history = []
+    @failed_history = []
     map.each do |combination|
-      origin = combination[0]
+      origin = combination[0].encode('UTF-8')
       p origin
       vn = combination[1]
       next if vn == 'skipped'
 
       # naming_option = get from gui somehow
       naming_option = '1'
-      destination = mark_destination(vn, library_folder, naming_option)
+      destination = mark_destination(vn, library_folder, naming_option).encode('UTF-8')
 
-      create_folder(destination)
-      move_files(origin, destination)
-      # do we want the title or the origin here?
-      puts "Move succeeded for #{vn[:title]}"
+      # mkdir_p and cp_r don't like "?"
+      # p destination = destination.gsub(/[<>:"\\|?!*]/, '')
+
+      begin
+        create_folder(destination)
+        move_files(origin, destination)
+        puts "Move succeeded for #{vn[:title]}"
+      rescue StandardError => e
+        puts e
+        puts "Move failed for #{vn[:title]}"
+        @failed_history << { origin.to_s => destination }
+        next
+      end
     end
-    @move_history
+    [@move_history, @failed_history]
   end
 
   private
@@ -28,11 +38,15 @@ module Mover
   def mark_destination(vn, library_folder, naming_option)
     # apparently some vns don't have an original title
     title = vn[:original] || vn[:title]
+    # backslash needs to be escaped AND at the end of the string
+    # this needs to be a setting
+    title = title.tr(':/<>|*"!?\\', '：／＜＞｜＊”！？￥')
     # p title
 
-    # fix this later
+    # fix this
     p vn
     producer = vn[:producer][0][0]
+    producer = producer.tr(':/<>|*"!?\\', '：／＜＞｜＊”！？￥')
     # vn[:producer].each do |producers|
     #   p producer = producers[0]
     # end
@@ -63,7 +77,7 @@ module Mover
   def move_files(origin, destination)
     puts "Moving #{origin}"
     @move_history << { origin.to_s => destination }
-    FileUtils.cp_r("#{origin}/.".encode('UTF-8'), destination.encode('UTF-8'), verbose: false, noop: false)
-    FileUtils.remove_dir(origin.encode('UTF-8'))
+    FileUtils.cp_r("#{origin}/.", destination, verbose: false, noop: false)
+    FileUtils.remove_dir(origin)
   end
 end
