@@ -14,19 +14,9 @@ module Mover
 
       # naming_option = get from gui somehow
       naming_option = '1'
+      # mkdir_p and cp_r don't like "?"
       begin
         destination = mark_destination(vn, library_folder, naming_option).encode('UTF-8')
-      rescue StandardError => e
-        puts e
-        puts "Move failed for #{vn[:title]}"
-        @failed_history << { origin.to_s => destination }
-        next
-      end
-
-      # mkdir_p and cp_r don't like "?"
-      # p destination = destination.gsub(/[<>:"\\|?!*]/, '')
-
-      begin
         create_folder(destination)
         move_files(origin, destination)
         puts "Move succeeded for #{vn[:title]}"
@@ -58,7 +48,6 @@ module Mover
     producer = producer[producer_name_selection] || producer[0]
     # p producer
     producer = replace_special_characters(producer)
-
     # convert date to YYMMDD for now
     # allow more options later
     date = (vn[:date].split('-').join)[2..-1]
