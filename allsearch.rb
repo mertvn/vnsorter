@@ -10,7 +10,8 @@ module AllSearch
 
     date = convert_date(date)
     producer_ids = get_producer_ids(producer_array)
-    get_releases_with_producer_and_date(producer_ids, date)
+    # give up on allsearch if we can't find any producers
+    get_releases_with_producer_and_date(producer_ids, date) unless producer_ids.empty?
 
     @releases
   end
@@ -29,7 +30,7 @@ module AllSearch
 
     str_producer = ''
     producer_array.each do |producer|
-      str_producer += "name~\"#{producer}\" or original~\"#{producer}\" or "
+      str_producer += "search~\"#{producer}\" or "
     end
     str_producer = str_producer.chomp(' or ')
 
@@ -78,14 +79,9 @@ module AllSearch
         next if release_ids.include?(release['id'])
 
         release_ids << release['id']
-        # p release_ids
 
         @releases << { id: release['id'], date: release['released'], title: release['title'],
                        original: release['original'], languages: release['languages'] }
-
-        # p @releases
-        # p found = Search.insert_producers(release)
-        # @releases[-1][:producer] = found
 
         @releases[-1][:producer] = Search.insert_producers(release)
       end

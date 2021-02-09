@@ -13,7 +13,9 @@ module Search
       display_query_results(releases)
       ask_user(selected, releases) while selected.empty?
     else
-      p 'Found accurate match automatically with AllSearch'
+      puts ''
+      puts 'Found perfect match automatically with AllSearch'
+      puts ''
       selected = releases
     end
 
@@ -31,18 +33,16 @@ module Search
     selected[0]
   end
 
-  # should be able to do this without requiring extra arrays
   def insert_producers(release)
-    producer_romaji = []
-    producer_original = []
+    producers = []
+
     release['producers'].each do |producer|
       # make this toggleable
       next if producer['developer'] == false
 
-      producer_romaji << producer['name']
-      producer_original << producer['original']
+      producers << [producer['name'], producer['original']]
     end
-    producer_romaji.zip(producer_original)
+    producers
   end
 
   def display_query_results(releases = @releases)

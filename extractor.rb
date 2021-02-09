@@ -1,44 +1,8 @@
 module Extractor
   extend self
-
   MIN_FOLDER_LENGTH = 3
   MIN_TITLE_LENGTH = 3
-  BLACKLIST = %w[bonus
-                 manual
-                 マニュアル
-                 ドラマ
-                 soundtrack
-                 サウンドトラック
-                 flac
-                 wav
-                 bin
-                 cue
-                 etc
-                 single
-                 maxi
-                 original
-                 wallpaper
-                 tokuten
-                 予約特典
-                 sofmap
-                 sofmap特典
-                 ボーカル
-                 ソング
-                 ボーカルソング
-                 crack
-                 認証回避
-                 ※自炊
-                 patch
-                 パッチ
-                 nodvd
-                 nocd
-                 update
-                 iso
-                 mds
-                 mdf
-                 rar
-                 rr3
-                 txt].freeze
+  BLACKLIST = IO.readlines('./blacklist.txt', chomp: true).freeze
 
   def extract(directory)
     found_vns = []
@@ -55,6 +19,7 @@ module Extractor
       fields = folder.split(' ')
       fields.each do |field|
         field = field.encode('UTF-8')
+        # needs to be an option
         next if BLACKLIST.include?(field.downcase) || /\(.+?\)/.match(field)
 
         puts "field is #{field}"

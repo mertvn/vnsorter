@@ -8,7 +8,7 @@ module Mover
     @failed_history = []
     map.each do |combination|
       origin = combination[0].encode('UTF-8')
-      p origin
+      # p origin
       vn = combination[1]
       next if vn == 'skipped'
 
@@ -36,21 +36,21 @@ module Mover
   private
 
   def mark_destination(vn, library_folder, naming_option)
+    #  p vn
+
     # apparently some vns don't have an original title
     title = vn[:original] || vn[:title]
-    # backslash needs to be escaped AND at the end of the string
-    # this needs to be a setting
-    title = title.tr(':/<>|*"!?\\', '：／＜＞｜＊”！？￥')
+    title = replace_special_characters(title)
     # p title
 
-    # fix this
-    p vn
-    producer = vn[:producer][0][0]
-    p producer
-    producer = producer.tr(':/<>|*"!?\\', '：／＜＞｜＊”！？￥')
-    # vn[:producer].each do |producers|
-    #   p producer = producers[0]
-    # end
+    # get these from gui
+    producer_selection = 0
+    producer_name_selection = 0
+    producer = vn[:producer][producer_selection]
+    # fallback to romaji name if original name doesn't exist
+    producer = producer[producer_name_selection] || producer[0]
+    # p producer
+    producer = replace_special_characters(producer)
 
     # convert date to YYMMDD for now
     # allow more options later
@@ -67,6 +67,12 @@ module Mover
       "#{library_folder}/#{title}"
       # when "custom"
     end
+  end
+
+  # backslash needs to be escaped AND at the end of the string
+  # this needs to be a setting
+  def replace_special_characters(string)
+    string.tr(':/<>|*"!?\\', '：／＜＞｜＊”！？￥')
   end
 
   def create_folder(destination)

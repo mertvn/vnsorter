@@ -28,9 +28,8 @@ def main
         map[folder[:location]] = match
         next
       end
+      puts 'No results from AllSearch, proceeding to TitleSearch instead'
     end
-
-    p 'placeholder'
 
     # this part needs a refactor
     puts 'new title search'
@@ -45,7 +44,7 @@ def main
       next if match == 'skipped'
 
       map[folder[:location]] = match
-      p 'found match, breaking'
+      puts 'found match, breaking'
       break
     end
   end
