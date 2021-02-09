@@ -14,7 +14,6 @@ module Mover
 
       # naming_option = get from gui somehow
       naming_option = '1'
-      # mkdir_p and cp_r don't like "?"
       begin
         destination = mark_destination(vn, library_folder, naming_option).encode('UTF-8')
         create_folder(destination)
@@ -65,6 +64,7 @@ module Mover
     end
   end
 
+  # mkdir_p and cp_r don't like "?"
   # backslash needs to be escaped AND at the end of the string
   # this needs to be a setting
   def replace_special_characters(string)

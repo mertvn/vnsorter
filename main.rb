@@ -28,7 +28,7 @@ def main
         map[folder[:location]] = match
         next
       end
-      puts 'No results from AllSearch, proceeding to TitleSearch instead'
+      puts 'No results from AllSearch, proceeding to TitleSearch'
     end
 
     # this part needs a refactor

@@ -1,7 +1,7 @@
 module Extractor
   extend self
   MIN_FOLDER_LENGTH = 3
-  MIN_TITLE_LENGTH = 3
+  MIN_FIELD_LENGTH = 3
   BLACKLIST = IO.readlines('./blacklist.txt', chomp: true).freeze
 
   def extract(directory)
@@ -15,13 +15,18 @@ module Extractor
       producer = []
       title = []
 
-      # needs to ignore space inside brackets
-      fields = folder.split(' ')
+      # p folder.encode('UTF-8')
+      # remove periods, then split by whitespace, but keep the whitespace if it's inside brackets
+      fields = folder.gsub('.', ' ').split(/\s+(?![^\[]*\])/)
       fields.each do |field|
         field = field.encode('UTF-8')
         # needs to be an option
-        next if BLACKLIST.include?(field.downcase) || /\(.+?\)/.match(field)
+        next if BLACKLIST.include?(field.downcase) || field.length < MIN_FIELD_LENGTH
 
+        # do we really want to remove fullwidth parentheses though?
+        # it's necessary for producer names like [HULOTTE（ユロット）] but 
+        # I haven't really thought about the side effects
+        field = field.gsub(/(\(|（).+?(）|\))/, '')
         puts "field is #{field}"
         if /\[[0-9]{6}\]/.match(field)
           date << field.gsub(/\[|\]/, '')
@@ -31,8 +36,6 @@ module Extractor
           producer << field.gsub(/\[|\]/, '')
           next
         end
-
-        next if field.length < MIN_TITLE_LENGTH
 
         title << field if /.+/.match(field)
       end

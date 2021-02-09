@@ -14,11 +14,8 @@
 
 ### Extractor
 
-- Ignore space inside brackets when splitting to fields
 - Deal with multiple dates in filename
 - Deal with no spaces e.g. [producer][title]
-- Deal with periods e.g. [producer].subtitle1.subtitle2.subtitle3
-- Deal with producer names like this [HULOTTE（ユロット）]
 
 ### Organization
 
