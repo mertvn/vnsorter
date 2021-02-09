@@ -14,7 +14,14 @@ module Mover
 
       # naming_option = get from gui somehow
       naming_option = '1'
-      destination = mark_destination(vn, library_folder, naming_option).encode('UTF-8')
+      begin
+        destination = mark_destination(vn, library_folder, naming_option).encode('UTF-8')
+      rescue StandardError => e
+        puts e
+        puts "Move failed for #{vn[:title]}"
+        @failed_history << { origin.to_s => destination }
+        next
+      end
 
       # mkdir_p and cp_r don't like "?"
       # p destination = destination.gsub(/[<>:"\\|?!*]/, '')
@@ -36,7 +43,7 @@ module Mover
   private
 
   def mark_destination(vn, library_folder, naming_option)
-    #  p vn
+    p vn
 
     # apparently some vns don't have an original title
     title = vn[:original] || vn[:title]
