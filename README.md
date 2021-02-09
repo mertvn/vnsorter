@@ -1,45 +1,24 @@
-# TODO
+# vnsorter
 
-## Fixes:
+## What it is
 
-### Search
+This is a tool to help you organize your VN folder(s). It was mainly created to organize your downloads folder where the VNs are named following the same pattern like: "[6-digit date] [producer_name] title", but it can also be used for installed VNs, with reduced performance. 
 
-- Support aliases (allsearch done, titlesearch left)
-- try using the "search" filter on "get vn" to get vns instead
-- Deal with releases that have a publisher but no developer
-- Support multiple producers for one release 
 
-- Send all API requests at once (allsearch done, titlesearch left)
-- Handle throttling properly
+The way it works is that it tries to extract the date and producer fields from the filename, and perform a search using only those two first. If there is a VN on the VNDB matching those, then it will automatically will be set as matched. If there is no match, or if the date and producer name can't be found, then it will try to match the title instead, and ask you to select the correct release among the results. You may choose to skip the VN instead, if you don't see the correct VN listed.
 
-### Extractor
+After all of the folders/files have been matched, or skipped, the tool will let you review your selected move operations, and here you can edit or select/deselect any of the VNs. After you confirm your selections, the tool will start moving the files to their destinations. After all of the move operations have finished, you will get a log of all of the successfull and unsuccessful moves, and have the option to revert them.
 
-- Ignore space inside brackets when splitting to fields
-- Deal with multiple dates in filename
-- Deal with no spaces e.g. [producer][title]
-- Deal with producer names like this [HULOTTE（ユロット）]
+## Usage
 
-### Organization
+### Easy
 
-- Find better names for things in general (esp. "map", "selected", "title" and "subtitle", "search" and "query")
-- Consider making Search, AllSearch, TitleSearch classes
+Get the latest binary from [releases](https://github.com/mertvn/vnsorter/releases) and run it. 
 
-### waiting on GUI
+### Hard
 
-- Click on the release ID to open the vndb page
-- Ability to revert move(s) using move history
-- Match VN and release titles to give the option to strip release specific stuff like "ダウンロード版"
-- Differentiate between VN title and release title 
-- Allow users to choose between romaji or original title 
-- Allow users to select what kind of folder structure/naming they want
-- make the parenteses and blacklist ignoring optional 
-- Give different date options like YYMMDD YYYY-MM-DD etc. 
+1. Install Ruby >2.7
 
-## maybe:
+2. Clone the repository
 
-- Extractor should have the option to work with files instead of folders
-- Support more than 25 options per title
-- Offline ver. using data dumps
-- Proper exception handling; skip if anything goes wrong
-- if releases.length > 1 try to match the title
-- Fix Y2k80 problem
+3. `cd` into the project directory and `ruby lib/main.rb`
