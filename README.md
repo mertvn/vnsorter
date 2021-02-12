@@ -6,21 +6,21 @@ This is a tool to help you organize your VN folder(s). It was mainly created to 
 
 The way it works is that it tries to extract the date and producer fields from the filename, and performs a search using only those two first. If there is a VN on the VNDB matching those, then it will automatically be set as matched. If there is no match, or if the date and producer name can't be found, then it will try to match the title instead, and ask you to select the correct release among the results. You may choose to skip the VN instead, if you don't see the correct VN listed.
 
-After all of the folders/files have been matched, or skipped, the tool will show your selected move operations~~, and here you can select/deselect any of the VNs~~. After you confirm, the tool will start moving the files to their destinations. After that's done you will get a log of all of the successful and unsuccessful moves, and will have the option to revert them.
+After all of the folders/files have been matched, or skipped, the tool will show your selected move operations, ~~and here you can select/deselect any of the VNs~~. After you confirm, the tool will start moving the files to their destinations. After that's done you will get a log of all of the successful and unsuccessful moves, and will have the option to revert them.
 
 ## Usage
 
 ### Easy
 
-Get the latest release from [releases](https://github.com/mertvn/vnsorter/releases) and run start.bat(Windows) or start.sh(GNU/Linux). (No installation necessary) (if you try to run the binary directly the text won't display properly)
+~~Get the latest release from [releases](https://github.com/mertvn/vnsorter/releases) and run start.bat(Windows) or start.sh(GNU/Linux). (No installation necessary) (if you try to run the binary directly the text won't display properly)~~ doesn't work properly
 
 ### Hard
 
 1. Install Ruby >2.7
 
-2. Clone the repository
+2. Clone/download this repository
 
-3. `cd` into the project directory and `ruby lib/main.rb`
+3. `cd` into the project directory and run `ruby lib/main.rb` or use the .bat or .sh files
 
 ## Configuration
 
@@ -100,9 +100,7 @@ Get the latest release from [releases](https://github.com/mertvn/vnsorter/releas
 
   "min_field_length": integer
 
-this was going to have a [GUI](https://github.com/mertvn/vnsorter/blob/master/img/gui.png?raw=true) but GTK just refused to be packed
-
 ## License
 
-GPLv3. Gets data from the VNDB API under [Open Database License v1.0](https://opendatacommons.org/licenses/odbl/1-0/)
+Licensed under GPLv3. Gets data from the VNDB API under [Open Database License v1.0](https://opendatacommons.org/licenses/odbl/1-0/)
 
