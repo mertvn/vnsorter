@@ -96,4 +96,4 @@ Get the latest release from [releases](https://github.com/mertvn/vnsorter/releas
 
   "min_field_length": 3
 
-this was going to have a [GUI]() but GTK just refused to be packed
+this was going to have a [GUI](https://github.com/mertvn/vnsorter/blob/master/img/gui.png?raw=true) but GTK just refused to be packed
