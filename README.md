@@ -6,7 +6,7 @@ This is a tool to help you organize your VN folder(s). It was mainly created to 
 
 The way it works is that it tries to extract the date and producer fields from the filename, and performs a search using only those two first. If there is a VN on the VNDB matching those, then it will automatically be set as matched. If there is no match, or if the date and producer name can't be found, then it will try to match the title instead, and ask you to select the correct release among the results. You may choose to skip the VN instead, if you don't see the correct VN listed.
 
-After all of the folders/files have been matched, or skipped, the tool will show your selected move operations, ~~and here you can select/deselect any of the VNs~~. After you confirm, the tool will start moving the files to their destinations. After that's done you will get a log of all of the successful and unsuccessful moves, and will have the option to revert them.
+After all of the folders/files have been matched, or skipped, the tool will show your matches, ~~and here you can select/deselect any of the VNs~~. After you confirm, the tool will start moving the files to their destinations. After that's done you will get a log of all of the successful and unsuccessful moves, ~~and will have the option to revert them~~.
 
 ## Usage
 
@@ -88,9 +88,8 @@ After all of the folders/files have been matched, or skipped, the tool will show
     1: Replace with space
     2: Remove
     3: Keep (not recommended, will cause move operations to fail)
-  Special characters are: :/<>|*"!?\  
+    Special characters are: :/<>|*"!?\  
   
-
   "blacklist": true or false  
 
   "ignore_parentheses": true or false  
