@@ -16,7 +16,6 @@
 ### Organization
 
 - Find better names for things in general (esp. "map", "selected", "title" and "subtitle", "search" and "query")
-- Consider making Search, AllSearch, TitleSearch classes
 
 ### waiting on GUI
 

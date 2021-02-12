@@ -39,7 +39,7 @@ module AllSearch
     producer_final = (REQ_PRODUCER + producer_filter + producer_options).encode('UTF-8')
 
     VNDB.send(producer_final)
-    parsed_producers << (VNDB.parse VNDB.read)
+    parsed_producers << VNDB.parse(VNDB.read)
     puts JSON.pretty_generate(parsed_producers)
 
     # the naming could be better here
@@ -67,7 +67,7 @@ module AllSearch
     release_all_final = (REQ_RELEASE_ALL + release_all_filter + release_all_options).encode('UTF-8')
 
     VNDB.send(release_all_final)
-    parsed_releases << (VNDB.parse VNDB.read)
+    parsed_releases << VNDB.parse(VNDB.read)
     puts JSON.pretty_generate(parsed_releases)
 
     # the naming could be better here
