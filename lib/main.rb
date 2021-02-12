@@ -55,7 +55,11 @@ def main
   end
   VNDB.disconnect
 
-  puts "Map: #{map}"
+  puts 'Matches:'
+  puts JSON.pretty_generate(map)
+  puts 'Press Enter to proceed or close the window to abort'
+  Input.get_input
+
   move_history, failed_history = Mover.move(map, LIBRARY_FOLDER)
   puts "Move history: #{move_history}"
   puts "Failed history: #{failed_history}"
