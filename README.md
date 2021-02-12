@@ -16,7 +16,7 @@ After all of the folders/files have been matched, or skipped, the tool will show
 
 ### Hard
 
-1. Install Ruby >2.7
+1. Install Ruby >2.7 [Windows](https://rubyinstaller.org/downloads/)
 
 2. Clone/download this repository
 
@@ -88,7 +88,8 @@ After all of the folders/files have been matched, or skipped, the tool will show
     1: Replace with space
     2: Remove
     3: Keep (not recommended, will cause move operations to fail)
-  Special characters are: :/<>|*"!?\
+  Special characters are: :/<>|*"!?\  
+  
 
   "blacklist": true or false  
 
