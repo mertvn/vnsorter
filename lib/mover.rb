@@ -100,13 +100,13 @@ module Mover
 
   def mark_producer(producer)
     case $CONFIG['choice_producer']
+      # romaji
+    when 0
+      producer[0]
       # original
       # fallback to romaji name if original name doesn't exist
-    when 0
-      producer[1] || producer[0]
-      # romaji
     when 1
-      producer[0]
+      producer[1] || producer[0]
     end
   end
 
@@ -126,13 +126,13 @@ module Mover
 
   def mark_title(vn)
     case $CONFIG['choice_title']
+      # romaji
+    when 0
+      vn[:title]
       # original
       # fallback to romaji title if original title doesn't exist
-    when 0
-      vn[:original] || vn[:title]
-      # romaji
     when 1
-      vn[:title]
+      vn[:original] || vn[:title]
     end
   end
 
