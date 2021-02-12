@@ -1,6 +1,6 @@
 {
-  "source":"./tosort",
-  "destination":"./sorted",
+  "source":"K:/tosort",
+  "destination":"K:/sorted",
 
   "choice_producer": 0,
   "choice_date": 0,

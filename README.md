@@ -29,10 +29,14 @@ Get the latest release from [releases](https://github.com/mertvn/vnsorter/releas
   "source": folder  
   
     the absolute path of the folder you want to sort, must be inside double quotes
+    use forward slashes 
+    example: "K:/tosort"
 
   "destination": folder  
   
     the absolute path of the folder to put the sorted VNs in, must be inside double quotes
+    use forward slashes 
+    example: "K:/sorted"
 
   "choice_producer": 0 or 1  
   
