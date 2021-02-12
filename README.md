@@ -26,26 +26,32 @@ Get the latest release from [releases](https://github.com/mertvn/vnsorter/releas
 
 ### Open config.json in a text editor and change these values to your liking:
 
-  "source": folder
+  "source": folder  
+  
     the absolute path of the folder you want to sort, must be inside double quotes
 
-  "destination": folder
+  "destination": folder  
+  
     the absolute path of the folder to put the sorted VNs in, must be inside double quotes
 
-  "choice_producer": 0 or 1
+  "choice_producer": 0 or 1  
+  
     0: Romaji 
     1: Original
 
-  "choice_date": 0 or 1 or 2
+  "choice_date": 0 or 1 or 2  
+
+  
     0: [YYMMDD]
     1: [YYYY-MM-DD]
     2: [YYYY]
-
-  "choice_title": 0 or 1
+  "choice_title": 0 or 1  
+  
     0: Romaji 
     1: Original
 
-  "choice_naming": 0 or 1 or 2 or 3 or 4 or 5 or 6
+  "choice_naming": 0 or 1 or 2 or 3 or 4 or 5 or 6  
+  
     0: producer/[date] title
     /KID/[030516] Ever17 -The Out of Infinity-
 
@@ -72,16 +78,17 @@ Get the latest release from [releases](https://github.com/mertvn/vnsorter/releas
 
 
 ### You probably want to leave these alone
-  "special_characters": 0 or 1 or 2 or 3
+  "special_characters": 0 or 1 or 2 or 3  
+  
     0: Replace with Japanese variants (：／＜＞｜＊”！？￥)
     1: Replace with space
     2: Remove
     3: Keep (not recommended, will cause move operations to fail)
   Special characters are: :/<>|*"!?\
 
-  "blacklist": true or false
+  "blacklist": true or false  
 
-  "ignore_parentheses": true or false
+  "ignore_parentheses": true or false  
 
   "discard_publishers": true or false
 
