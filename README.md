@@ -96,8 +96,13 @@ Get the latest release from [releases](https://github.com/mertvn/vnsorter/releas
 
   "discard_publishers": true or false
 
-  "min_folder_length": 3
+  "min_folder_length": integer
 
-  "min_field_length": 3
+  "min_field_length": integer
 
 this was going to have a [GUI](https://github.com/mertvn/vnsorter/blob/master/img/gui.png?raw=true) but GTK just refused to be packed
+
+## License
+
+GPLv3. Gets data from the VNDB API under [Open Database License v1.0](https://opendatacommons.org/licenses/odbl/1-0/)
+
