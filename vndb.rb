@@ -1,7 +1,7 @@
 module VNDB
   extend self
-  require 'json'
-  require 'socket'
+ # require 'json'
+ # require 'socket'
 
   HOSTNAME = 'api.vndb.org'.freeze
   PORT = 19_534

@@ -4,11 +4,12 @@ module Search
   def match_by_all(producer, date)
     selected = []
     p releases = AllSearch.all_query(producer, date)
-
-    # need to title search here
     return 'empty' if releases.empty?
 
     if releases.length > 1
+      # need to title search here before asking the user
+      puts 'Multiple releases found by the same producer on the same date'
+      puts ''
       JSON.pretty_generate(releases)
       display_query_results(releases)
       ask_user(selected, releases) while selected.empty?
@@ -37,8 +38,7 @@ module Search
     producers = []
 
     release['producers'].each do |producer|
-      # make this toggleable
-      next if producer['developer'] == false
+      next if $CONFIG['discard_publishers'] && producer['developer'] == false
 
       producers << [producer['name'], producer['original']]
     end

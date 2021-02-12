@@ -1,32 +1,33 @@
 module Extractor
   extend self
-  MIN_FOLDER_LENGTH = 3
-  MIN_FIELD_LENGTH = 3
-  BLACKLIST = IO.readlines('./blacklist.txt', chomp: true).freeze
 
   def extract(directory)
+    min_folder_length = $CONFIG['min_folder_length']
+    min_field_length = $CONFIG['min_field_length']
+    blacklist = IO.readlines('./blacklist.txt', chomp: true).freeze
     found_vns = []
     fields = []
 
     Dir.entries(directory).each do |folder|
-      next if folder.length < MIN_FOLDER_LENGTH
+      next if folder.length < min_folder_length
 
       date = []
       producer = []
       title = []
 
       # p folder.encode('UTF-8')
-      # remove periods, then split by whitespace, but keep the whitespace if it's inside brackets
-      fields = folder.gsub('.', ' ').split(/\s+(?![^\[]*\])/)
+      # add whitespace after brackets,
+      # replace periods with whitespace,
+      # split by whitespace, but keep the whitespace if it's inside brackets
+      fields = folder.gsub(']', '] ').gsub('.', ' ').split(/\s+(?![^\[]*\])/)
       fields.each do |field|
         field = field.encode('UTF-8')
-        # needs to be an option
-        next if BLACKLIST.include?(field.downcase) || field.length < MIN_FIELD_LENGTH
+        next if ($CONFIG['blacklist'] && blacklist.include?(field.downcase)) || field.length < min_field_length
 
         # do we really want to remove fullwidth parentheses though?
-        # it's necessary for producer names like [HULOTTE（ユロット）] but 
+        # it's necessary for producer names like [HULOTTE（ユロット）] but
         # I haven't really thought about the side effects
-        field = field.gsub(/(\(|（).+?(）|\))/, '')
+        field = field.gsub(/(\(|（).+?(）|\))/, '') if $CONFIG['ignore_parentheses']
         puts "field is #{field}"
         if /\[[0-9]{6}\]/.match(field)
           date << field.gsub(/\[|\]/, '')

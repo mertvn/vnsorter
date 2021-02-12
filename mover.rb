@@ -1,7 +1,6 @@
-require 'fileutils'
-
 module Mover
   extend self
+  # require 'fileutils'
 
   def move(map, library_folder)
     @move_history = []
@@ -12,16 +11,18 @@ module Mover
       vn = combination[1]
       next if vn == 'skipped'
 
-      # naming_option = get from gui somehow
-      naming_option = '1'
       begin
-        destination = mark_destination(vn, library_folder, naming_option).encode('UTF-8')
+        destination = "#{library_folder}/" + mark_destination(vn).encode('UTF-8')
         create_folder(destination)
         move_files(origin, destination)
+        puts ''
         puts "Move succeeded for #{vn[:title]}"
+        puts ''
       rescue StandardError => e
         puts e
+        puts ''
         puts "Move failed for #{vn[:title]}"
+        puts ''
         @failed_history << { origin.to_s => destination }
         next
       end
@@ -31,44 +32,108 @@ module Mover
 
   private
 
-  def mark_destination(vn, library_folder, naming_option)
-    p vn
+  def mark_destination(vn)
+    # p vn
 
-    # apparently some vns don't have an original title
-    title = vn[:original] || vn[:title]
-    title = replace_special_characters(title)
-    # p title
+    # make user select a single producer (unfinished)
+    # p "Multiple producers found. Select one"
+    # p vn[:producer]
+    # producer_selection = Input.get_input
+    # producer = vn[:producer][producer_selection]
+    # producer = mark_producer(producer)
 
-    # get these from gui
-    producer_selection = 0
-    producer_name_selection = 0
-    producer = vn[:producer][producer_selection]
-    # fallback to romaji name if original name doesn't exist
-    producer = producer[producer_name_selection] || producer[0]
-    # p producer
-    producer = replace_special_characters(producer)
-    # convert date to YYMMDD for now
-    # allow more options later
-    date = (vn[:date].split('-').join)[2..-1]
-    date = date.length == 6 ? date : 'unknown'
+    # use all producers
+    str_producer = ''
+    vn[:producer].each do |producer|
+      str_producer += mark_producer(producer)
+      str_producer += ' & '
+    end
+    producer = str_producer.chomp(' & ')
+    producer = replace_special_characters(producer) if $CONFIG['special_characters'] != 3
+    # puts "producer was marked as: #{producer}"
 
-    # keep the repetition
-    case naming_option
-    when '1'
-      "#{library_folder}/#{producer}/[#{date}] #{title}"
-    when '2'
-      "#{library_folder}/#{producer}/#{title}"
-    when '3'
-      "#{library_folder}/#{title}"
+    # need to test unknown dates
+    date = mark_date(vn)
+    # puts "date was marked as: #{date}"
+
+    title = mark_title(vn)
+    title = replace_special_characters(title) if $CONFIG['special_characters'] != 3
+    # puts "title was marked as: #{title}"
+
+    language = vn[:languages][0]
+
+    case $CONFIG['choice_naming']
+    when 0
+      "#{producer}/[#{date}] #{title}"
+    when 1
+      "#{producer}/[#{date}]/#{title}"
+    when 2
+      "#{producer}/#{title}"
+    when 3
+      title.to_s
+    when 4
+      "[#{date}] #{title}"
+    when 5
+      "[#{date}]/#{title}"
+    when 6
+      "[#{language}]/#{title}"
       # when "custom"
     end
   end
 
   # mkdir_p and cp_r don't like "?"
   # backslash needs to be escaped AND at the end of the string
-  # this needs to be a setting
+  # exclamation mark doesn't really need to be here
   def replace_special_characters(string)
-    string.tr(':/<>|*"!?\\', '：／＜＞｜＊”！？￥')
+    case $CONFIG['special_characters']
+      # replace with Japanese variants
+    when 0
+      string.tr(':/<>|*"!?\\', '：／＜＞｜＊”！？￥')
+      # replace with whitespace
+    when 1
+      string.gsub(':/<>|*"!?\\', ' ')
+      # remove
+    when 2
+      string.gsub(':/<>|*"!?\\', '')
+    end
+  end
+
+  def mark_producer(producer)
+    case $CONFIG['choice_producer']
+      # original
+      # fallback to romaji name if original name doesn't exist
+    when 0
+      producer[1] || producer[0]
+      # romaji
+    when 1
+      producer[0]
+    end
+  end
+
+  def mark_date(vn)
+    case $CONFIG['choice_date']
+      # YYMMDD
+    when 0
+      vn[:date].split('-').join[2..-1]
+      # YYYY-MM-DD
+    when 1
+      vn[:date]
+      # YYYY
+    when 2
+      vn[:date].split('-').join[0..3]
+    end
+  end
+
+  def mark_title(vn)
+    case $CONFIG['choice_title']
+      # original
+      # fallback to romaji title if original title doesn't exist
+    when 0
+      vn[:original] || vn[:title]
+      # romaji
+    when 1
+      vn[:title]
+    end
   end
 
   def create_folder(destination)

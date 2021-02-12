@@ -1,3 +1,7 @@
+require 'json'
+require 'socket'
+require 'fileutils'
+
 require_relative 'vndb'
 require_relative 'input'
 require_relative 'search'
@@ -6,8 +10,9 @@ require_relative 'allsearch'
 require_relative 'extractor'
 require_relative 'mover'
 
-FOLDER_TO_SORT = './tosort'.freeze
-LIBRARY_FOLDER = './sorted'.freeze
+$CONFIG = JSON.parse(File.read('config.json'))
+FOLDER_TO_SORT = $CONFIG['source'].freeze
+LIBRARY_FOLDER = $CONFIG['destination'].freeze
 
 def main
   p extracted = Extractor.extract(FOLDER_TO_SORT)
