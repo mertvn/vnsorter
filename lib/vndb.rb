@@ -1,7 +1,7 @@
 module VNDB
   extend self
- # require 'json'
- # require 'socket'
+  # require 'json'
+  # require 'socket'
 
   HOSTNAME = 'api.vndb.org'.freeze
   PORT = 19_534
@@ -32,13 +32,17 @@ module VNDB
     message[-1] = ''
     # replace this with actual error handling
     if message[0..4] == 'error'
-      disconnect
-      abort(message)
+      puts 'throttled...waiting 70 seconds'
+      sleep(70)
+      send(@last)
+      read
+    else
+      message
     end
-    message
   end
 
   def send(message)
+    @last = message
     puts "-> #{message}"
     @socket.write message
     @socket.write END_CHAR

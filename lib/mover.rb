@@ -18,6 +18,7 @@ module Mover
         puts ''
         puts "Move succeeded for #{vn[:title]}"
         puts ''
+        @move_history << { origin.to_s => destination }
       rescue StandardError => e
         puts e
         puts ''
@@ -144,7 +145,6 @@ module Mover
 
   def move_files(origin, destination)
     puts "Moving #{origin}"
-    @move_history << { origin.to_s => destination }
     FileUtils.cp_r("#{origin}/.", destination, verbose: false, noop: false)
     FileUtils.remove_dir(origin)
   end
