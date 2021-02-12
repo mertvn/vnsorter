@@ -1,9 +1,9 @@
 module Search
   extend self
 
-  def match_by_all(producer, date)
+  def match_by_all(producer, date, current_folder)
     selected = []
-    p releases = AllSearch.all_query(producer, date)
+    releases = AllSearch.all_query(producer, date)
     return 'empty' if releases.empty?
 
     if releases.length > 1
@@ -12,6 +12,7 @@ module Search
       puts ''
       JSON.pretty_generate(releases)
       display_query_results(releases)
+      puts "Folder: #{current_folder}"
       ask_user(selected, releases) while selected.empty?
     else
       puts ''
@@ -23,12 +24,13 @@ module Search
     selected[0]
   end
 
-  def match_by_title(title)
+  def match_by_title(title, current_folder)
     selected = []
-    p releases = TitleSearch.title_query(title)
+    releases = TitleSearch.title_query(title)
     return 'empty' if releases.empty?
 
     display_query_results(releases)
+    puts "Folder: #{current_folder}"
     ask_user(selected, releases) while selected.empty?
 
     selected[0]

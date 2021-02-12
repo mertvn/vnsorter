@@ -24,6 +24,7 @@
 - Match VN and release titles to give the option to strip release specific stuff like "ダウンロード版"
 - Differentiate between VN title and release title 
 - option to add a file? to vn folders to mark unplayed games etc.
+- make map display better (doesn't fit in windows console atm)
 
 ## maybe:
 

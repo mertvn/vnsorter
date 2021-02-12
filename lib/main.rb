@@ -26,7 +26,7 @@ def main
 
     unless folder[:producer].empty? || folder[:date].empty?
       puts 'new all search'
-      match = Search.match_by_all(folder[:producer], folder[:date])
+      match = Search.match_by_all(folder[:producer], folder[:date], folder[:location])
 
       unless match == 'empty'
         # p "MATCH: #{match}"
@@ -40,7 +40,7 @@ def main
     puts 'new title search'
     folder[:title].each do |subtitle|
       puts 'new subtitle search'
-      match = Search.match_by_title(subtitle)
+      match = Search.match_by_title(subtitle, folder[:location])
       # p "MATCH: #{match}"
       if match == 'empty'
         puts 'No results, skipping'
@@ -56,7 +56,9 @@ def main
   VNDB.disconnect
 
   puts 'Matches:'
-  puts JSON.pretty_generate(map)
+  # doesn't fit in the windows console
+  # puts JSON.pretty_generate(map)
+  puts map
   puts 'Press Enter to proceed or close the window to abort'
   Input.get_input
 
