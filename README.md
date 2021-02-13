@@ -81,21 +81,23 @@ You should probably try it with a few VNs before using it for your entire downlo
   examples using "choice_producer": 0, "choice_date": 0, "choice_title": 1 and https://vndb.org/r196
 
 
-
-### You probably want to leave these alone
-  "special_characters": 0 or 1 or 2 or 3  
-  
+"special_characters": 0 or 1 or 2 or 3  
+   Special characters are: :/<>|*"!?\  
     0: Replace with Japanese variants (：／＜＞｜＊”！？￥)
     1: Replace with space
     2: Remove
     3: Keep (not recommended, will cause move operations to fail)
-    Special characters are: :/<>|*"!?\  
-  
+   
+  "discard_publishers": true or false  
+    you'll want to set this as false if you are sorting translations
+
+### You probably want to leave these alone
+    
   "blacklist": true or false  
+    ignore the words in blacklist.txt when extracting fields
 
-  "ignore_parentheses": true or false  
-
-  "discard_publishers": true or false
+  "ignore_parentheses": true or false
+    ignore everything inside parentheses when extracting fields  
 
   "min_folder_length": integer
 
