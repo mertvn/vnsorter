@@ -15,13 +15,11 @@ module Mover
         destination = "#{library_folder}/" + mark_destination(vn).encode('UTF-8')
         create_folder(destination)
         move_files(origin, destination)
-        puts ''
         puts "Move succeeded for #{vn[:title]}"
         puts ''
         @move_history << { origin.to_s => destination }
       rescue StandardError => e
         puts e
-        puts ''
         puts "Move failed for #{vn[:title]}"
         puts ''
         @failed_history << { origin.to_s => destination }
@@ -51,17 +49,27 @@ module Mover
     end
     producer = str_producer.chomp(' & ')
     producer = replace_special_characters(producer) if $CONFIG['special_characters'] != 3
+    producer = producer.empty? ? 'unknown producer' : producer
     # puts "producer was marked as: #{producer}"
 
-    # need to test unknown dates
     date = mark_date(vn)
     # puts "date was marked as: #{date}"
 
     title = mark_title(vn)
-    title = replace_special_characters(title) if $CONFIG['special_characters'] != 3
+    title = replace_special_characters(title)
     # puts "title was marked as: #{title}"
 
-    language = vn[:languages][0]
+    # use only the first language
+    # language = vn[:languages][0]
+
+    # use all languages
+    str_language = ''
+    vn[:languages].each do |language|
+      str_language += language
+      str_language += ' & '
+    end
+    language = str_language.chomp(' & ')
+    puts "language was marked as: #{language}"
 
     case $CONFIG['choice_naming']
     when 0
@@ -87,52 +95,56 @@ module Mover
   # exclamation mark doesn't really need to be here
   def replace_special_characters(string)
     case $CONFIG['special_characters']
-      # replace with Japanese variants
     when 0
+      # replace with Japanese variants
       string.tr(':/<>|*"!?\\', '：／＜＞｜＊”！？￥')
-      # replace with whitespace
     when 1
+      # replace with whitespace
       string.gsub(':/<>|*"!?\\', ' ')
-      # remove
     when 2
+      # remove
       string.gsub(':/<>|*"!?\\', '')
+    when 3
+      # keep
+      string
     end
   end
 
   def mark_producer(producer)
     case $CONFIG['choice_producer']
-      # romaji
     when 0
+      # romaji
       producer[0]
+    when 1
       # original
       # fallback to romaji name if original name doesn't exist
-    when 1
       producer[1] || producer[0]
     end
   end
 
   def mark_date(vn)
     case $CONFIG['choice_date']
-      # YYMMDD
     when 0
-      vn[:date].split('-').join[2..-1]
-      # YYYY-MM-DD
+      # YYMMDD
+      date = vn[:date].split('-').join[2..-1]
+      date.length == 6 ? date : 'unknown date'
     when 1
+      # YYYY-MM-DD
       vn[:date]
-      # YYYY
     when 2
+      # YYYY
       vn[:date].split('-').join[0..3]
     end
   end
 
   def mark_title(vn)
     case $CONFIG['choice_title']
-      # romaji
     when 0
+      # romaji
       vn[:title]
+    when 1
       # original
       # fallback to romaji title if original title doesn't exist
-    when 1
       vn[:original] || vn[:title]
     end
   end
