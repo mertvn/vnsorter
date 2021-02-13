@@ -4,14 +4,14 @@
 
 ### Search
 
-- Deal with releases that have a publisher but no developer
+- Match VN and release titles to give the option to strip release specific stuff like "ダウンロード版"
 
 - Send all API requests at once (allsearch done, titlesearch left)
 - Handle throttling properly
 
 ### Extractor
 
-- Deal with multiple dates in filename
+- Deal with multiple dates in filenames
 
 ### Organization
 
@@ -22,10 +22,7 @@
 
 - Click on the release ID to open the vndb page
 - Ability to revert move(s) using move history
-- Match VN and release titles to give the option to strip release specific stuff like "ダウンロード版"
-- Differentiate between VN title and release title 
 - option to add a file? to vn folders to mark unplayed games etc.
-- make map display better (doesn't fit in windows console atm)
 
 ## maybe:
 
@@ -35,3 +32,4 @@
 - Proper exception handling; skip if anything goes wrong
 - if releases.length > 1 try to match the title
 - Fix Y2k80 problem
+- support non-YYMMDD dates in filenames
