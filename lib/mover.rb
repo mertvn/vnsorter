@@ -49,7 +49,7 @@ module Mover
     end
     producer = str_producer.chomp(' & ')
     producer = replace_special_characters(producer) if $CONFIG['special_characters'] != 3
-    producer = producer.empty? ? 'unknown producer' : producer
+    producer = producer.empty? ? 'UNKNOWN_PRODUCER' : producer
     # puts "producer was marked as: #{producer}"
 
     date = mark_date(vn)
@@ -69,7 +69,7 @@ module Mover
       str_language += ' & '
     end
     language = str_language.chomp(' & ')
-    puts "language was marked as: #{language}"
+    # puts "language was marked as: #{language}"
 
     case $CONFIG['choice_naming']
     when 0
@@ -127,13 +127,14 @@ module Mover
     when 0
       # YYMMDD
       date = vn[:date].split('-').join[2..-1]
-      date.length == 6 ? date : 'unknown date'
+      date.length == 6 ? date : 'UNKNOWN_DATE'
     when 1
       # YYYY-MM-DD
       vn[:date]
     when 2
       # YYYY
       vn[:date].split('-').join[0..3]
+      date.length == 4 ? date : 'UNKNOWN_DATE'
     end
   end
 

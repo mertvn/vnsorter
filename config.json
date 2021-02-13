@@ -15,5 +15,5 @@
   "ignore_parentheses": true,
   "discard_publishers": true,
   "min_folder_length": 3,
-  "min_field_length": 3
+  "min_field_length": 1
 }

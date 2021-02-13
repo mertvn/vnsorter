@@ -32,6 +32,7 @@ module VNDB
     message[-1] = ''
     # replace this with actual error handling
     if message[0..4] == 'error'
+      puts message
       puts 'throttled...waiting 70 seconds'
       sleep(70)
       send(@last)

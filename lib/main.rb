@@ -38,6 +38,7 @@ def main
 
     # this part needs a refactor
     puts 'new title search'
+    # p folder[:title]
     folder[:title].each do |subtitle|
       puts 'new subtitle search'
       match = Search.match_by_title(subtitle, folder[:location])

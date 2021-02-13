@@ -11,7 +11,6 @@ wav
 bin
 cue
 etc
-the
 single
 maxi
 original
