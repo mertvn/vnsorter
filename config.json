@@ -8,12 +8,13 @@
   
   "choice_naming": 0,
 
-
-
   "special_characters": 0,
+  "discard_publishers": true,
+
+
+
   "blacklist": true,
   "ignore_parentheses": true,
-  "discard_publishers": true,
   "min_folder_length": 3,
   "min_field_length": 1
 }
