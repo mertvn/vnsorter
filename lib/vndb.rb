@@ -6,7 +6,7 @@ module VNDB
   HOSTNAME = 'api.vndb.org'.freeze
   PORT = 19_534
   END_CHAR = "\04".freeze
-  REQ_LOGIN = 'login { "protocol": 1, "client": "test", "clientver": 0.1 }'.freeze
+  REQ_LOGIN = 'login { "protocol": 1, "client": "vnsorter", "clientver": 0.1 }'.freeze
 
   def connect
     @socket = TCPSocket.open(HOSTNAME, PORT)
