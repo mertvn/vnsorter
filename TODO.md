@@ -33,3 +33,4 @@
 - if releases.length > 1 try to match the title
 - Fix Y2k80 problem
 - support non-YYMMDD dates in filenames
+- save/load from file
