@@ -34,6 +34,7 @@ update
 iso
 mds
 mdf
+zip
 rar
 rr3
 txt
