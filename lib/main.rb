@@ -15,8 +15,10 @@ FOLDER_TO_SORT = $CONFIG['source'].freeze
 LIBRARY_FOLDER = $CONFIG['destination'].freeze
 
 def main
+  ### EXTRACT ###
   p extracted = Extractor.extract(FOLDER_TO_SORT)
 
+  ### SEARCH ###
   VNDB.connect
   VNDB.login
   map = {}
@@ -56,16 +58,61 @@ def main
   end
   VNDB.disconnect
 
-  puts 'Matches:'
-  # doesn't fit in the windows console
-  # puts JSON.pretty_generate(map)
-  puts map
+  ### MOVE ###
+  # puts map
+  planned_moves = []
+  move_history = []
+  failed_history = []
+
+  map.each do |combination|
+    begin
+      result = Mover.plan_move(combination, LIBRARY_FOLDER)
+      planned_moves << result unless result == 'skipped'
+    rescue StandardError => e
+      puts e
+      puts "Move failed for #{combination[0]}"
+      puts ''
+      failed_history << combination[0]
+      next
+    end
+  end
+
+  puts ''
+  puts 'Planned moves:'
+  planned_moves.each do |planned_move|
+    puts planned_move
+    puts ''
+  end
+
   puts 'Press Enter to proceed or close the window to abort'
   Input.get_input
 
-  move_history, failed_history = Mover.move(map, LIBRARY_FOLDER)
-  puts "Move history: #{move_history}"
-  puts "Failed history: #{failed_history}"
+  planned_moves.each do |planned_move|
+    begin
+      move_history << Mover.move(planned_move)
+      puts "Move succeeded for #{planned_move}"
+      puts ''
+    rescue StandardError => e
+      puts e
+      puts "Move failed for #{planned_move}"
+      puts ''
+      failed_history << planned_move
+      next
+    end
+  end
+
+  puts 'Move history: '
+  move_history.each do |move|
+    puts move
+    puts ''
+  end
+  puts 'Failed history: '
+  failed_history.each do |move|
+    puts move
+    puts ''
+  end
+
+  puts ''
   puts 'Sorted everything!'
 end
 

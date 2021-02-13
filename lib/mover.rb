@@ -2,31 +2,25 @@ module Mover
   extend self
   # require 'fileutils'
 
-  def move(map, library_folder)
-    @move_history = []
-    @failed_history = []
-    map.each do |combination|
-      origin = combination[0].encode('UTF-8')
-      # p origin
-      vn = combination[1]
-      next if vn == 'skipped'
+  def plan_move(combination, library_folder)
+    origin = combination[0].encode('UTF-8')
+    # p origin
+    vn = combination[1]
 
-      begin
-        destination = "#{library_folder}/" + mark_destination(vn).encode('UTF-8')
-        create_folder(destination)
-        move_files(origin, destination)
-        puts "Move succeeded for #{vn[:title]}"
-        puts ''
-        @move_history << { origin.to_s => destination }
-      rescue StandardError => e
-        puts e
-        puts "Move failed for #{vn[:title]}"
-        puts ''
-        @failed_history << { origin.to_s => destination }
-        next
-      end
+    destination = (vn == 'skipped' ? 'skipped' : "#{library_folder}/" + mark_destination(vn).encode('UTF-8'))
+
+    { origin => destination }
+  end
+
+  def move(planned_move)
+    # not really supposed to use hashes like this
+    planned_move.each do |item|
+      origin = item[0]
+      destination = item[1]
+
+      create_folder(destination)
+      move_files(origin, destination)
     end
-    [@move_history, @failed_history]
   end
 
   private
