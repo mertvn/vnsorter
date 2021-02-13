@@ -1,5 +1,5 @@
 #! /bin/sh
 
-./lib/main.rb
+ruby lib/main.rb
 
 $SHELL
