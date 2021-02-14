@@ -62,7 +62,8 @@ module AllSearch
     end
     str_id = str_id.chomp(' or ')
 
-    release_all_filter = "((#{str_id}) and released=\"#{date}\")"
+    release_all_filter = "(((#{str_id}) and released=\"#{date}\")"
+    release_all_filter[-1] = $CONFIG['languages'].empty? ? '))' : ") and (languages=#{$CONFIG['languages']}))"
     release_all_options = '{ "results": 25 }'
     release_all_final = (REQ_RELEASE_ALL + release_all_filter + release_all_options).encode('UTF-8')
 

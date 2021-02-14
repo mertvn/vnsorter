@@ -31,7 +31,15 @@ You should probably try it with a few VNs before using it for your entire downlo
   
     the absolute path of the folder to put the sorted VNs in, must be inside double quotes
     use forward slashes 
-    example: "K:/sorted"
+    example: "K:/sorted"  
+
+  "languages": 2-letter language code
+  
+    the language(s) you want to search for, must be inside double quotes
+    searches for all languages if empty
+    if you want to search for multiple languages they should be seperated by commas
+    e.g. ["ja","en","zh"]
+    see the list of language codes here: https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes  
 
   "choice_producer": 0 or 1  
   
@@ -51,6 +59,7 @@ You should probably try it with a few VNs before using it for your entire downlo
 
   "choice_naming": 0 or 1 or 2 or 3 or 4 or 5 or 6  
   
+    examples using "choice_producer": 0, "choice_date": 0, "choice_title": 1 and https://vndb.org/r196  
     0: producer/[date] title
     /KID/[030516] Ever17 -The Out of Infinity-
 
@@ -70,19 +79,16 @@ You should probably try it with a few VNs before using it for your entire downlo
     /[030516]/Ever17 -The Out of Infinity-
 
     6: [language]/title
-    /[ja]/Ever17 -The Out of Infinity-
-
-  examples using "choice_producer": 0, "choice_date": 0, "choice_title": 1 and https://vndb.org/r196
-
+    /[ja]/Ever17 -The Out of Infinity-  
 
 "special_characters": 0 or 1 or 2 or 3  
-  
+
+    Special characters are: :/<>|*"!?\
     0: Replace with Japanese variants (：／＜＞｜＊”！？￥)
     1: Replace with space
     2: Remove
-    3: Keep (not recommended, will cause move operations to fail)
-    Special characters are: :/<>|*"!?\  
-    
+    3: Keep (not recommended, will cause move operations to fail)  
+
   "discard_publishers": true or false  
   
     you'll want to set this as false if you are sorting translations  
