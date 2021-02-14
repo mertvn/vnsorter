@@ -29,32 +29,49 @@ def main
     unless folder[:producer].empty? || folder[:date].empty?
       puts 'new all search'
       match = Search.match_by_all(folder[:producer], folder[:date], folder[:location])
-
-      unless match == 'empty'
-        # p "MATCH: #{match}"
+      # p "MATCH: #{match}"
+      case match
+      when 'empty'
+        puts 'No results from AllSearch, proceeding to TitleSearch'
+      when 'next'
+        next
+      when 'skip'
+        next
+      when 'stop'
+        break
+      else
         map[folder[:location]] = match
         next
       end
-      puts 'No results from AllSearch, proceeding to TitleSearch'
     end
 
     # this part needs a refactor
+    # HACK: to break two loops ¯\_(ツ)_/¯
+    stop = false
     puts 'new title search'
     # p folder[:title]
     folder[:title].each do |subtitle|
       puts 'new subtitle search'
       match = Search.match_by_title(subtitle, folder[:location])
       # p "MATCH: #{match}"
-      if match == 'empty'
-        puts 'No results, skipping'
+      case match
+      when 'empty'
+        puts 'No results, searching next subtitle'
         next
+      when 'next'
+        next
+      when 'skip'
+        break
+      when 'stop'
+        stop = true
+        break
+      else
+        map[folder[:location]] = match
+        puts 'found match, breaking'
+        break
       end
-      next if match == 'skipped'
-
-      map[folder[:location]] = match
-      puts 'found match, breaking'
-      break
     end
+    break if stop
   end
   VNDB.disconnect
 
@@ -67,7 +84,7 @@ def main
   map.each do |combination|
     begin
       result = Mover.plan_move(combination, LIBRARY_FOLDER)
-      planned_moves << result unless result == 'skipped'
+      planned_moves << result unless result == 'skip'
     rescue StandardError => e
       puts e
       puts "Move failed for #{combination[0]}"

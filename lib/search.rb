@@ -61,14 +61,20 @@ module Search
     end
   end
 
+  # refactor this to return values instead of shoveling to an array
   def ask_user(selected, releases)
-    puts 'Enter the ID of the correct release or "skip"'
+    puts 'Enter the ID of the correct release or "next" or "skip" or "stop"'
     input = Input.get_input until Input.valid_input?(input)
-    if input == 'skip'
-      selected << 'skipped'
-      return
+    case input
+    when 'next'
+      selected << 'next'
+    when 'skip'
+      selected << 'skip'
+    when 'stop'
+      selected << 'stop'
+    else
+      select_release(input, selected, releases)
     end
-    select_release(input, selected, releases)
   end
 
   private

@@ -27,6 +27,8 @@ crack
 ※自炊
 patch
 パッチ
+修正パッチ
+アップデート
 nodvd
 nocd
 update
@@ -36,4 +38,9 @@ mdf
 zip
 rar
 rr3
+rr5
 txt
+jpg
+png
+同人ゲーム
+18禁ゲーム

@@ -5,6 +5,6 @@ module Input
   end
 
   def valid_input?(input)
-    /[0-9]{1,99}/.match(input) || /skip/.match(input)
+    /[0-9]{1,99}/.match(input) || /(next)|(skip)|(stop)/.match(input)
   end
 end

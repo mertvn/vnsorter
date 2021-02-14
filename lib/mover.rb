@@ -7,7 +7,7 @@ module Mover
     # p origin
     vn = combination[1]
 
-    destination = (vn == 'skipped' ? 'skipped' : "#{library_folder}/" + mark_destination(vn).encode('UTF-8'))
+    destination = (vn == 'skip' ? 'skip' : "#{library_folder}/" + mark_destination(vn).encode('UTF-8'))
 
     { origin => destination }
   end
