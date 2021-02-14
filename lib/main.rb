@@ -56,7 +56,7 @@ def main
       # p "MATCH: #{match}"
       case match
       when 'empty'
-        puts 'No results, searching next subtitle'
+        puts 'No results, moving on'
         next
       when 'next'
         next
