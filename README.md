@@ -91,8 +91,10 @@ You should probably try it with a few VNs before using it for your entire downlo
     
   "discard_publishers": true or false  
   
-    you'll want to set this as false if you are sorting translations
+    you'll want to set this as false if you are sorting translations  
 
+"never_ask": true or false  
+  try to match everything automatically, skip if unsure
 ### You probably want to leave these on their default settings
     
   "blacklist": true or false  

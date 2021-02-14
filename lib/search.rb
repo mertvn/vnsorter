@@ -1,6 +1,7 @@
 module Search
   extend self
 
+  # refactor this
   def match_by_all(producer, date, current_folder, title)
     selected = []
     releases = AllSearch.all_query(producer, date)
@@ -16,6 +17,8 @@ module Search
         puts ''
         return release
       end
+      return 'empty' if $CONFIG['never_ask']
+
       puts 'Multiple releases found by the same producer on the same date'
       puts ''
       JSON.pretty_generate(releases)
@@ -36,6 +39,7 @@ module Search
     selected = []
     releases = TitleSearch.title_query(title)
     return 'empty' if releases.empty?
+    return 'empty' if $CONFIG['never_ask']
 
     display_query_results(releases)
     puts "Folder: #{current_folder}"
