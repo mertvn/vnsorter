@@ -18,8 +18,8 @@ module Extractor
       # p folder.encode('UTF-8')
       # add whitespace after brackets,
       # replace periods with whitespace,
-      # split by whitespace, but keep the whitespace if it's inside brackets
-      fields = folder.gsub(']', '] ').gsub('.', ' ').split(/\s+(?![^\[]*\])/)
+      # split by whitespace, but keep the whitespace if it's inside brackets or parentheses
+      fields = folder.gsub(']', '] ').gsub('.', ' ').split(/\s+(?!([^\[]*\])|[^(]*\))/)
       fields.each do |field|
         field = field.encode('UTF-8')
         next if ($CONFIG['blacklist'] && blacklist.include?(field.downcase)) || field.length < min_field_length

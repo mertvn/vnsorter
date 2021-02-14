@@ -33,6 +33,9 @@ def main
       case match
       when 'empty'
         puts 'No results from AllSearch, proceeding to TitleSearch'
+      when 'autoskip'
+        puts 'Found multiple results, autoskipping'
+        next
       when 'next'
         next
       when 'skip'
@@ -57,6 +60,9 @@ def main
       case match
       when 'empty'
         puts 'No results, moving on'
+        next
+      when 'autoskip'
+        puts 'Found multiple results, autoskipping'
         next
       when 'next'
         next
