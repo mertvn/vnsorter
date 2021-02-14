@@ -6,6 +6,7 @@
 
 - Match VN and release titles to give the option to strip release specific stuff like "ダウンロード版"
 - filter languages in config
+- only search full title option in config
 
 - Send all API requests at once (allsearch done, titlesearch left)
 - Handle throttling properly

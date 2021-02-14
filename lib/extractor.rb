@@ -41,7 +41,7 @@ module Extractor
         title << field if /.+/.match(field)
       end
       # we want to search the full title first
-      title.unshift(title.join(' '))
+      title.unshift(title.join(' ')).uniq!
 
       found_vns << { location: "#{directory}/#{folder}".encode('UTF-8'),
                      date: date,
