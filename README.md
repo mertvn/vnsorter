@@ -11,12 +11,6 @@ After all of the folders/files have been matched, or skipped, the tool will show
 You should probably try it with a few VNs before using it for your entire downloads folder.
 ## Usage
 
-### Easy
-
-~~Get the latest release from [releases](https://github.com/mertvn/vnsorter/releases) and run start.bat(Windows) or start.sh(GNU/Linux). (No installation necessary) (if you try to run the binary directly the text won't display properly)~~ doesn't work properly
-
-### Hard
-
 1. Install Ruby >2.7 [Windows](https://rubyinstaller.org/downloads/)
 
 2. Clone/download this repository
@@ -93,9 +87,10 @@ You should probably try it with a few VNs before using it for your entire downlo
   
     you'll want to set this as false if you are sorting translations  
 
-"autoskip": true or false  
+  "autoskip": true or false  
 
-  skip instead of asking user when a perfect match cannot be found automatically
+    skip instead of asking user when a perfect match cannot be found automatically  
+  
 ### You probably want to leave these on their default settings
     
   "blacklist": true or false  
