@@ -11,12 +11,6 @@ After all of the folders/files have been matched, or skipped, the tool will show
 You should probably try it with a few VNs before using it for your entire downloads folder.
 ## Usage
 
-### Easy
-
-~~Get the latest release from [releases](https://github.com/mertvn/vnsorter/releases) and run start.bat(Windows) or start.sh(GNU/Linux). (No installation necessary) (if you try to run the binary directly the text won't display properly)~~ doesn't work properly
-
-### Hard
-
 1. Install Ruby >2.7 [Windows](https://rubyinstaller.org/downloads/)
 
 2. Clone/download this repository
