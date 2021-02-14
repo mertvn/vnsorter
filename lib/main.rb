@@ -28,7 +28,7 @@ def main
 
     unless folder[:producer].empty? || folder[:date].empty?
       puts 'new all search'
-      match = Search.match_by_all(folder[:producer], folder[:date], folder[:location])
+      match = Search.match_by_all(folder[:producer], folder[:date], folder[:location], folder[:title][0])
       # p "MATCH: #{match}"
       case match
       when 'empty'

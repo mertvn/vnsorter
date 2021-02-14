@@ -28,7 +28,7 @@ module Extractor
         # it's necessary for producer names like [HULOTTE（ユロット）] but
         # I haven't really thought about the side effects
         field = field.gsub(/(\(|（).+?(）|\))/, '') if $CONFIG['ignore_parentheses']
-        puts "field is #{field}"
+        # puts "field is #{field}"
         if /\[[0-9]{6}\]/.match(field)
           date << field.gsub(/\[|\]/, '')
           next

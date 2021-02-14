@@ -1,19 +1,26 @@
 module Search
   extend self
 
-  def match_by_all(producer, date, current_folder)
+  def match_by_all(producer, date, current_folder, title)
     selected = []
     releases = AllSearch.all_query(producer, date)
     return 'empty' if releases.empty?
 
     if releases.length > 1
-      # need to title search here before asking the user
-      puts 'Multiple releases found by the same producer on the same date'
-      puts ''
-      JSON.pretty_generate(releases)
-      display_query_results(releases)
-      puts "Folder: #{current_folder}"
-      ask_user(selected, releases) while selected.empty?
+      # match automatically if title matches or ask user
+      if releases[0][:title] == title
+        puts ''
+        puts 'Found perfect match automatically with AllSearch'
+        puts ''
+        selected = releases
+      else
+        puts 'Multiple releases found by the same producer on the same date'
+        puts ''
+        JSON.pretty_generate(releases)
+        display_query_results(releases)
+        puts "Folder: #{current_folder}"
+        ask_user(selected, releases) while selected.empty?
+      end
     else
       puts ''
       puts 'Found perfect match automatically with AllSearch'

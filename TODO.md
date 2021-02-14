@@ -5,7 +5,6 @@
 ### Search
 
 - Match VN and release titles to give the option to strip release specific stuff like "ダウンロード版"
-- if releases.length > 1 try to match the title
 
 - Send all API requests at once (allsearch done, titlesearch left)
 - Handle throttling properly
@@ -27,7 +26,7 @@
 
 ### console
 
-- skip and next
+
 
 ## maybe:
 
