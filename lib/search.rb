@@ -17,7 +17,7 @@ module Search
         puts ''
         return release
       end
-      return 'empty' if $CONFIG['never_ask']
+      return 'empty' if $CONFIG['autoskip']
 
       puts 'Multiple releases found by the same producer on the same date'
       puts ''
@@ -39,7 +39,7 @@ module Search
     selected = []
     releases = TitleSearch.title_query(title)
     return 'empty' if releases.empty?
-    return 'empty' if $CONFIG['never_ask']
+    return 'empty' if $CONFIG['autoskip']
 
     display_query_results(releases)
     puts "Folder: #{current_folder}"
