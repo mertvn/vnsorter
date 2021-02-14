@@ -90,7 +90,10 @@ You should probably try it with a few VNs before using it for your entire downlo
   "autoskip": true or false  
 
     skip instead of asking user when a perfect match cannot be found automatically  
-  
+  "full_title_only": true or false  
+
+    only search the full title of the VN  
+    
 ### You probably want to leave these on their default settings
     
   "blacklist": true or false  

@@ -53,7 +53,9 @@ def main
     stop = false
     puts 'new title search'
     # p folder[:title]
-    folder[:title].each do |subtitle|
+    folder[:title].each_with_index do |subtitle, index|
+      break if index > 0 && $CONFIG['full_title_only']
+
       puts 'new subtitle search'
       match = Search.match_by_title(subtitle, folder[:location])
       # p "MATCH: #{match}"

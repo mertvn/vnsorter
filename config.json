@@ -10,7 +10,8 @@
 
   "special_characters": 0,
   "discard_publishers": true,
-  "autoskip": true,
+  "autoskip": false,
+  "full_title_only": false,
 
 
 
