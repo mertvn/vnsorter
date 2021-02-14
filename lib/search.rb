@@ -8,18 +8,20 @@ module Search
 
     if releases.length > 1
       # match automatically if title matches or ask user
-      if releases[0][:title] == title
-        puts ''
-        puts 'Found perfect match automatically with AllSearch'
-        puts ''
-        selected = releases
-      else
-        puts 'Multiple releases found by the same producer on the same date'
-        puts ''
-        JSON.pretty_generate(releases)
-        display_query_results(releases)
-        puts "Folder: #{current_folder}"
-        ask_user(selected, releases) while selected.empty?
+      releases.each do |release|
+        if release[:title] == title
+          puts ''
+          puts 'Found perfect match automatically with AllSearch'
+          puts ''
+          selected = releases
+        else
+          puts 'Multiple releases found by the same producer on the same date'
+          puts ''
+          JSON.pretty_generate(releases)
+          display_query_results(releases)
+          puts "Folder: #{current_folder}"
+          ask_user(selected, releases) while selected.empty?
+        end
       end
     else
       puts ''
