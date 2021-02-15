@@ -183,7 +183,7 @@ module Mover
 
   def create_folder(destination)
     # #mkdir_p checks for existence so we don't need to
-    puts "Creating folder: #{destination}"
+    # puts "Creating folder: #{destination}"
     FileUtils.mkdir_p(destination, verbose: false, noop: false)
   end
 

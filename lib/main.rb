@@ -110,7 +110,7 @@ def main
   end
 
   puts 'Press Enter to proceed or close the window to abort'
-  Input.get_input
+  input = Input.get_input until input == ''
 
   planned_moves.each do |planned_move|
     begin
@@ -125,20 +125,25 @@ def main
       next
     end
   end
-
-  puts 'Move history: '
-  move_history.each do |move|
-    puts move
-    puts ''
-  end
-  puts 'Failed history: '
-  failed_history.each do |move|
-    puts move
-    puts ''
-  end
+  write_move_logs(move_history, failed_history)
 
   puts ''
   puts 'Sorted everything!'
+end
+
+def write_move_logs(move_history, failed_history)
+  file = File.new 'move_history.txt', 'w'
+  file.puts 'MOVED: '
+  move_history.each do |move|
+    file.puts move
+  end
+  file.puts ''
+  file.puts 'FAILED: '
+  failed_history.each do |move|
+    file.puts move
+  end
+  puts ''
+  puts 'See move_history.txt for a list of all the moves'
 end
 
 main

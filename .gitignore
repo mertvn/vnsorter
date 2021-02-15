@@ -1,4 +1,5 @@
 .rubocop.yml
+move_history.txt
 
 /tosort/
 /sorted/
