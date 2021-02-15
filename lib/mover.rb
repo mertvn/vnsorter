@@ -135,11 +135,13 @@ module Mover
   end
 
   def mark_title(vn)
-    vn = if (vn[:vn].length > 1) && (($CONFIG['choice_title'] == 2) || ($CONFIG['choice_title'] == 3))
-           ask_user_vn(vn)
-         else
-           vn[:vn][0]
-         end
+    if ($CONFIG['choice_title'] == 2) || ($CONFIG['choice_title'] == 3)
+      vn = if vn[:vn].length > 1
+             ask_user_vn(vn)
+           else
+             vn[:vn][0]
+           end
+    end
     return 'skip' if vn == 'skip'
 
     case $CONFIG['choice_title']
