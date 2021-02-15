@@ -65,7 +65,7 @@ def main
         next
       when 'autoskip'
         puts 'Found multiple results, autoskipping'
-        next
+        break
       when 'next'
         next
       when 'skip'
