@@ -4,6 +4,7 @@
 
 ### Search
 
+- make releases.length > 1 title matching fuzzy somehow
 - Send all API requests at once (allsearch done, titlesearch left)
 - Handle throttling properly
 
@@ -24,7 +25,7 @@
 
 ### console
 
-
+- ask_user_producer
 
 ## maybe:
 

@@ -2,7 +2,7 @@ module TitleSearch
   extend self
 
   # no space between flags
-  REQ_RELEASE = 'get release basic,producers,vn '.freeze
+  REQ_RELEASE_TITLE = 'get release basic,producers,vn '.freeze
 
   def title_query(title)
     @releases = []
@@ -16,7 +16,7 @@ module TitleSearch
                    end
     title_filter[-1] = $CONFIG['languages'].empty? ? '))' : ") and (languages=#{$CONFIG['languages']}))"
     title_options = '{ "results": 25 }'
-    title_final = (REQ_RELEASE + title_filter + title_options).encode('UTF-8')
+    title_final = (REQ_RELEASE_TITLE + title_filter + title_options).encode('UTF-8')
 
     VNDB.send(title_final)
     # puts JSON.pretty_generate(parsed = VNDB.parse(VNDB.read))

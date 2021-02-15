@@ -10,12 +10,17 @@ module Search
     # if VN mode is enabled
     # check if all the releases found belong to the same VN
     # if so, automatically select the first release because we don't care about releases
-    return releases[0] if same_vn?(releases) && ($CONFIG['choice_title'] == 2 || $CONFIG['choice_title'] == 3)
-
+    if same_vn?(releases) && ($CONFIG['choice_title'] == 2 || $CONFIG['choice_title'] == 3)
+      puts ''
+      puts 'Found perfect match automatically because VN mode was enabled'
+      puts ''
+      return releases[0]
+    end
     if releases.length > 1
       # match automatically if title matches or ask user
       releases.each do |release|
-        next unless release[:title] == title
+        # try to make this fuzzy somehow
+        next unless release[:title] == title || release[:original] == title
 
         puts ''
         puts 'Found perfect match automatically with AllSearch'
@@ -26,7 +31,6 @@ module Search
 
       puts 'Multiple releases found by the same producer on the same date'
       puts ''
-      JSON.pretty_generate(releases)
       display_query_results(releases)
       puts "Folder: #{current_folder}"
       ask_user_release(selected, releases) while selected.empty?
@@ -52,7 +56,12 @@ module Search
     # if VN mode is enabled
     # check if all the releases found belong to the same VN
     # if so, automatically select the first release because we don't care about releases
-    return releases[0] if same_vn?(releases) && ($CONFIG['choice_title'] == 2 || $CONFIG['choice_title'] == 3)
+    if same_vn?(releases) && ($CONFIG['choice_title'] == 2 || $CONFIG['choice_title'] == 3)
+      puts ''
+      puts 'Found perfect match automatically because VN mode was enabled'
+      puts ''
+      return releases[0]
+    end
 
     # ask user to select the correct release if VN mode isn't true
     return 'autoskip' if $CONFIG['autoskip']
@@ -71,13 +80,7 @@ module Search
         vn_ids << vn['id']
       end
     end
-    if vn_ids.uniq.length == 1
-      puts ''
-      puts 'Found perfect match automatically because VN mode was enabled'
-      puts ''
-      return true
-    end
-    false
+    vn_ids.uniq.length == 1
   end
 
   def insert_producers(release)

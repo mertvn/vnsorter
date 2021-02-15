@@ -21,7 +21,30 @@ def main
   ### SEARCH ###
   VNDB.connect
   VNDB.login
+  map = start_search(extracted)
+  VNDB.disconnect
+
+  ### MOVE ###
+  # puts map
+  @move_history = []
+  @failed_history = []
+
+  planned_moves = plan_moves(map)
+  display_planned_moves(planned_moves)
+
+  puts 'Press Enter to proceed or close the window to abort'
+  input = Input.get_input until input == ''
+
+  execute_moves(planned_moves)
+  write_move_logs
+
+  puts ''
+  puts 'Sorted everything!'
+end
+
+def start_search(extracted)
   map = {}
+
   extracted.each do |folder|
     # p folder[:title]
     match = []
@@ -81,14 +104,11 @@ def main
     end
     break if stop
   end
-  VNDB.disconnect
+  map
+end
 
-  ### MOVE ###
-  # puts map
+def plan_moves(map)
   planned_moves = []
-  move_history = []
-  failed_history = []
-
   map.each do |combination|
     begin
       result = Mover.plan_move(combination, LIBRARY_FOLDER)
@@ -97,49 +117,47 @@ def main
       puts e
       puts "Move failed for #{combination[0]}"
       puts ''
-      failed_history << combination[0]
+      @failed_history << combination[0]
       next
     end
   end
+  planned_moves
+end
 
+def display_planned_moves(planned_moves)
   puts ''
   puts 'Planned moves:'
   planned_moves.each do |planned_move|
     puts planned_move
     puts ''
   end
+end
 
-  puts 'Press Enter to proceed or close the window to abort'
-  input = Input.get_input until input == ''
-
+def execute_moves(planned_moves)
   planned_moves.each do |planned_move|
     begin
-      move_history << Mover.move(planned_move)
+      @move_history << Mover.move(planned_move)
       puts "Move succeeded for #{planned_move}"
       puts ''
     rescue StandardError => e
       puts e
       puts "Move failed for #{planned_move}"
       puts ''
-      failed_history << planned_move
+      @failed_history << planned_move
       next
     end
   end
-  write_move_logs(move_history, failed_history)
-
-  puts ''
-  puts 'Sorted everything!'
 end
 
-def write_move_logs(move_history, failed_history)
+def write_move_logs
   file = File.new 'move_history.txt', 'w'
   file.puts 'MOVED: '
-  move_history.each do |move|
+  @move_history.each do |move|
     file.puts move
   end
   file.puts ''
   file.puts 'FAILED: '
-  failed_history.each do |move|
+  @failed_history.each do |move|
     file.puts move
   end
   puts ''
