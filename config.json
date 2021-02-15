@@ -10,12 +10,13 @@
   "choice_naming": 0,
 
   "special_characters": 0,
-  "discard_publishers": false,
+  "discard_publishers": true,
   "autoskip": true,
   "full_title_only": false,
 
 
 
+  "smart_querying": true,
   "blacklist": true,
   "ignore_parentheses": true,
   "min_folder_length": 3,
