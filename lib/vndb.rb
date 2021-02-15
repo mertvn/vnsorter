@@ -30,11 +30,12 @@ module VNDB
     message = ''
     message << @socket.getc until message[-1] == END_CHAR
     message[-1] = ''
+
     # replace this with actual error handling
     if message[0..4] == 'error'
-      puts message
-      puts 'throttled...waiting 70 seconds'
-      sleep(70)
+      parsed = parse(message)
+      puts "throttled...waiting #{parsed['minwait']} seconds"
+      sleep(parsed['minwait'])
       send(@last)
       read
     else
