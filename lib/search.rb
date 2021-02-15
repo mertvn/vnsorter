@@ -24,8 +24,12 @@ module Search
       JSON.pretty_generate(releases)
       display_query_results(releases)
       puts "Folder: #{current_folder}"
-      ask_user(selected, releases) while selected.empty?
+      ask_user_release(selected, releases) while selected.empty?
     else
+      return 'autoskip' if releases[0][:vn].length > 1 &&
+                           $CONFIG['autoskip'] &&
+                           ($CONFIG['choice_title'] == 2 || $CONFIG['choice_title'] == 3)
+
       puts ''
       puts 'Found perfect match automatically with AllSearch'
       puts ''
@@ -39,11 +43,29 @@ module Search
     selected = []
     releases = TitleSearch.title_query(title)
     return 'empty' if releases.empty?
+
+    # check if all the releases belong to the same VN
+    # if so, automatically select the first release because we don't care about releases
+    if $CONFIG['choice_title'] == 2 || $CONFIG['choice_title'] == 3
+      vn_ids = []
+      releases.each do |release|
+        release[:vn].each do |vn|
+          vn_ids << vn['id']
+        end
+      end
+      if vn_ids.uniq.length == 1
+        puts ''
+        puts 'Found perfect match automatically with TitleSearch because VN mode was enabled'
+        puts ''
+        return releases[0]
+      end
+    end
+    # ask user to select the correct release if VN mode isn't true
     return 'autoskip' if $CONFIG['autoskip']
 
     display_query_results(releases)
     puts "Folder: #{current_folder}"
-    ask_user(selected, releases) while selected.empty?
+    ask_user_release(selected, releases) while selected.empty?
 
     selected[0]
   end
@@ -59,7 +81,7 @@ module Search
     producers
   end
 
-  def display_query_results(releases = @releases)
+  def display_query_results(releases)
     releases.each do |release|
       puts "https://vndb.org/r#{release[:id]}"
       puts "ID: #{release[:id]}"
@@ -68,13 +90,13 @@ module Search
       puts "Title: #{release[:title]}"
       puts "Original:  #{release[:original]}"
       puts "Languages:  #{release[:languages]}"
+      puts "VN:  #{release[:vn]}"
       puts ''
-      # puts
     end
   end
 
   # refactor this to return values instead of shoveling to an array
-  def ask_user(selected, releases)
+  def ask_user_release(selected, releases)
     puts 'Enter the ID of the correct release or "next" or "skip" or "stop"'
     input = Input.get_input until Input.valid_input?(input)
     case input

@@ -52,10 +52,12 @@ You should probably try it with a few VNs before using it for your entire downlo
     0: [YYMMDD]
     1: [YYYY-MM-DD]
     2: [YYYY]
-  "choice_title": 0 or 1  
-  
-    0: Romaji 
-    1: Original
+  "choice_title": 0 or 1 or 2 or 3  
+
+    0: Romaji release title
+    1: Original release title
+    2: Romaji VN title
+    3: Original VN title  
 
   "choice_naming": 0 or 1 or 2 or 3 or 4 or 5 or 6  
   

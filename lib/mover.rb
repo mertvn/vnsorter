@@ -42,7 +42,7 @@ module Mover
       str_producer += ' & '
     end
     producer = str_producer.chomp(' & ')
-    producer = replace_special_characters(producer) if $CONFIG['special_characters'] != 3
+    producer = replace_special_characters(producer)
     producer = producer.empty? ? 'UNKNOWN_PRODUCER' : producer
     # puts "producer was marked as: #{producer}"
 
@@ -50,6 +50,8 @@ module Mover
     # puts "date was marked as: #{date}"
 
     title = mark_title(vn)
+    return 'skip' if title == 'skip'
+
     title = replace_special_characters(title)
     # puts "title was marked as: #{title}"
 
@@ -127,20 +129,53 @@ module Mover
       vn[:date]
     when 2
       # YYYY
-      vn[:date].split('-').join[0..3]
+      date = vn[:date].split('-').join[0..3]
       date.length == 4 ? date : 'UNKNOWN_DATE'
     end
   end
 
   def mark_title(vn)
+    vn = if (vn[:vn].length > 1) && (($CONFIG['choice_title'] == 2) || ($CONFIG['choice_title'] == 3))
+           ask_user_vn(vn)
+         else
+           vn[:vn][0]
+         end
+    return 'skip' if vn == 'skip'
+
     case $CONFIG['choice_title']
     when 0
-      # romaji
+      # romaji release title
       vn[:title]
     when 1
-      # original
-      # fallback to romaji title if original title doesn't exist
+      # original release title
+      # fallback to romaji
       vn[:original] || vn[:title]
+    when 2
+      # romaji vn title
+      vn['title']
+    when 3
+      # original vn title
+      # fallback to romaji
+      vn['original'] || vn['title']
+    end
+  end
+
+  def ask_user_vn(vn)
+    puts ''
+    puts 'Multiple VNs connected to the same release. Select one or "skip"'
+    vn[:vn].each_with_index do |vn_candidate, index|
+      puts "#{index}: #{vn_candidate['title']} (#{vn_candidate['original']}) https://vndb.org/v#{vn_candidate['id']}"
+    end
+    input = Input.get_input until Input.valid_input?(input)
+    case input
+    when 'next'
+      'skip'
+    when 'skip'
+      'skip'
+    when 'stop'
+      'skip'
+    else
+      vn[:vn][input.to_i]
     end
   end
 

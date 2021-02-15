@@ -3,7 +3,7 @@ module AllSearch
   extend self
 
   REQ_PRODUCER = 'get producer basic '.freeze
-  REQ_RELEASE_ALL = 'get release basic,producers '.freeze
+  REQ_RELEASE_ALL = 'get release basic,producers,vn '.freeze
 
   def all_query(producer_array, date)
     @releases = []
@@ -82,7 +82,7 @@ module AllSearch
         release_ids << release['id']
 
         @releases << { id: release['id'], date: release['released'], title: release['title'],
-                       original: release['original'], languages: release['languages'] }
+                       original: release['original'], languages: release['languages'], vn: release['vn'] }
 
         @releases[-1][:producer] = Search.insert_producers(release)
       end

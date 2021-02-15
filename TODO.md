@@ -4,9 +4,6 @@
 
 ### Search
 
-- Match VN and release titles to give the option to strip release specific stuff like "ダウンロード版"
-- filter languages in config
-
 - Send all API requests at once (allsearch done, titlesearch left)
 - Handle throttling properly
 
@@ -23,7 +20,7 @@
 
 - Click on the release ID to open the vndb page
 - Ability to revert move(s) using move history
-- option to add a file? to vn folders to mark unplayed games etc.
+- option to add a file? to vn folders to mark unplayed VNs etc.
 
 ### console
 
@@ -31,10 +28,11 @@
 
 ## maybe:
 
-- Extractor should have the option to work with files instead of folders
+- Extractor should support files as well
 - Support more than 25 options per title
 - Offline ver. using data dumps
 - Proper exception handling; skip if anything goes wrong
 - Fix Y2k80 problem
 - support non-YYMMDD dates in filenames
 - save/load from file
+- caching
