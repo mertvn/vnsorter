@@ -1,7 +1,7 @@
 {
   "source":"K:/tosort",
   "destination":"K:/sorted",
-  "languages": [],
+  "languages": ["ja"],
 
   "choice_producer": 0,
   "choice_date": 0,
@@ -10,7 +10,7 @@
   "choice_naming": 0,
 
   "special_characters": 0,
-  "discard_publishers": true,
+  "discard_publishers": false,
   "autoskip": false,
   "full_title_only": false,
 

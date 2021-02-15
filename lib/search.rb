@@ -7,6 +7,11 @@ module Search
     releases = AllSearch.all_query(producer, date)
     return 'empty' if releases.empty?
 
+    # if VN mode is enabled
+    # check if all the releases found belong to the same VN
+    # if so, automatically select the first release because we don't care about releases
+    return releases[0] if same_vn?(releases) && ($CONFIG['choice_title'] == 2 || $CONFIG['choice_title'] == 3)
+
     if releases.length > 1
       # match automatically if title matches or ask user
       releases.each do |release|
@@ -44,22 +49,11 @@ module Search
     releases = TitleSearch.title_query(title)
     return 'empty' if releases.empty?
 
-    # check if all the releases belong to the same VN
+    # if VN mode is enabled
+    # check if all the releases found belong to the same VN
     # if so, automatically select the first release because we don't care about releases
-    if $CONFIG['choice_title'] == 2 || $CONFIG['choice_title'] == 3
-      vn_ids = []
-      releases.each do |release|
-        release[:vn].each do |vn|
-          vn_ids << vn['id']
-        end
-      end
-      if vn_ids.uniq.length == 1
-        puts ''
-        puts 'Found perfect match automatically with TitleSearch because VN mode was enabled'
-        puts ''
-        return releases[0]
-      end
-    end
+    return releases[0] if same_vn?(releases) && ($CONFIG['choice_title'] == 2 || $CONFIG['choice_title'] == 3)
+
     # ask user to select the correct release if VN mode isn't true
     return 'autoskip' if $CONFIG['autoskip']
 
@@ -68,6 +62,22 @@ module Search
     ask_user_release(selected, releases) while selected.empty?
 
     selected[0]
+  end
+
+  def same_vn?(releases)
+    vn_ids = []
+    releases.each do |release|
+      release[:vn].each do |vn|
+        vn_ids << vn['id']
+      end
+    end
+    if vn_ids.uniq.length == 1
+      puts ''
+      puts 'Found perfect match automatically because VN mode was enabled'
+      puts ''
+      return true
+    end
+    false
   end
 
   def insert_producers(release)
