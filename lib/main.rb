@@ -19,7 +19,12 @@ def main
   library_folder = $CONFIG['destination'].freeze
 
   ### EXTRACT ###
-  p extracted = Extractor.extract(folder_to_sort)
+  begin
+    p extracted = Extractor.extract(folder_to_sort)
+  rescue StandardError => e
+    puts e
+    abort('Could not extract -- did you select a valid location?')
+  end
 
   ### SEARCH ###
   VNDB.connect

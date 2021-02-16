@@ -14,72 +14,113 @@ module GUI
     button_sort = builder.get_object('button_sort')
     button_sort.signal_connect('clicked') do |_widget|
       puts 'Generating config hash'
-      config_hash = generate_config_hash(builder)
+      config_hash = generate_config_hash
       puts 'Writing config'
       write_config(config_hash)
       puts 'Closing window'
       window.destroy
     end
 
-    buffer_exampleVN = builder.get_object('buffer_exampleVN')
-    buffer_exampleVN.set_text('testing text buffer')
+    get_objects(builder)
 
+    @buffer_exampleVN.set_text('testing text buffer')
+
+    apply_prev_config if File.exist?('config.json')
     window.show
     Gtk.main
   end
 
-  def generate_config_hash(builder)
-    button_source = builder.get_object('button_source')
-    button_destination = builder.get_object('button_destination')
+  def get_objects(builder)
+    @button_source = builder.get_object('button_source')
+    @button_destination = builder.get_object('button_destination')
 
-    radiobutton0 = builder.get_object('radiobutton0')
-    radiobutton0_active_index = radiobutton0.group.each_with_index do |button, index|
+    @radiobutton0 = builder.get_object('radiobutton0')
+
+    @combo_producer = builder.get_object('combo_producer')
+    @combo_date = builder.get_object('combo_date')
+    @combo_title = builder.get_object('combo_title')
+
+    @toggle_discard_publishers = builder.get_object('toggle_discard_publishers')
+    @toggle_autoskip = builder.get_object('toggle_autoskip')
+    @toggle_full_title_only = builder.get_object('toggle_full_title_only')
+
+    @entry_languages = builder.get_object('entry_languages')
+
+    @toggle_ignore_parentheses = builder.get_object('toggle_ignore_parentheses')
+    @toggle_blacklist = builder.get_object('toggle_blacklist')
+    @toggle_smart_querying = builder.get_object('toggle_smart_querying')
+
+    @combo_special_characters = builder.get_object('combo_special_characters')
+    @entry_min_folder_length = builder.get_object('entry_min_folder_length')
+    @entry_min_field_length = builder.get_object('entry_min_field_length')
+
+    @buffer_exampleVN = builder.get_object('buffer_exampleVN')
+  end
+
+  def apply_prev_config
+    prev_config = JSON.parse(File.read('config.json'))
+    @button_source.filename = prev_config['source'] unless prev_config['source'].nil?
+    @button_destination.filename = prev_config['destination'] unless prev_config['destination'].nil?
+
+    @radiobutton0.group.each_with_index do |button, index|
+      # starts counting from the last item for some reason
+      next unless ((@radiobutton0.group.length - 1) - index) == prev_config['choice_naming']
+
+      button.set_active(true)
+    end
+    @combo_producer.active = prev_config['choice_producer']
+    @combo_date.active = prev_config['choice_date']
+    @combo_title.active = prev_config['choice_title']
+
+    @toggle_discard_publishers.active = prev_config['discard_publishers']
+    @toggle_autoskip.active = prev_config['autoskip']
+    @toggle_full_title_only.active = prev_config['full_title_only']
+
+    @entry_languages.text = prev_config['languages'].join
+
+    @toggle_ignore_parentheses.active = prev_config['ignore_parentheses']
+    @toggle_blacklist.active = prev_config['blacklist']
+    @toggle_smart_querying.active = prev_config['smart_querying']
+
+    @combo_special_characters.active = prev_config['special_characters']
+    @entry_min_folder_length.text = prev_config['min_folder_length'].to_s
+    @entry_min_field_length.text = prev_config['min_field_length'].to_s
+  end
+
+  def generate_config_hash
+    @radiobutton0_active_index = @radiobutton0.group.each_with_index do |button, index|
+      p button
+      p index
       next unless button.active?
 
       # starts counting from the last item for some reason
-      break (radiobutton0.group.length - 1) - index
+      break (@radiobutton0.group.length - 1) - index
     end
 
-    combo_producer = builder.get_object('combo_producer')
-    combo_date = builder.get_object('combo_date')
-    combo_title = builder.get_object('combo_title')
-
-    toggle_discard_publishers = builder.get_object('toggle_discard_publishers')
-    toggle_autoskip = builder.get_object('toggle_autoskip')
-    toggle_full_title_only = builder.get_object('toggle_full_title_only')
-
-    entry_languages = builder.get_object('entry_languages')
-    languages = entry_languages.text == '' ? [] : entry_languages.text.split(',')
-
-    toggle_ignore_parentheses = builder.get_object('toggle_ignore_parentheses')
-    toggle_blacklist = builder.get_object('toggle_blacklist')
-    toggle_smart_querying = builder.get_object('toggle_smart_querying')
-
-    combo_special_characters = builder.get_object('combo_special_characters')
-    entry_min_folder_length = builder.get_object('entry_min_folder_length')
-    entry_min_field_length = builder.get_object('entry_min_field_length')
+    @languages = @entry_languages.text == '' ? [] : @entry_languages.text.split(',')
 
     {
-      'source' => button_source.filename,
-      'destination' => button_destination.filename,
-      'languages' => languages,
+      'source' => @button_source.filename,
+      'destination' => @button_destination.filename,
 
-      'choice_naming' => radiobutton0_active_index,
-      'choice_producer' => combo_producer.active,
-      'choice_date' => combo_date.active,
-      'choice_title' => combo_title.active,
+      'choice_naming' => @radiobutton0_active_index,
+      'choice_producer' => @combo_producer.active,
+      'choice_date' => @combo_date.active,
+      'choice_title' => @combo_title.active,
 
-      'discard_publishers' => toggle_discard_publishers.active?,
-      'autoskip' => toggle_autoskip.active?,
-      'full_title_only' => toggle_full_title_only.active?,
+      'discard_publishers' => @toggle_discard_publishers.active?,
+      'autoskip' => @toggle_autoskip.active?,
+      'full_title_only' => @toggle_full_title_only.active?,
 
-      'ignore_parentheses' => toggle_ignore_parentheses.active?,
-      'blacklist' => toggle_blacklist.active?,
-      'smart_querying' => toggle_smart_querying.active?,
+      'languages' => @languages,
 
-      'special_characters' => combo_special_characters.active,
-      'min_folder_length' => entry_min_folder_length.text.to_i,
-      'min_field_length' => entry_min_field_length.text.to_i
+      'ignore_parentheses' => @toggle_ignore_parentheses.active?,
+      'blacklist' => @toggle_blacklist.active?,
+      'smart_querying' => @toggle_smart_querying.active?,
+
+      'special_characters' => @combo_special_characters.active,
+      'min_folder_length' => @entry_min_folder_length.text.to_i,
+      'min_field_length' => @entry_min_field_length.text.to_i
     }
   end
 

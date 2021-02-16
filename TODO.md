@@ -15,14 +15,12 @@
 ### Organization
 
 - Find better names for things in general (esp. "map", "selected", "title" and "subtitle", "search" and "query")
-- split main() into multiple methods
 
-### waiting on GUI
+### GUI
 
 - Click on the release ID to open the vndb page
 - Ability to revert move(s) using move history
 - option to add a file? to vn folders to mark unplayed VNs etc.
-- make gui remember previous choices (load existing config)
 - don't proceed unless sort button was pressed
 
 ### console

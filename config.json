@@ -1,16 +1,16 @@
 {
   "source": "K:\\tosort",
   "destination": "K:\\sorted",
-  "languages": [
-
-  ],
   "choice_naming": 0,
-  "choice_producer": 0,
+  "choice_producer": 1,
   "choice_date": 0,
   "choice_title": 3,
   "discard_publishers": true,
-  "autoskip": false,
+  "autoskip": true,
   "full_title_only": false,
+  "languages": [
+
+  ],
   "ignore_parentheses": true,
   "blacklist": true,
   "smart_querying": true,
