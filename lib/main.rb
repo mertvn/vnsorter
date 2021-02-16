@@ -17,6 +17,7 @@ def main
   $CONFIG = JSON.parse(File.read('config.json'))
   folder_to_sort = $CONFIG['source'].freeze
   library_folder = $CONFIG['destination'].freeze
+  abort('Invalid location') if folder_to_sort.nil? || library_folder.nil?
 
   ### EXTRACT ###
   begin

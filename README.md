@@ -21,7 +21,10 @@ You should probably try it with a few VNs before using it for your entire downlo
 
 ## Configuration
 
-### Open config.json in a text editor and change these values to your liking:
+### Easy
+  Use the GUI.
+### Hard
+Open config.json in a text editor and change these values to your liking:
 
   "source": folder  
   

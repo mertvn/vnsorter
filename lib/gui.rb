@@ -89,8 +89,6 @@ module GUI
 
   def generate_config_hash
     @radiobutton0_active_index = @radiobutton0.group.each_with_index do |button, index|
-      p button
-      p index
       next unless button.active?
 
       # starts counting from the last item for some reason
