@@ -4,12 +4,12 @@
   "languages": [
 
   ],
-  "choice_naming": 0,
+  "choice_naming": 1,
   "choice_producer": 0,
-  "choice_date": 0,
+  "choice_date": 2,
   "choice_title": 3,
   "discard_publishers": true,
-  "autoskip": false,
+  "autoskip": true,
   "full_title_only": false,
   "ignore_parentheses": true,
   "blacklist": true,

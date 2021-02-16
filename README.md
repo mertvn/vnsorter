@@ -13,9 +13,11 @@ You should probably try it with a few VNs before using it for your entire downlo
 
 1. Install Ruby >2.7 [Windows](https://rubyinstaller.org/downloads/)
 
-2. Clone/download this repository
+2. Install GTK3 with `gem install gtk3`
 
-3. `cd` into the project directory and run `ruby lib/main.rb` or use the .bat or .sh files
+3. Clone/download this repository
+
+4. `cd` into the project directory and run `ruby lib/main.rb` or use the .bat or .sh files
 
 ## Configuration
 

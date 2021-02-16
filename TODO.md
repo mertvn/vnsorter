@@ -22,6 +22,8 @@
 - Click on the release ID to open the vndb page
 - Ability to revert move(s) using move history
 - option to add a file? to vn folders to mark unplayed VNs etc.
+- make gui remember previous choices (load existing config)
+- don't proceed unless sort button was pressed
 
 ### console
 

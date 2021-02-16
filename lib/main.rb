@@ -9,14 +9,17 @@ require_relative 'titlesearch'
 require_relative 'allsearch'
 require_relative 'extractor'
 require_relative 'mover'
-
-$CONFIG = JSON.parse(File.read('config.json'))
-FOLDER_TO_SORT = $CONFIG['source'].freeze
-LIBRARY_FOLDER = $CONFIG['destination'].freeze
+require_relative 'gui'
 
 def main
+  ### CONFIGURE ###
+  GUI.gui_config
+  $CONFIG = JSON.parse(File.read('config.json'))
+  folder_to_sort = $CONFIG['source'].freeze
+  library_folder = $CONFIG['destination'].freeze
+
   ### EXTRACT ###
-  p extracted = Extractor.extract(FOLDER_TO_SORT)
+  p extracted = Extractor.extract(folder_to_sort)
 
   ### SEARCH ###
   VNDB.connect
@@ -29,7 +32,7 @@ def main
   @move_history = []
   @failed_history = []
 
-  planned_moves = plan_moves(map)
+  planned_moves = plan_moves(map, library_folder)
   display_planned_moves(planned_moves)
 
   puts 'Press Enter to proceed or close the window to abort'
@@ -39,7 +42,7 @@ def main
   write_move_logs
 
   puts ''
-  puts 'Sorted everything!'
+  'Sorted everything!'
 end
 
 def start_search(extracted)
@@ -107,11 +110,11 @@ def start_search(extracted)
   map
 end
 
-def plan_moves(map)
+def plan_moves(map, library_folder)
   planned_moves = []
   map.each do |combination|
     begin
-      result = Mover.plan_move(combination, LIBRARY_FOLDER)
+      result = Mover.plan_move(combination, library_folder)
       planned_moves << result unless result == 'skip'
     rescue StandardError => e
       puts e
