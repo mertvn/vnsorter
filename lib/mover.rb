@@ -23,8 +23,6 @@ module Mover
     end
   end
 
-  private
-
   def mark_destination(vn)
     # p vn
 
@@ -85,6 +83,8 @@ module Mover
       # when "custom"
     end
   end
+
+  private
 
   # mkdir_p and cp_r don't like "?"
   # backslash needs to be escaped AND at the end of the string

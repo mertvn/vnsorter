@@ -39,6 +39,8 @@ def main
   @failed_history = []
 
   planned_moves = plan_moves(map, library_folder)
+  return 'Nothing to sort!' if planned_moves.empty?
+
   display_planned_moves(planned_moves)
 
   puts 'Press Enter to proceed or close the window to abort'
@@ -107,7 +109,7 @@ def start_search(extracted)
         break
       else
         map[folder[:location]] = match
-        puts 'found match, breaking'
+        # puts 'found match, breaking'
         break
       end
     end
@@ -173,4 +175,4 @@ def write_move_logs
   puts 'See move_history.txt for a list of all the moves'
 end
 
-main
+puts main

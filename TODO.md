@@ -25,6 +25,7 @@
 
 ### console
 
+make non-gui mode
 - ask_user_producer
 
 ## maybe:

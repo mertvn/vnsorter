@@ -5,7 +5,6 @@ module GUI
   def gui_config
     builder_file = './gui.glade'
     builder = Gtk::Builder.new(file: builder_file)
-
     window = builder.get_object('window')
     window.set_title('vnsorter')
     window.set_default_size(720, 540)
@@ -13,21 +12,51 @@ module GUI
 
     button_sort = builder.get_object('button_sort')
     button_sort.signal_connect('clicked') do |_widget|
-      puts 'Generating config hash'
+      # puts 'Generating config hash'
       config_hash = generate_config_hash
-      puts 'Writing config'
+      # puts 'Writing config'
       write_config(config_hash)
-      puts 'Closing window'
+      # puts 'Closing window'
       window.destroy
     end
 
     get_objects(builder)
 
-    @buffer_exampleVN.set_text('testing text buffer')
+    @radiobutton0.group.each do |button|
+      connect_signal(button, 'toggled')
+    end
+    connect_signal(@combo_producer, 'changed')
+    connect_signal(@combo_date, 'changed')
+    connect_signal(@combo_title, 'changed')
 
-    apply_prev_config if File.exist?('config.json')
+    prev_config = read_prev_config if File.exist?('config.json')
+    apply_prev_config(prev_config)
+
+    set_exampleVN_text(prev_config)
     window.show
     Gtk.main
+  end
+
+  def connect_signal(object, signal)
+    object.signal_connect(signal) do |_widget|
+      config = generate_config_hash
+      write_config(config)
+      set_exampleVN_text(config)
+    end
+  end
+
+  def set_exampleVN_text(config)
+    vn = {
+      id: 282,
+      date: '2004-11-11',
+      title: 'Ever17 -The Out of Infinity- Premium Edition (DreKore)',
+      original: 'Ever17 -the out of infinity- PREMIUM EDITION ドリコレ',
+      languages: ['ja'],
+      vn: [{ 'title' => 'Ever17 -The Out of Infinity-', 'id' => 17, 'original' => nil }], producer: [%w[KID キッド]]
+    }
+    $CONFIG = config
+
+    @buffer_exampleVN.set_text(Mover.mark_destination(vn))
   end
 
   def get_objects(builder)
@@ -57,8 +86,11 @@ module GUI
     @buffer_exampleVN = builder.get_object('buffer_exampleVN')
   end
 
-  def apply_prev_config
-    prev_config = JSON.parse(File.read('config.json'))
+  def read_prev_config
+    JSON.parse(File.read('config.json'))
+  end
+
+  def apply_prev_config(prev_config)
     @button_source.filename = prev_config['source'] unless prev_config['source'].nil?
     @button_destination.filename = prev_config['destination'] unless prev_config['destination'].nil?
 
