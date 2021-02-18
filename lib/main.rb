@@ -9,11 +9,9 @@ require_relative 'titlesearch'
 require_relative 'allsearch'
 require_relative 'extractor'
 require_relative 'mover'
-require_relative 'gui'
 
 def main
   ### CONFIGURE ###
-  GUI.gui_config
   $CONFIG = JSON.parse(File.read('config.json'))
   folder_to_sort = $CONFIG['source'].freeze
   library_folder = $CONFIG['destination'].freeze
@@ -175,4 +173,12 @@ def write_move_logs
   puts 'See move_history.txt for a list of all the moves'
 end
 
-puts main
+if ARGV[0] == '-nogui'
+  puts main
+else
+  require_relative 'gui'
+  GUI.gui_config
+  puts main
+  # GUI.gui_selection
+  # GUI.gui_history
+end

@@ -1,0 +1,1 @@
+cmd.exe /k cmd /c ruby lib/main.rb -nogui

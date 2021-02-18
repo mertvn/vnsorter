@@ -5,12 +5,11 @@
 ### Search
 
 - make releases.length > 1 title matching fuzzy somehow
-- Send all API requests at once (allsearch done, titlesearch left)
-- Handle throttling properly
+- Handle errors properly
 
 ### Extractor
 
-- Deal with multiple dates in filenames
+- Support files
 
 ### Organization
 
@@ -18,6 +17,7 @@
 
 ### GUI
 
+- 100% gui mode
 - Click on the release ID to open the vndb page
 - Ability to revert move(s) using move history
 - option to add a file? to vn folders to mark unplayed VNs etc.
@@ -25,12 +25,10 @@
 
 ### console
 
-make non-gui mode
 - ask_user_producer
 
 ## maybe:
-
-- Extractor should support files as well
+- Deal with multiple dates in filenames
 - Support more than 25 options per title
 - Offline ver. using data dumps
 - Proper exception handling; skip if anything goes wrong
