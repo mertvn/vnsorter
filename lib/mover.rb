@@ -189,7 +189,11 @@ module Mover
 
   def move_files(origin, destination)
     puts "Moving #{origin}"
-    FileUtils.cp_r("#{origin}/.", destination, verbose: false, noop: false)
-    FileUtils.remove_dir(origin)
+    if File.directory?(origin)
+      FileUtils.cp_r("#{origin}/.", destination, verbose: false, noop: false)
+      FileUtils.remove_dir(origin)
+    else
+      FileUtils.mv(origin.to_s, destination, verbose: false, noop: false)
+    end
   end
 end

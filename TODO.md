@@ -9,7 +9,7 @@
 
 ### Extractor
 
-- Support files
+
 
 ### Organization
 
