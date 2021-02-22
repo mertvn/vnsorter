@@ -16,16 +16,16 @@ module GUISelection
     @listbox = builder.get_object('listbox')
     map.each do |item|
       row = Gtk::ListBoxRow.new
-      box = Gtk::Box.new(:horizontal, 30)
-
-      label = Gtk::Label.new(item.to_s)
-      label.show
-      box.add(label)
+      box = Gtk::Box.new(:horizontal, 10)
 
       checkbutton = Gtk::CheckButton.new
       checkbutton.active = true
       checkbutton.show
       box.add(checkbutton)
+
+      label = Gtk::Label.new(item.to_s)
+      label.show
+      box.add(label)
 
       box.show
       row.add(box)
@@ -37,27 +37,14 @@ module GUISelection
     Gtk.main
   end
 
-  # so much bullshit to do something that should be pretty simple
   def write_planned_moves
-    @new_planned_moves = []
+    @final = []
     @listbox.each do |row|
       row.each do |box|
-        box.each do |item|
-          next if item.instance_of?(Gtk::Label)
+        # i hope GTK guarantees that the order of the children won't change
+        next unless box.children[0].active?
 
-          # puts item.active? ? 'active' : 'inactive'
-          @new_planned_moves << (item.active? ? box : 'skip')
-        end
-      end
-    end
-    @final = []
-    @new_planned_moves.each do |box|
-      next if box == 'skip'
-
-      box.each do |item|
-        next if item.instance_of?(Gtk::CheckButton)
-
-        @final << item.text.gsub('=>', ':')
+        @final << box.children[1].text.gsub('=>', ':')
       end
     end
     $FINAL = (@final.map { |combination| JSON.parse(combination) })
