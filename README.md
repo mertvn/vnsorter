@@ -6,12 +6,12 @@ This is a tool to help you organize your VN folder(s). It was mainly created to 
 
 The way it works is that it tries to extract the date and producer fields from the filename, and performs a search using only those two first. If there is a VN on the VNDB matching those, then it will automatically be set as matched. If there is no match, or if the date and producer name can't be found, then it will try to match the title instead, and ask you to select the correct release among the results. You may choose to skip the VN instead, if you don't see the correct VN listed.
 
-After all of the folders/files have been matched, or skipped, the tool will show your matches, ~~and here you can select/deselect any of the VNs~~. After you confirm, the tool will start moving the files to their destinations. After that's done you will get a log of all of the successful and unsuccessful moves, ~~and will have the option to revert them~~.
+After all of the folders/files have been matched, or skipped, the tool will show your matches, and here you can select/deselect any of the VNs (GUI mode only). After you confirm, the tool will start moving the files to their destinations. After that's done you will get a log of all of the successful and unsuccessful moves, ~~and will have the option to revert them~~.
 
 You should probably try it with a few VNs before using it for your entire downloads folder.
 ## Usage
 
-1. Install Ruby >2.7 [Windows](https://rubyinstaller.org/downloads/)
+1. Install Ruby >2.7 [Windows](https://rubyinstaller.org/downloads/) [GNU/Linux](https://www.ruby-lang.org/en/documentation/installation/)
 
 2. (Optional) Install GTK3 with `gem install gtk3` if you want to use the GUI
 
@@ -128,4 +128,3 @@ Open config.json in a text editor and change these values to your liking:
 ## License
 
 Licensed under GPLv3. Gets data from the VNDB API under [Open Database License v1.0](https://opendatacommons.org/licenses/odbl/1-0/)
-

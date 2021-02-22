@@ -40,6 +40,7 @@ def main
   return 'Nothing to sort!' if planned_moves.empty?
 
   display_planned_moves(planned_moves)
+  planned_moves = $FINAL unless ARGV[0] == '-nogui'
 
   puts 'Press Enter to proceed or close the window to abort'
   input = Input.get_input until input == ''
@@ -134,11 +135,16 @@ def plan_moves(map, library_folder)
 end
 
 def display_planned_moves(planned_moves)
-  puts ''
-  puts 'Planned moves:'
-  planned_moves.each do |planned_move|
-    puts planned_move
+  if ARGV[0] == '-nogui'
     puts ''
+    puts 'Planned moves:'
+    planned_moves.each do |planned_move|
+      puts planned_move
+      puts ''
+    end
+  else
+    GUISelection.gui_selection(planned_moves)
+    planned_moves
   end
 end
 
@@ -176,9 +182,11 @@ end
 if ARGV[0] == '-nogui'
   puts main
 else
-  require_relative 'gui'
-  GUI.gui_config
+  require 'gtk3'
+  require_relative 'gui_config'
+  require_relative 'gui_selection'
+  GUIConfig.gui_config
   puts main
-  # GUI.gui_selection
+
   # GUI.gui_history
 end

@@ -1,9 +1,9 @@
-module GUI
+module GUIConfig
   extend self
-  require 'gtk3'
+  # require 'gtk3'
 
   def gui_config
-    builder_file = './gui.glade'
+    builder_file = './gui/gui_config.glade'
     builder = Gtk::Builder.new(file: builder_file)
     window = builder.get_object('window')
     window.set_title('vnsorter')

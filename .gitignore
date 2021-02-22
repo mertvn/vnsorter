@@ -1,6 +1,4 @@
 .rubocop.yml
 move_history.txt
-gui.glade~
-
-/tosort/
-/sorted/
+*.glade~
+\#*.glade#
