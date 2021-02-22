@@ -1,7 +1,7 @@
 module Input
   extend self
   def get_input
-    gets.chomp.strip.downcase
+    $stdin.gets.chomp.strip.downcase
   end
 
   def valid_input?(input)

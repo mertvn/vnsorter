@@ -39,10 +39,11 @@ def main
   planned_moves = plan_moves(map, library_folder)
   return 'Nothing to sort!' if planned_moves.empty?
 
+  puts 'Displaying planned moves'
   display_planned_moves(planned_moves)
   planned_moves = $FINAL unless ARGV[0] == '-nogui'
 
-  puts 'Press Enter to proceed or close the window to abort'
+  puts 'Press Enter to execute displayed moves or close the window to abort'
   input = Input.get_input until input == ''
 
   execute_moves(planned_moves)
