@@ -116,7 +116,8 @@ Open config.json in a text editor and change these values to your liking:
 ### You probably want to leave these on their default settings
  "smart_querying": true or false  
   
-    If there any Japanese characters in the filename, search only by original title, if not then search only by Latin title.
+    If there any Japanese characters in the filename, search only by original title,
+    if not then search only by Latin title.
     Set this to false if you are searching non-Japanese games.
 
   "blacklist": true or false  
