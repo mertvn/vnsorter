@@ -106,6 +106,12 @@ Open config.json in a text editor and change these values to your liking:
   "full_title_only": true or false  
 
     only search the full title of the VN  
+  "extra_file": string  
+
+    name of the (empty) extra file to be created at the destinations
+    useful for keeping track of games you haven't played yet
+    e.g. !unplayed
+    leave empty to not create any extra files
     
 ### You probably want to leave these on their default settings
  "smart_querying": true or false  

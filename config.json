@@ -1,6 +1,6 @@
 {
-  "source": "K:\\tosort",
-  "destination": "K:\\sorted",
+  "source": "J:\\tosort",
+  "destination": "J:\\sorted",
   "choice_naming": 0,
   "choice_producer": 0,
   "choice_date": 0,
@@ -11,6 +11,7 @@
   "languages": [
 
   ],
+  "extra_file": "",
   "ignore_parentheses": true,
   "blacklist": true,
   "smart_querying": true,

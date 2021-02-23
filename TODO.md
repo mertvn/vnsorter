@@ -4,7 +4,6 @@
 
 ### Search
 
-- make releases.length > 1 title matching fuzzy somehow
 - Handle errors properly
 
 ### Extractor
@@ -20,14 +19,15 @@
 - 100% gui mode
 - Click on the release ID to open the vndb page
 - Ability to revert move(s) using move history
-- option to add a file? to vn folders to mark unplayed VNs etc.
 - don't proceed unless sort button was pressed
 
 ### console
 
-- ask_user_producer
+
 
 ## maybe:
+- ask_user_producer
+- make releases.length > 1 title matching fuzzy
 - Deal with multiple dates in filenames
 - Support more than 25 options per title
 - Offline ver. using data dumps

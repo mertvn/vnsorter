@@ -74,6 +74,7 @@ module GUIConfig
     @toggle_full_title_only = builder.get_object('toggle_full_title_only')
 
     @entry_languages = builder.get_object('entry_languages')
+    @entry_extra_file = builder.get_object('entry_extra_file')
 
     @toggle_ignore_parentheses = builder.get_object('toggle_ignore_parentheses')
     @toggle_blacklist = builder.get_object('toggle_blacklist')
@@ -109,7 +110,7 @@ module GUIConfig
     @toggle_full_title_only.active = prev_config['full_title_only']
 
     @entry_languages.text = prev_config['languages'].join
-
+    @entry_extra_file.text = prev_config['extra_file']
     @toggle_ignore_parentheses.active = prev_config['ignore_parentheses']
     @toggle_blacklist.active = prev_config['blacklist']
     @toggle_smart_querying.active = prev_config['smart_querying']
@@ -143,6 +144,7 @@ module GUIConfig
       'full_title_only' => @toggle_full_title_only.active?,
 
       'languages' => @languages,
+      'extra_file' => @entry_extra_file.text,
 
       'ignore_parentheses' => @toggle_ignore_parentheses.active?,
       'blacklist' => @toggle_blacklist.active?,

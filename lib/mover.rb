@@ -19,6 +19,7 @@ module Mover
       destination = item[1]
 
       create_folder(destination)
+      create_extra_file(destination) if $CONFIG['extra_file'] != ''
       move_files(origin, destination)
     end
   end
@@ -185,6 +186,10 @@ module Mover
     # #mkdir_p checks for existence so we don't need to
     # puts "Creating folder: #{destination}"
     FileUtils.mkdir_p(destination, verbose: false, noop: false)
+  end
+
+  def create_extra_file(destination)
+    File.new("#{destination}/#{$CONFIG['extra_file']}", 'w')
   end
 
   def move_files(origin, destination)
