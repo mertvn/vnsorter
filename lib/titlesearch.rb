@@ -19,8 +19,8 @@ module TitleSearch
     title_final = (REQ_RELEASE_TITLE + title_filter + title_options).encode('UTF-8')
 
     VNDB.send(title_final)
-    # puts JSON.pretty_generate(parsed = VNDB.parse(VNDB.read))
     parsed = VNDB.parse(VNDB.read)
+    # puts JSON.pretty_generate(parsed)
     parsed['items'].each do |release|
       @releases << { id: release['id'], date: release['released'], title: release['title'],
                      original: release['original'], languages: release['languages'], vn: release['vn'] }

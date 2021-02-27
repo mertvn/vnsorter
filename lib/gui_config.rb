@@ -109,7 +109,7 @@ module GUIConfig
     @toggle_autoskip.active = prev_config['autoskip']
     @toggle_full_title_only.active = prev_config['full_title_only']
 
-    @entry_languages.text = prev_config['languages'].join
+    @entry_languages.text = prev_config['languages'].join(",")
     @entry_extra_file.text = prev_config['extra_file']
     @toggle_ignore_parentheses.active = prev_config['ignore_parentheses']
     @toggle_blacklist.active = prev_config['blacklist']

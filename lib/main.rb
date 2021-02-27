@@ -19,6 +19,7 @@ def main
 
   ### EXTRACT ###
   begin
+    # p extracted = Extractor.extract(folder_to_sort)
     p extracted = Extractor.extract(folder_to_sort)
   rescue StandardError => e
     puts e

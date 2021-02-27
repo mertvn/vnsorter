@@ -4,11 +4,7 @@
 
 ### Search
 
-- Handle errors properly
-
 ### Extractor
-
-
 
 ### Organization
 
@@ -23,9 +19,9 @@
 
 ### console
 
-
-
 ## maybe:
+
+- title + date and producer + title searches
 - ask_user_producer
 - make releases.length > 1 title matching fuzzy
 - Deal with multiple dates in filenames

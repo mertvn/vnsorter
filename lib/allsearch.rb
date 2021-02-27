@@ -40,7 +40,7 @@ module AllSearch
 
     VNDB.send(producer_final)
     parsed_producers << VNDB.parse(VNDB.read)
-    puts JSON.pretty_generate(parsed_producers)
+    # puts JSON.pretty_generate(parsed_producers)
 
     # the naming could be better here
     # keep the repetition with get_releases_with_producer_and_date
@@ -69,7 +69,7 @@ module AllSearch
 
     VNDB.send(release_all_final)
     parsed_releases << VNDB.parse(VNDB.read)
-    puts JSON.pretty_generate(parsed_releases)
+    # puts JSON.pretty_generate(parsed_releases)
 
     # the naming could be better here
     # keep the repetition with get_producer_ids
