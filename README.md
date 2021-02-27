@@ -8,7 +8,7 @@ The way it works is that it tries to extract the date and producer fields from t
 
 After all of the folders/files have been matched, or skipped, the tool will show your matches, and here you can select/deselect any of the VNs (GUI mode only). After you confirm, the tool will start moving the files to their destinations. After that's done you will get a log of all of the successful and unsuccessful moves, ~~and will have the option to revert them~~.
 
-You should probably try it with a few VNs before using it for your entire downloads folder.
+You should probably try it with a few VNs before using it for your entire downloads folder. Recommended usage is to run it twice, first with autoskip, then without.
 ## Usage
 
 1. Install Ruby >2.7 [Windows](https://rubyinstaller.org/downloads/) [GNU/Linux](https://www.ruby-lang.org/en/documentation/installation/)
