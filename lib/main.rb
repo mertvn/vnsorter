@@ -20,7 +20,7 @@ def main
   ### EXTRACT ###
   begin
     # p extracted = Extractor.extract(folder_to_sort)
-    p extracted = Extractor.extract(folder_to_sort)
+    extracted = Extractor.extract(folder_to_sort)
   rescue StandardError => e
     puts e
     abort('Could not extract -- did you select a valid location?')

@@ -27,6 +27,8 @@ module Search
         puts ''
         return release
       end
+
+      # Couldn't match automatically, asking user unless autoskip is enabled
       return 'autoskip' if $CONFIG['autoskip']
 
       puts 'Multiple releases found by the same producer on the same date'
@@ -63,7 +65,7 @@ module Search
       return releases[0]
     end
 
-    # ask user to select the correct release if VN mode isn't true
+    # Couldn't match automatically, asking user unless autoskip is enabled
     return 'autoskip' if $CONFIG['autoskip']
 
     display_query_results(releases)
