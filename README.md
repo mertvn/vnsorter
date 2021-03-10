@@ -8,6 +8,8 @@ After all of the folders/files have been matched, or skipped, the tool will show
 
 You should probably try it with a few VNs before using it for your entire downloads folder. Recommended usage is to run it twice, first with autoskip, then without.
 
+If a move operation fails you might need to manually delete the empty folder created at the destination.
+
 ## Usage
 
 1. Install Ruby >2.7 [Windows](https://rubyinstaller.org/downloads/) [GNU/Linux](https://www.ruby-lang.org/en/documentation/installation/)
@@ -61,6 +63,7 @@ Open config.json in a text editor and change these values to your liking:
 
 "choice_title": 0 or 1 or 2 or 3
 
+    Using VN titles instead of release titles enables "VN mode" which makes automatic matching a lot better.
     0: Romaji release title
     1: Original release title
     2: Romaji VN title

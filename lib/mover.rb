@@ -18,7 +18,7 @@ module Mover
       origin = item[0]
       destination = item[1]
 
-      create_folder(destination)
+      # create_folder(destination)
       create_extra_file(destination) if $CONFIG['extra_file'] != ''
       move_files(origin, destination)
     end
@@ -183,8 +183,7 @@ module Mover
   end
 
   def create_folder(destination)
-    # #mkdir_p checks for existence so we don't need to
-    # puts "Creating folder: #{destination}"
+    puts "Creating folder: #{destination}"
     FileUtils.mkdir_p(destination, verbose: false, noop: false)
   end
 
@@ -192,13 +191,43 @@ module Mover
     File.new("#{destination}/#{$CONFIG['extra_file']}", 'w')
   end
 
+  #   def move_files(origin, destination)
+  #     puts "Moving #{origin}"
+  #     if File.directory?(origin)
+  #       FileUtils.cp_r("#{origin}/.", destination, verbose: false, noop: false)
+  #       FileUtils.remove_dir(origin)
+  #     else
+  #       FileUtils.mv(origin.to_s, destination, verbose: false, noop: false)
+  #     end
+  #   end
+
   def move_files(origin, destination)
+    origin = origin.encode('UTF-8')
+    destination = destination.encode('UTF-8')
     puts "Moving #{origin}"
+
+    create_folder(destination) unless File.directory?(destination) || File.file?(origin)
     if File.directory?(origin)
-      FileUtils.cp_r("#{origin}/.", destination, verbose: false, noop: false)
-      FileUtils.remove_dir(origin)
+      Dir.entries(origin).each do |file|
+        file = file.encode('UTF-8')
+        next if ['.', '..'].include?(file)
+
+        #  puts "file is #{file}"
+        if File.directory?("#{origin}/#{file}")
+          create_folder("#{destination}/#{file}") unless File.directory?("#{destination}/#{file}")
+          # puts 'recursing'
+
+          move_files("#{origin}/#{file}", "#{destination}/#{file}")
+        else
+          #  puts "Mv INSIDE to dest: #{destination}"
+          FileUtils.mv("#{origin}/#{file}", "#{destination}/#{file}", verbose: true, noop: false)
+        end
+      end
     else
+      # puts "Mv OUTSIDE to dest: #{destination}"
+      create_folder(destination)
       FileUtils.mv(origin.to_s, destination, verbose: false, noop: false)
     end
+    FileUtils.remove_dir(origin) if File.directory?(origin)
   end
 end
