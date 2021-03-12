@@ -32,6 +32,8 @@ def main
   map = start_search(extracted)
   VNDB.disconnect
 
+  File.open('map.json', 'w') { |f| f.write JSON.pretty_generate(map) }
+
   ### MOVE ###
   # puts map
   @move_history = []

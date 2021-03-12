@@ -4,9 +4,9 @@
   "choice_naming": 0,
   "choice_producer": 0,
   "choice_date": 0,
-  "choice_title": 3,
+  "choice_title": 1,
   "discard_publishers": true,
-  "autoskip": true,
+  "autoskip": false,
   "full_title_only": false,
   "languages": [
 
