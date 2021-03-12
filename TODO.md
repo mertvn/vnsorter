@@ -30,5 +30,5 @@
 - Proper exception handling; skip if anything goes wrong
 - Fix Y2k80 problem
 - support non-YYMMDD dates in filenames
-- save/load from file
+- load from map.json
 - caching

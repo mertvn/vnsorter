@@ -13,6 +13,7 @@ require_relative 'mover'
 def main
   ### CONFIGURE ###
   $CONFIG = JSON.parse(File.read('config.json'))
+  @time = Time.now.strftime('%Y-%m-%d_%H-%M-%S')
   folder_to_sort = $CONFIG['source'].freeze
   library_folder = $CONFIG['destination'].freeze
   abort('Invalid location') if folder_to_sort.nil? || library_folder.nil?
@@ -25,6 +26,7 @@ def main
     puts e
     abort('Could not extract -- did you select a valid location?')
   end
+  return 'Nothing to sort!' if extracted.empty?
 
   ### SEARCH ###
   VNDB.connect
@@ -32,7 +34,7 @@ def main
   map = start_search(extracted)
   VNDB.disconnect
 
-  File.open('map.json', 'w') { |f| f.write JSON.pretty_generate(map) }
+  File.open("map #{@time}.json", 'w') { |f| f.write JSON.pretty_generate(map) }
 
   ### MOVE ###
   # puts map
@@ -169,7 +171,7 @@ def execute_moves(planned_moves)
 end
 
 def write_move_logs
-  file = File.new 'move_history.txt', 'w'
+  file = File.new "move_history #{@time}.txt", 'w'
   file.puts 'MOVED: '
   @move_history.each do |move|
     file.puts move
@@ -180,7 +182,7 @@ def write_move_logs
     file.puts move
   end
   puts ''
-  puts 'See move_history.txt for a list of all the moves'
+  puts "See move_history #{@time}.txt for a list of all the moves"
 end
 
 if ARGV[0] == '-nogui'
