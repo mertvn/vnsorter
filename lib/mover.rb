@@ -7,7 +7,7 @@ module Mover
     # p origin
     vn = combination[1]
 
-    destination = (vn == 'skip' ? 'skip' : mark_destination(vn).encode('UTF-8'))
+    destination = (vn == 'skip' ? 'skip' : mark_destination(origin, vn).encode('UTF-8'))
 
     destination == 'skip' ? 'skip' : { origin => "#{library_folder}/" + destination }
   end
@@ -24,7 +24,7 @@ module Mover
     end
   end
 
-  def mark_destination(vn)
+  def mark_destination(origin, vn)
     # p vn
 
     # make user select a single producer (unfinished)
@@ -48,7 +48,7 @@ module Mover
     date = mark_date(vn)
     # puts "date was marked as: #{date}"
 
-    title = mark_title(vn)
+    title = mark_title(origin, vn)
     return 'skip' if title == 'skip'
 
     title = replace_special_characters(title)
@@ -135,10 +135,10 @@ module Mover
     end
   end
 
-  def mark_title(vn)
+  def mark_title(origin, vn)
     if ($CONFIG['choice_title'] == 2) || ($CONFIG['choice_title'] == 3)
       vn = if vn[:vn].length > 1
-             ask_user_vn(vn)
+             ask_user_vn(origin, vn)
            else
              vn[:vn][0]
            end
@@ -163,12 +163,13 @@ module Mover
     end
   end
 
-  def ask_user_vn(vn)
+  def ask_user_vn(origin, vn)
     puts ''
     puts 'Multiple VNs connected to the same release. Select one or "skip"'
     vn[:vn].each_with_index do |vn_candidate, index|
       puts "#{index}: #{vn_candidate['title']} (#{vn_candidate['original']}) https://vndb.org/v#{vn_candidate['id']}"
     end
+    puts "Folder: #{origin}"
     input = Input.get_input until Input.valid_input?(input)
     case input
     when 'next'
