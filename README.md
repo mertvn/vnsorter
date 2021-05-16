@@ -61,6 +61,7 @@ Open config.json in a text editor and change these values to your liking:
 
 "choice_title": 0 or 1 or 2 or 3
 
+    Using VN titles enables "VN mode" which makes automatic matching a lot better.
     0: Romaji release title
     1: Original release title
     2: Romaji VN title
