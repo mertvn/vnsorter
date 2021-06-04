@@ -34,7 +34,8 @@ def main
   map = start_search(extracted)
   VNDB.disconnect
 
-  File.open("map #{@time}.json", 'w') { |f| f.write JSON.pretty_generate(map) }
+  Dir.mkdir('./logs') unless Dir.exist?('./logs')
+  File.open("./logs/map #{@time}.json", 'w') { |f| f.write JSON.pretty_generate(map) }
 
   ### MOVE ###
   # puts map
@@ -201,7 +202,7 @@ def execute_moves(planned_moves)
 end
 
 def write_move_logs
-  file = File.new "move_history #{@time}.txt", 'w'
+  file = File.new "./logs/move_history #{@time}.txt", 'w'
   file.puts 'MOVED: '
   @move_history.each do |move|
     file.puts move
@@ -212,7 +213,7 @@ def write_move_logs
     file.puts move
   end
   puts ''
-  puts "See move_history #{@time}.txt for a list of all the moves"
+  puts "See logs/move_history #{@time}.txt for a list of all the moves"
 end
 
 if ARGV[0] == '-nogui'
