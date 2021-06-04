@@ -35,7 +35,7 @@ module VNDB
     if message[0..4] == 'error'
       parsed = parse(message)
       puts "throttled...waiting #{parsed['minwait']} seconds"
-      sleep(parsed['minwait'])
+      sleep(parsed['minwait'] || 70)
       send(@last)
       read
     else
