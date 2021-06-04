@@ -387,6 +387,7 @@
                 <property name="receives-default">True</property>
                 <property name="margin-start">10</property>
                 <property name="margin-end">10</property>
+                <property name="active">True</property>
               </object>
               <packing>
                 <property name="left-attach">1</property>
@@ -637,7 +638,19 @@ leave empty to not create any extra files</property>
               </packing>
             </child>
             <child>
-              <placeholder/>
+              <object class="GtkToggleButton" id="toggle_vnsorter_file">
+                <property name="label" translatable="yes">Use .vnsorter.json files</property>
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="receives-default">True</property>
+                <property name="margin-start">10</property>
+                <property name="margin-end">10</property>
+                <property name="active">True</property>
+              </object>
+              <packing>
+                <property name="left-attach">0</property>
+                <property name="top-attach">0</property>
+              </packing>
             </child>
             <child>
               <placeholder/>

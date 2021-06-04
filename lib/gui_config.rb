@@ -76,6 +76,8 @@ module GUIConfig
     @entry_languages = builder.get_object('entry_languages')
     @entry_extra_file = builder.get_object('entry_extra_file')
 
+    @toggle_vnsorter_file = builder.get_object('toggle_vnsorter_file')
+
     @toggle_ignore_parentheses = builder.get_object('toggle_ignore_parentheses')
     @toggle_blacklist = builder.get_object('toggle_blacklist')
     @toggle_smart_querying = builder.get_object('toggle_smart_querying')
@@ -111,6 +113,9 @@ module GUIConfig
 
     @entry_languages.text = prev_config['languages'].join(',')
     @entry_extra_file.text = prev_config['extra_file']
+
+    @toggle_vnsorter_file.active = prev_config['vnsorter_file']
+
     @toggle_ignore_parentheses.active = prev_config['ignore_parentheses']
     @toggle_blacklist.active = prev_config['blacklist']
     @toggle_smart_querying.active = prev_config['smart_querying']
@@ -145,6 +150,8 @@ module GUIConfig
 
       'languages' => @languages,
       'extra_file' => @entry_extra_file.text,
+
+      'vnsorter_file' => @toggle_vnsorter_file.active?,
 
       'ignore_parentheses' => @toggle_ignore_parentheses.active?,
       'blacklist' => @toggle_blacklist.active?,

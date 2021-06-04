@@ -3,3 +3,4 @@ move_history*.txt
 map*.json
 *.glade~
 \#*.glade#
+.idea

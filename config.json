@@ -12,6 +12,7 @@
 
   ],
   "extra_file": "",
+  "vnsorter_file": true,
   "ignore_parentheses": true,
   "blacklist": true,
   "smart_querying": true,
