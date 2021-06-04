@@ -8,18 +8,15 @@
 
 ### Organization
 
-- Find better names for things in general (esp. "map", "selected", "title" and "subtitle", "search" and "query")
-
 ### GUI
 
 - 100% gui mode
-- Click on the release ID to open the vndb page
 - Ability to revert move(s) using move history
 - don't proceed unless sort button was pressed
 
 ### console
 
-## maybe:
+## Improvements:
 
 - title + date and producer + title searches
 - ask_user_producer
@@ -30,5 +27,3 @@
 - Proper exception handling; skip if anything goes wrong
 - Fix Y2k80 problem
 - support non-YYMMDD dates in filenames
-- load from map.json
-- caching

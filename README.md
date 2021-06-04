@@ -8,6 +8,7 @@ After all of the folders/files have been matched, or skipped, the tool will show
 
 You should probably try it with a few VNs before using it for your entire downloads folder. Recommended usage is to run it twice, first with autoskip, then without.
 
+You might need to delete leftover (empty) folders manually after moving, depending on how your folders are structured.
 ## Usage
 
 1. Install Ruby >2.7 [Windows](https://rubyinstaller.org/downloads/) [GNU/Linux](https://www.ruby-lang.org/en/documentation/installation/)
@@ -117,6 +118,13 @@ Open config.json in a text editor and change these values to your liking:
     useful for keeping track of games you haven't played yet
     e.g. !unplayed
     leave empty to not create any extra files
+
+"vnsorter_file": true or false
+
+    Create a !vnsorter.json file inside the directory of a VN match
+    you can use these files on later runs to match folders to VNs without having to
+    query VNDB again
+    this setting controls both the creation and the processing of !vnsorter.json files
 
 ### You probably want to leave these on their default settings
 

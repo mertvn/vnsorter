@@ -65,23 +65,10 @@ def start_search(extracted)
   extracted.each do |folder|
     # p folder
 
-    # vnsorter_file_location = find_vnsorter_file(folder[:location])
-    # if vnsorter_file_location
-    #   vnsorter_file = File.read(vnsorter_file_location)
-    #   match = JSON.parse(vnsorter_file)
-    #
-    #   # https://stackoverflow.com/a/10786575
-    #   match.default_proc = proc { |h, k| h.key?(k.to_s) ? h[k.to_s] : nil }
-    #
-    #   map[vnsorter_file_location.chomp('/.vnsorter.json')] = match
-    #   puts 'Matched locally using .vnsorter.json file inside directory'
-    #   next
-    # end
-
     if folder[:vnsorter_file] && $CONFIG['vnsorter_file']
       match = folder[:vnsorter_file]
       map[folder[:location]] = match
-      puts 'Matched locally using .vnsorter.json file inside directory'
+      puts "Matched #{folder[:location]} locally using !vnsorter.json file"
       next
     end
 
@@ -143,15 +130,8 @@ def start_search(extracted)
   map
 end
 
-# def find_vnsorter_file(location)
-#   Dir.glob("#{location}/**/.vnsorter.json")[0]
-# rescue StandardError => e
-#   p e
-#   nil
-# end
-
 def create_vnsorter_file(location, match)
-  File.open("#{location}/.vnsorter.json", 'w') { |f| f.write JSON.pretty_generate(match) }
+  File.open("#{location}/!vnsorter.json", 'w') { |f| f.write JSON.pretty_generate(match) }
 end
 
 def plan_moves(map, library_folder)

@@ -88,12 +88,12 @@ module Mover
   private
 
   # mkdir_p and cp_r don't like "?"
-  # backslash needs to be escaped AND at the end of the string
-  # exclamation mark doesn't really need to be here
   def replace_special_characters(string)
     case $CONFIG['special_characters']
     when 0
       # replace with Japanese variants
+      # backslash needs to be escaped AND at the end of the string
+      # exclamation mark doesn't really need to be here
       string.tr(':/<>|*"!?\\', '：／＜＞｜＊”！？￥')
     when 1
       # replace with whitespace
@@ -193,13 +193,36 @@ module Mover
     File.new("#{destination}/#{$CONFIG['extra_file']}", 'w')
   end
 
+  #   def move_files(origin, destination)
+  #     puts "Moving #{origin}"
+  #     if File.directory?(origin)
+  #       FileUtils.cp_r("#{origin}/.", destination, verbose: false, noop: false)
+  #       FileUtils.remove_dir(origin)
+  #     else
+  #       FileUtils.mv(origin.to_s, destination, verbose: false, noop: false)
+  #     end
+  #   end
+
   def move_files(origin, destination)
-    puts "Moving #{origin}"
+    origin = origin.encode('UTF-8')
+    destination = destination.encode('UTF-8')
+
     if File.directory?(origin)
-      FileUtils.cp_r("#{origin}/.", destination, verbose: false, noop: false)
+      Dir.entries(origin).each do |file|
+        next if ['.', '..'].include?(file)
+
+        file = file.encode('UTF-8')
+        # puts "Mv directory from #{File.join(origin, file)} to #{File.join(destination, File.basename(file))}"
+        FileUtils.move File.join(origin, file), File.join(destination, File.basename(file))
+      end
       FileUtils.remove_dir(origin)
+    elsif File.file?(origin)
+      # puts "Mv file from #{origin} to #{File.join(destination, File.basename(origin))}"
+      FileUtils.move origin, File.join(destination, File.basename(origin))
+    elsif !File.exist?(origin)
+      raise 'CAN\'T FIND FILE OR DIRECTORY TO BE MOVED (was probably moved somewhere else alongside its parent)'
     else
-      FileUtils.mv(origin.to_s, destination, verbose: false, noop: false)
+      raise 'Please create an issue on GitHub with your logs if you see this message'
     end
   end
 end

@@ -639,7 +639,7 @@ leave empty to not create any extra files</property>
             </child>
             <child>
               <object class="GtkToggleButton" id="toggle_vnsorter_file">
-                <property name="label" translatable="yes">Use .vnsorter.json files</property>
+                <property name="label" translatable="yes">Use !vnsorter.json files</property>
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="receives-default">True</property>

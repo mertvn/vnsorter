@@ -14,17 +14,17 @@ module Extractor
     min_folder_length = $CONFIG['min_folder_length']
     min_field_length = $CONFIG['min_field_length']
 
-    Dir.entries(directory).each do |folder|
+    Dir.entries(directory, encoding: 'UTF-8').each do |folder|
       next if folder.length < min_folder_length
-      next if folder == ".vnsorter.json"
+      next if folder == '!vnsorter.json'
 
       date = []
       producer = []
       title = []
       vnsorter_file = nil
 
-      if File.exist?("#{directory}/#{folder}/.vnsorter.json")
-        vnsorter_file = JSON.parse(File.read("#{directory}/#{folder}/.vnsorter.json"))
+      if File.exist?("#{directory}/#{folder}/!vnsorter.json")
+        vnsorter_file = JSON.parse(File.read("#{directory}/#{folder}/!vnsorter.json"))
         # https://stackoverflow.com/a/10786575
         vnsorter_file.default_proc = proc { |h, k| h.key?(k.to_s) ? h[k.to_s] : nil }
       end

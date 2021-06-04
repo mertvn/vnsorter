@@ -1,6 +1,5 @@
 .rubocop.yml
-move_history*.txt
-map*.json
+/logs/*
 *.glade~
 \#*.glade#
 .idea
