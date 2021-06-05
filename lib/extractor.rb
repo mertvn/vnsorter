@@ -17,6 +17,7 @@ module Extractor
     Dir.entries(directory, encoding: 'UTF-8').each do |folder|
       next if folder.length < min_folder_length
       next if folder == '!vnsorter.json'
+      next unless ['', '.zip', '.rar', '.7z'].include?(File.extname(folder))
 
       date = []
       producer = []
@@ -29,7 +30,6 @@ module Extractor
         vnsorter_file.default_proc = proc { |h, k| h.key?(k.to_s) ? h[k.to_s] : nil }
       end
 
-      # p folder.encode('UTF-8')
       # add whitespace after brackets,
       # replace periods with whitespace,
       # split by whitespace, but keep the whitespace if it's inside brackets or parentheses

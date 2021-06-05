@@ -90,7 +90,8 @@ def start_search(extracted)
         break
       else
         map[folder[:location]] = match
-        create_vnsorter_file(folder[:location], match) if File.directory?(folder[:location]) && $CONFIG['vnsorter_file']
+        create_vnsorter_file(folder[:location], match) if $CONFIG['vnsorter_file']
+        # && File.directory?(folder[:location])
         next
       end
     end
@@ -120,7 +121,8 @@ def start_search(extracted)
         break
       else
         map[folder[:location]] = match
-        create_vnsorter_file(folder[:location], match) if File.directory?(folder[:location]) && $CONFIG['vnsorter_file']
+        create_vnsorter_file(folder[:location], match) if $CONFIG['vnsorter_file']
+        # && File.directory?(folder[:location])
         # puts 'found match, breaking'
         break
       end
@@ -131,6 +133,8 @@ def start_search(extracted)
 end
 
 def create_vnsorter_file(location, match)
+  location = File.directory?(location) ? location : File.expand_path('..', location)
+
   File.open("#{location}/!vnsorter.json", 'w') { |f| f.write JSON.pretty_generate(match) }
 end
 
