@@ -20,7 +20,7 @@ module Mover
 
       create_folder(destination)
       create_extra_file(destination) if $CONFIG['extra_file'] != ''
-      move_files(origin, destination)
+      $CONFIG['move'] ? move_files(origin, destination) : copy_files(origin, destination)
     end
   end
 
@@ -193,15 +193,18 @@ module Mover
     File.new("#{destination}/#{$CONFIG['extra_file']}", 'w')
   end
 
-  #   def move_files(origin, destination)
-  #     puts "Moving #{origin}"
-  #     if File.directory?(origin)
-  #       FileUtils.cp_r("#{origin}/.", destination, verbose: false, noop: false)
-  #       FileUtils.remove_dir(origin)
-  #     else
-  #       FileUtils.mv(origin.to_s, destination, verbose: false, noop: false)
-  #     end
-  #   end
+  def copy_files(origin, destination)
+    origin = origin.encode('UTF-8')
+    destination = destination.encode('UTF-8')
+
+    # puts "Copying #{origin} to #{destination}"
+    if File.directory?(origin)
+      FileUtils.cp_r("#{origin}/.", destination, verbose: false, noop: false)
+      FileUtils.remove_dir(origin)
+    else
+      FileUtils.mv(origin.to_s, destination, verbose: false, noop: false)
+    end
+  end
 
   def move_files(origin, destination)
     origin = origin.encode('UTF-8')
@@ -212,17 +215,17 @@ module Mover
         next if ['.', '..'].include?(file)
 
         file = file.encode('UTF-8')
-        # puts "Mv directory from #{File.join(origin, file)} to #{File.join(destination, File.basename(file))}"
+        # puts "Moving directory from #{File.join(origin, file)} to #{File.join(destination, File.basename(file))}"
         FileUtils.move File.join(origin, file), File.join(destination, File.basename(file))
       end
       FileUtils.remove_dir(origin)
     elsif File.file?(origin)
-      # puts "Mv file from #{origin} to #{File.join(destination, File.basename(origin))}"
+      # puts "Moving file from #{origin} to #{File.join(destination, File.basename(origin))}"
       FileUtils.move origin, File.join(destination, File.basename(origin))
     elsif !File.exist?(origin)
-      raise 'CAN\'T FIND FILE OR DIRECTORY TO BE MOVED (was probably moved somewhere else alongside its parent)'
+      raise 'Can\'t find file or directory to be moved (was probably moved somewhere else alongside its parent)'
     else
-      raise 'Please create an issue on GitHub with your logs if you see this message'
+      raise 'Unknown error while moving'
     end
   end
 end

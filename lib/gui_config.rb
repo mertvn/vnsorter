@@ -77,6 +77,8 @@ module GUIConfig
     @entry_extra_file = builder.get_object('entry_extra_file')
 
     @toggle_vnsorter_file = builder.get_object('toggle_vnsorter_file')
+    @toggle_recursive_extraction = builder.get_object('toggle_recursive_extraction')
+    @toggle_move = builder.get_object('toggle_move')
 
     @toggle_ignore_parentheses = builder.get_object('toggle_ignore_parentheses')
     @toggle_blacklist = builder.get_object('toggle_blacklist')
@@ -115,6 +117,8 @@ module GUIConfig
     @entry_extra_file.text = prev_config['extra_file']
 
     @toggle_vnsorter_file.active = prev_config['vnsorter_file']
+    @toggle_recursive_extraction.active = prev_config['recursive_extraction']
+    @toggle_move.active = prev_config['move']
 
     @toggle_ignore_parentheses.active = prev_config['ignore_parentheses']
     @toggle_blacklist.active = prev_config['blacklist']
@@ -152,6 +156,8 @@ module GUIConfig
       'extra_file' => @entry_extra_file.text,
 
       'vnsorter_file' => @toggle_vnsorter_file.active?,
+      'recursive_extraction' => @toggle_recursive_extraction.active?,
+      'move' => @toggle_move.active?,
 
       'ignore_parentheses' => @toggle_ignore_parentheses.active?,
       'blacklist' => @toggle_blacklist.active?,

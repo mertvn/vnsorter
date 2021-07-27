@@ -9,7 +9,7 @@ module Extractor
     @found_vns
   end
 
-  # recursively search for vn folders or files (archives)
+  # search for vn folders or files (archives)
   def find(directory)
     min_folder_length = $CONFIG['min_folder_length']
     min_field_length = $CONFIG['min_field_length']
@@ -63,7 +63,7 @@ module Extractor
       # p found_vn
       @found_vns << found_vn
 
-      find(found_vn[:location]) if File.directory?(found_vn[:location])
+      find(found_vn[:location]) if $CONFIG['recursive_extraction'] && File.directory?(found_vn[:location])
     end
   end
 end

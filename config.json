@@ -13,6 +13,8 @@
   ],
   "extra_file": "",
   "vnsorter_file": true,
+  "recursive_extraction": false,
+  "move": false,
   "ignore_parentheses": true,
   "blacklist": true,
   "smart_querying": true,

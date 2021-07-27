@@ -29,8 +29,8 @@
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="receives-default">True</property>
-                <property name="margin-start">50</property>
-                <property name="margin-end">50</property>
+                <property name="margin-start">60</property>
+                <property name="margin-end">60</property>
               </object>
               <packing>
                 <property name="left-attach">1</property>
@@ -358,7 +358,7 @@
           </packing>
         </child>
         <child>
-          <!-- n-columns=3 n-rows=3 -->
+          <!-- n-columns=3 n-rows=4 -->
           <object class="GtkGrid" id="grid_settings">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
@@ -465,6 +465,49 @@ leave empty to not create any extra files</property>
               <packing>
                 <property name="left-attach">0</property>
                 <property name="top-attach">2</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkToggleButton" id="toggle_vnsorter_file">
+                <property name="label" translatable="yes">Use !vnsorter.json files</property>
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="receives-default">True</property>
+                <property name="margin-start">10</property>
+                <property name="margin-end">10</property>
+                <property name="active">True</property>
+              </object>
+              <packing>
+                <property name="left-attach">0</property>
+                <property name="top-attach">3</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkToggleButton" id="toggle_move">
+                <property name="label" translatable="yes">Move files instead of copying</property>
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="receives-default">True</property>
+                <property name="margin-start">10</property>
+                <property name="margin-end">10</property>
+              </object>
+              <packing>
+                <property name="left-attach">2</property>
+                <property name="top-attach">3</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkToggleButton" id="toggle_recursive_extraction">
+                <property name="label" translatable="yes">Recursive extraction (not recommended)</property>
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="receives-default">True</property>
+                <property name="margin-start">10</property>
+                <property name="margin-end">10</property>
+              </object>
+              <packing>
+                <property name="left-attach">1</property>
+                <property name="top-attach">3</property>
               </packing>
             </child>
             <child>
@@ -638,19 +681,7 @@ leave empty to not create any extra files</property>
               </packing>
             </child>
             <child>
-              <object class="GtkToggleButton" id="toggle_vnsorter_file">
-                <property name="label" translatable="yes">Use !vnsorter.json files</property>
-                <property name="visible">True</property>
-                <property name="can-focus">True</property>
-                <property name="receives-default">True</property>
-                <property name="margin-start">10</property>
-                <property name="margin-end">10</property>
-                <property name="active">True</property>
-              </object>
-              <packing>
-                <property name="left-attach">0</property>
-                <property name="top-attach">0</property>
-              </packing>
+              <placeholder/>
             </child>
             <child>
               <placeholder/>
