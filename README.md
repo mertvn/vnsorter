@@ -8,7 +8,6 @@ After all of the folders/files have been matched, or skipped, the tool will show
 
 You should probably try it with a few VNs before using it for your entire downloads folder. Recommended usage is to run it twice, first with autoskip, then without.
 
-You might need to delete leftover (empty) folders manually after moving, depending on how your folders are structured.
 ## Usage
 
 1. Install Ruby >2.7 [Windows](https://rubyinstaller.org/downloads/) [GNU/Linux](https://www.ruby-lang.org/en/documentation/installation/)
@@ -126,13 +125,21 @@ Open config.json in a text editor and change these values to your liking:
     query VNDB again
     this setting controls both the creation and the processing of !vnsorter.json files
 
+"recursive_extraction": true or false
+
+    Try to find VNs in the subfolders of your source folder. Not recommended, may result in weird bugs
+
+"move": true or false
+
+    Move files instead of copying
+
 ### You probably want to leave these on their default settings
 
 "smart_querying": true or false
 
     If there any Japanese characters in the filename, search only by original title,
     if not then search only by Latin title.
-    Set this to false if you are searching non-Japanese games.
+    Set this to false if you are sorting non-Japanese games.
 
 "blacklist": true or false
 
