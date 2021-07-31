@@ -17,7 +17,10 @@ module Extractor
     Dir.entries(directory, encoding: 'UTF-8').each do |folder|
       next if folder.length < min_folder_length
       next if folder == '!vnsorter.json'
-      next unless ['', '.zip', '.rar', '.7z'].include?(File.extname(folder))
+
+      if File.file?(folder)
+        next unless ['.zip', '.rar', '.7z'].include?(File.extname(folder))
+      end
 
       date = []
       producer = []
