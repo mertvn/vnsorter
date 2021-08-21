@@ -9,7 +9,15 @@ module GUISelection
     window.set_title('vnsorter')
     window.set_default_size(720, 540)
     window.signal_connect('destroy') do |_widget|
+      Gtk.main_quit
+      abort('Window was closed')
+    end
+
+    button_proceed = builder.get_object('button_proceed')
+    button_proceed.signal_connect('clicked') do |_widget|
       write_planned_moves
+
+      window.hide
       Gtk.main_quit
     end
 

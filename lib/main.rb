@@ -14,14 +14,14 @@ def main
   ### CONFIGURE ###
   $CONFIG = JSON.parse(File.read('config.json'))
   @time = Time.now.strftime('%Y-%m-%d_%H-%M-%S')
-  folder_to_sort = $CONFIG['source'].freeze
+  @folder_to_sort = $CONFIG['source'].freeze
   library_folder = $CONFIG['destination'].freeze
-  abort('Invalid location') if folder_to_sort.nil? || library_folder.nil?
+  abort('Invalid location') if @folder_to_sort.nil? || library_folder.nil?
 
   ### EXTRACT ###
   begin
     # p extracted = Extractor.extract(folder_to_sort)
-    extracted = Extractor.extract(folder_to_sort)
+    extracted = Extractor.extract(@folder_to_sort)
   rescue StandardError => e
     puts e
     abort('Could not extract -- did you select a valid location?')
@@ -48,9 +48,6 @@ def main
   puts 'Displaying planned moves'
   display_planned_moves(planned_moves)
   planned_moves = $FINAL unless ARGV[0] == '-nogui'
-
-  puts 'Press Enter to execute displayed moves or close the window to abort'
-  input = Input.get_input until input == ''
 
   execute_moves(planned_moves)
   write_move_logs
@@ -134,6 +131,7 @@ end
 
 def create_vnsorter_file(location, match)
   location = File.directory?(location) ? location : File.expand_path('..', location)
+  return if location == @folder_to_sort
 
   File.open("#{location}/!vnsorter.json", 'w') { |f| f.write JSON.pretty_generate(match) }
 end
@@ -163,6 +161,9 @@ def display_planned_moves(planned_moves)
       puts planned_move
       puts ''
     end
+
+    puts 'Press Enter to execute displayed moves or close the window to abort'
+    input = Input.get_input until input == ''
   else
     GUISelection.gui_selection(planned_moves)
     planned_moves

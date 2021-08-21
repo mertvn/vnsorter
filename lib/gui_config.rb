@@ -8,7 +8,10 @@ module GUIConfig
     window = builder.get_object('window')
     window.set_title('vnsorter')
     window.set_default_size(720, 540)
-    window.signal_connect('destroy') { Gtk.main_quit }
+    window.signal_connect('destroy') do |_widget|
+      Gtk.main_quit
+      abort('Window was closed')
+    end
 
     button_sort = builder.get_object('button_sort')
     button_sort.signal_connect('clicked') do |_widget|
@@ -17,7 +20,8 @@ module GUIConfig
       # puts 'Writing config'
       write_config(config_hash)
       # puts 'Closing window'
-      window.destroy
+      window.hide
+      Gtk.main_quit
     end
 
     get_objects(builder)
