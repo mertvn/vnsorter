@@ -12,7 +12,6 @@
 
 - 100% gui mode
 - Ability to revert move(s) using move history
-- don't proceed unless sort button was pressed
 
 ### console
 
