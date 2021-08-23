@@ -131,7 +131,7 @@ end
 
 def create_vnsorter_file(location, match)
   location = File.directory?(location) ? location : File.expand_path('..', location)
-  return if location == @folder_to_sort
+  return if File.realdirpath(location) == File.realdirpath(@folder_to_sort)
 
   File.open("#{location}/!vnsorter.json", 'w') { |f| f.write JSON.pretty_generate(match) }
 end
