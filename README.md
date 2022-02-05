@@ -134,7 +134,7 @@ Open config.json in a text editor and change these values to your liking:
 
     Download VN images when prompted to choose the right release (GUI mode only).
     Images may be NSFW.
-    Increases the request count, making you get throttled more often.
+    Increases the request count, causing you to get throttled more often.
 
 "smart_querying": true or false
 
