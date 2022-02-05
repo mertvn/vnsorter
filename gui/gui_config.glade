@@ -438,36 +438,6 @@ leave empty to search all languages</property>
               </packing>
             </child>
             <child>
-              <object class="GtkEntry" id="entry_extra_file">
-                <property name="visible">True</property>
-                <property name="can-focus">True</property>
-                <property name="tooltip-text" translatable="yes">name of the (empty) extra file to be created at the destinations
-useful for keeping track of games you haven't played yet
-e.g. !unplayed
-leave empty to not create any extra files</property>
-                <property name="margin-top">10</property>
-                <property name="margin-bottom">5</property>
-                <property name="placeholder-text" translatable="yes">none</property>
-              </object>
-              <packing>
-                <property name="left-attach">1</property>
-                <property name="top-attach">2</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkLabel" id="label_extra_file">
-                <property name="visible">True</property>
-                <property name="can-focus">False</property>
-                <property name="margin-top">10</property>
-                <property name="margin-bottom">5</property>
-                <property name="label" translatable="yes">Extra file:</property>
-              </object>
-              <packing>
-                <property name="left-attach">0</property>
-                <property name="top-attach">2</property>
-              </packing>
-            </child>
-            <child>
               <object class="GtkToggleButton" id="toggle_vnsorter_file">
                 <property name="label" translatable="yes">Use !vnsorter.json files</property>
                 <property name="visible">True</property>
@@ -509,6 +479,24 @@ leave empty to not create any extra files</property>
                 <property name="left-attach">1</property>
                 <property name="top-attach">3</property>
               </packing>
+            </child>
+            <child>
+              <object class="GtkToggleButton" id="toggle_get_image">
+                <property name="label" translatable="yes">Get VN image (GUI mode only)</property>
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="receives-default">True</property>
+                <property name="margin-start">10</property>
+                <property name="margin-end">10</property>
+                <property name="active">True</property>
+              </object>
+              <packing>
+                <property name="left-attach">0</property>
+                <property name="top-attach">2</property>
+              </packing>
+            </child>
+            <child>
+              <placeholder/>
             </child>
             <child>
               <placeholder/>

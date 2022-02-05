@@ -11,6 +11,7 @@
 ### GUI
 
 - 100% gui mode
+- Manual button for gui_choose
 - Ability to revert move(s) using move history
 
 ### console

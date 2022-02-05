@@ -201,12 +201,15 @@ def write_move_logs
   puts "See logs/move_history #{@time}.txt for a list of all the moves"
 end
 
+$GUI = true
 if ARGV[0] == '-nogui'
+  $GUI = false
   puts main
 else
   require 'gtk3'
   require_relative 'gui_config'
   require_relative 'gui_selection'
+  require_relative 'gui_choose'
   GUIConfig.gui_config
   puts main
 

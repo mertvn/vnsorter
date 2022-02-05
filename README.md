@@ -111,13 +111,6 @@ Open config.json in a text editor and change these values to your liking:
 
     only search the full title of the VN
 
-"extra_file": string
-
-    name of the (empty) extra file to be created at the destinations
-    useful for keeping track of games you haven't played yet
-    e.g. !unplayed
-    leave empty to not create any extra files
-
 "vnsorter_file": true or false
 
     Create a !vnsorter.json file inside the directory of a VN match
@@ -133,7 +126,11 @@ Open config.json in a text editor and change these values to your liking:
 
     Move files instead of copying
 
-### You probably want to leave these on their default settings
+"get_image": true or false
+
+    Download VN images when prompted to choose the right release (GUI mode only).
+    Images may be NSFW.
+    Increases the request count, making you get throttled more often.
 
 "smart_querying": true or false
 

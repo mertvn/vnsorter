@@ -11,7 +11,7 @@
   "languages": [
 
   ],
-  "extra_file": "",
+  "get_image": true,
   "vnsorter_file": true,
   "recursive_extraction": false,
   "move": true,

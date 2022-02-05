@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.38.2 -->
+<interface>
+  <requires lib="gtk+" version="3.20"/>
+  <object class="GtkTextBuffer" id="buffer_vninfo"/>
+  <object class="GtkWindow" id="window">
+    <property name="can-focus">False</property>
+    <child>
+      <object class="GtkBox" id="box">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="halign">center</property>
+        <property name="valign">center</property>
+        <property name="margin-start">5</property>
+        <property name="margin-end">5</property>
+        <property name="margin-top">5</property>
+        <property name="margin-bottom">5</property>
+        <property name="orientation">vertical</property>
+        <child>
+          <!-- n-columns=2 n-rows=2 -->
+          <object class="GtkGrid" id="grid_vn">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="halign">center</property>
+            <property name="valign">center</property>
+            <property name="margin-start">2</property>
+            <property name="margin-end">2</property>
+            <property name="column-homogeneous">True</property>
+            <child>
+              <object class="GtkImage" id="image_vn">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="margin-start">2</property>
+                <property name="margin-end">2</property>
+                <property name="margin-top">2</property>
+                <property name="margin-bottom">2</property>
+                <property name="stock">gtk-missing-image</property>
+              </object>
+              <packing>
+                <property name="left-attach">0</property>
+                <property name="top-attach">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkTextView" id="text_vninfo">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="margin-start">2</property>
+                <property name="margin-end">2</property>
+                <property name="margin-top">2</property>
+                <property name="margin-bottom">2</property>
+                <property name="editable">False</property>
+                <property name="wrap-mode">word</property>
+                <property name="left-margin">2</property>
+                <property name="right-margin">2</property>
+                <property name="top-margin">2</property>
+                <property name="bottom-margin">2</property>
+                <property name="cursor-visible">False</property>
+                <property name="buffer">buffer_vninfo</property>
+                <property name="accepts-tab">False</property>
+              </object>
+              <packing>
+                <property name="left-attach">1</property>
+                <property name="top-attach">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLinkButton" id="linkbutton_releasepage">
+                <property name="label" translatable="yes">Go to release page</property>
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="focus-on-click">False</property>
+                <property name="receives-default">True</property>
+                <property name="halign">center</property>
+                <property name="valign">center</property>
+                <property name="relief">none</property>
+                <property name="uri">http://glade.gnome.org</property>
+              </object>
+              <packing>
+                <property name="left-attach">0</property>
+                <property name="top-attach">0</property>
+                <property name="width">2</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">False</property>
+            <property name="padding">5</property>
+            <property name="position">-1</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>

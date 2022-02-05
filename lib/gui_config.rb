@@ -78,7 +78,8 @@ module GUIConfig
     @toggle_full_title_only = builder.get_object('toggle_full_title_only')
 
     @entry_languages = builder.get_object('entry_languages')
-    @entry_extra_file = builder.get_object('entry_extra_file')
+
+    @toggle_get_image = builder.get_object('toggle_get_image')
 
     @toggle_vnsorter_file = builder.get_object('toggle_vnsorter_file')
     @toggle_recursive_extraction = builder.get_object('toggle_recursive_extraction')
@@ -118,7 +119,8 @@ module GUIConfig
     @toggle_full_title_only.active = prev_config['full_title_only']
 
     @entry_languages.text = prev_config['languages'].join(',')
-    @entry_extra_file.text = prev_config['extra_file']
+
+    @toggle_get_image.active = prev_config['get_image']
 
     @toggle_vnsorter_file.active = prev_config['vnsorter_file']
     @toggle_recursive_extraction.active = prev_config['recursive_extraction']
@@ -157,7 +159,8 @@ module GUIConfig
       'full_title_only' => @toggle_full_title_only.active?,
 
       'languages' => @languages,
-      'extra_file' => @entry_extra_file.text,
+
+      'get_image' => @toggle_get_image.active?,
 
       'vnsorter_file' => @toggle_vnsorter_file.active?,
       'recursive_extraction' => @toggle_recursive_extraction.active?,

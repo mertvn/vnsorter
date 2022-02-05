@@ -33,13 +33,28 @@ module Search
 
       puts 'Multiple releases found by the same producer on the same date'
       puts ''
-      display_query_results(releases)
-      puts "Folder: #{current_folder}"
-      ask_user_release(selected, releases) while selected.empty?
+      if $GUI
+
+        GUIChoose.gui_choose(releases, current_folder)
+        case $GUI_CHOOSE_RETURN
+        when 'stop'
+          'stop'
+        when 'skip'
+          'skip'
+        when 'next'
+          'next'
+        else
+          return $GUI_CHOOSE_RETURN
+        end
+      else
+        display_query_results(releases)
+        puts "Folder: #{current_folder}"
+        ask_user_release(selected, releases) while selected.empty?
+      end
     else
       return 'autoskip' if releases[0][:vn].length > 1 &&
-                           $CONFIG['autoskip'] &&
-                           ($CONFIG['choice_title'] == 2 || $CONFIG['choice_title'] == 3)
+        $CONFIG['autoskip'] &&
+        ($CONFIG['choice_title'] == 2 || $CONFIG['choice_title'] == 3)
 
       puts ''
       puts 'Found perfect match automatically with AllSearch'
@@ -68,11 +83,24 @@ module Search
     # Couldn't match automatically, asking user unless autoskip is enabled
     return 'autoskip' if $CONFIG['autoskip']
 
-    display_query_results(releases)
-    puts "Folder: #{current_folder}"
-    ask_user_release(selected, releases) while selected.empty?
-
-    selected[0]
+    if $GUI
+      GUIChoose.gui_choose(releases, current_folder)
+      case $GUI_CHOOSE_RETURN
+      when 'stop'
+        'stop'
+      when 'skip'
+        'skip'
+      when 'next'
+        'next'
+      else
+        $GUI_CHOOSE_RETURN
+      end
+    else
+      display_query_results(releases)
+      puts "Folder: #{current_folder}"
+      ask_user_release(selected, releases) while selected.empty?
+      selected[0]
+    end
   end
 
   def same_vn?(releases)
