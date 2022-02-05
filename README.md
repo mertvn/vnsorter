@@ -1,5 +1,9 @@
 # vnsorter
 
+![ss_config](https://user-images.githubusercontent.com/78761720/152635081-c5362f4b-86c5-4b90-8600-24a9477c2620.png)
+![ss_choose](https://user-images.githubusercontent.com/78761720/152635083-86173e93-ed44-4584-8864-ebb512ae9443.png)
+
+
 This is a tool to help you organize your VN folder(s). It was mainly created to organize your downloads folder where the VNs are named following the same pattern like: "[6-digit date] [producer name] title", but it can also be used for installed VNs, with reduced efficiency.
 
 The way it works is that it tries to extract the date and producer fields from the filename, and performs a search using only those two first. If there is a VN on the VNDB matching those, then it will automatically be set as matched. If there is no match, or if the date and producer name can't be found, then it will try to match the title instead, and ask you to select the correct release among the results. You may choose to skip the VN instead, if you don't see the correct VN listed.
