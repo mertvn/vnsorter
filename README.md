@@ -159,11 +159,11 @@ Open config.json in a text editor and change these values to your liking:
 
 "min_folder_length": integer
 
-    Minimum number of characters a folder or file name must contain for it to be considered when extracting.
+    Minimum number of characters a folder or file name must contain for it to be extracted.
 
 "min_field_length": integer
 
-    Minimum number of characters a field must contain for it to be considered when extracting.
+    Minimum number of characters a field must contain for it to be extracted.
 
 ## License
 
