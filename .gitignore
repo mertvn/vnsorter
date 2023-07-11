@@ -2,3 +2,5 @@
 *.glade~
 \#*.glade#
 .idea
+noAids_noins.json
+staffsearch_out.json

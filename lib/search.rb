@@ -68,6 +68,7 @@ module Search
   def match_by_title(title, current_folder)
     selected = []
     releases = TitleSearch.title_query(title)
+    # releases = TitleSearchDb.title_query(title)
     return 'empty' if releases.empty?
 
     # if VN mode is enabled
@@ -104,6 +105,7 @@ module Search
   end
 
   def same_vn?(releases)
+    # return false
     vn_ids = []
     releases.each do |release|
       release[:vn].each do |vn|

@@ -29,6 +29,9 @@ module GUIChoose
     releases.each_with_index do |release, i|
       # TODO: handle multiple vns per release
       vn_id = release[:vn][0]['id']
+      # vn_id = release[:vn][0][:id]
+      # p release[:vn]
+      # p vn_id
       parsed_vn = nil
       if @vns[vn_id]
         parsed_vn = @vns[vn_id]

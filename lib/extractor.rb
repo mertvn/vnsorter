@@ -17,10 +17,7 @@ module Extractor
     Dir.entries(directory, encoding: 'UTF-8').each do |folder|
       next if folder.length < min_folder_length
       next if folder == '!vnsorter.json'
-
-      if File.file?(folder)
-        next unless ['.zip', '.rar', '.7z'].include?(File.extname(folder))
-      end
+      next if File.file?(folder) && !['.zip', '.rar', '.7z'].include?(File.extname(folder))
 
       date = []
       producer = []
@@ -66,7 +63,11 @@ module Extractor
       # p found_vn
       @found_vns << found_vn
 
-      find(found_vn[:location]) if $CONFIG['recursive_extraction'] && File.directory?(found_vn[:location])
+      next unless $CONFIG['recursive_extraction'] &&
+                  File.directory?(found_vn[:location]) &&
+                  found_vn[:vnsorter_file].nil? # this might be unwanted behavior for some people idk
+
+      find(found_vn[:location])
     end
   end
 end
