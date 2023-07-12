@@ -51,7 +51,8 @@ def main
   planned_moves = $FINAL unless ARGV[0] == '-nogui'
 
   execute_moves(planned_moves)
-  write_move_logs
+  write_move_logs(map)
+
 
   puts ''
   'Sorted everything!'
@@ -187,19 +188,29 @@ def execute_moves(planned_moves)
   end
 end
 
-def write_move_logs
+def write_move_logs(map)
   file = File.new "./logs/move_history #{@time}.txt", 'w'
   file.puts 'MOVED: '
   @move_history.each do |move|
     file.puts move
   end
+
   file.puts ''
   file.puts 'FAILED: '
   @failed_history.each do |move|
     file.puts move
   end
+
   puts ''
   puts "See logs/move_history #{@time}.txt for a list of all the moves"
+
+  map_moved = {}
+  map.each do |combination|
+    @move_history.each do |mh|
+      map_moved[combination[0]] = combination[1] if mh.include?(combination[0])
+    end
+  end
+  File.open("./logs/map_moved #{@time}.json", 'w') { |f| f.write JSON.pretty_generate(map_moved) }
 end
 
 $GUI = true
