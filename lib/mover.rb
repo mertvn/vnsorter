@@ -8,6 +8,7 @@ module Mover
     vn = combination[1]
 
     destination = (vn == 'skip' ? 'skip' : mark_destination(origin, vn).encode('UTF-8'))
+    destination.chop! while destination.end_with?('.') # windows doesn't like filenames ending with .
 
     destination == 'skip' ? 'skip' : { origin => "#{library_folder}/" + destination }
   end
