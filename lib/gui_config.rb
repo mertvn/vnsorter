@@ -81,6 +81,8 @@ module GUIConfig
 
     @toggle_get_image = builder.get_object('toggle_get_image')
 
+    @toggle_use_release_title_when_release_has_more_than_one_vn = builder.get_object('toggle_use_release_title_when_release_has_more_than_one_vn')
+
     @toggle_vnsorter_file = builder.get_object('toggle_vnsorter_file')
     @toggle_recursive_extraction = builder.get_object('toggle_recursive_extraction')
     @toggle_move = builder.get_object('toggle_move')
@@ -122,6 +124,8 @@ module GUIConfig
 
     @toggle_get_image.active = prev_config['get_image']
 
+    @toggle_use_release_title_when_release_has_more_than_one_vn.active = prev_config['toggle_use_release_title_when_release_has_more_than_one_vn']
+
     @toggle_vnsorter_file.active = prev_config['vnsorter_file']
     @toggle_recursive_extraction.active = prev_config['recursive_extraction']
     @toggle_move.active = prev_config['move']
@@ -161,6 +165,8 @@ module GUIConfig
       'languages' => @languages,
 
       'get_image' => @toggle_get_image.active?,
+
+      'use_release_title_when_release_has_more_than_one_vn' => @toggle_use_release_title_when_release_has_more_than_one_vn.active?,
 
       'vnsorter_file' => @toggle_vnsorter_file.active?,
       'recursive_extraction' => @toggle_recursive_extraction.active?,

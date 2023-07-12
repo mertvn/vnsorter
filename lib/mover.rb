@@ -136,16 +136,23 @@ module Mover
   end
 
   def mark_title(origin, vn)
-    if ($CONFIG['choice_title'] == 2) || ($CONFIG['choice_title'] == 3)
+    choice_title = $CONFIG['choice_title']
+
+    if [2, 3].include?(choice_title)
       vn = if vn[:vn].length > 1
-             ask_user_vn(origin, vn)
+             if $CONFIG['use_release_title_when_release_has_more_than_one_vn']
+               choice_title -= 2
+               vn
+             else
+               ask_user_vn(origin, vn)
+             end
            else
              vn[:vn][0]
            end
     end
     return 'skip' if vn == 'skip'
 
-    case $CONFIG['choice_title']
+    case choice_title
     when 0
       # romaji release title
       vn[:title]

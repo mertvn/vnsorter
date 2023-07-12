@@ -12,6 +12,7 @@
 
   ],
   "get_image": true,
+  "use_release_title_when_release_has_more_than_one_vn": true,
   "vnsorter_file": true,
   "recursive_extraction": false,
   "move": true,

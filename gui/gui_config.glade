@@ -372,6 +372,7 @@
                 <property name="receives-default">True</property>
                 <property name="margin-start">10</property>
                 <property name="margin-end">10</property>
+                <property name="margin-top">5</property>
                 <property name="active">True</property>
               </object>
               <packing>
@@ -387,6 +388,7 @@
                 <property name="receives-default">True</property>
                 <property name="margin-start">10</property>
                 <property name="margin-end">10</property>
+                <property name="margin-top">5</property>
                 <property name="active">True</property>
               </object>
               <packing>
@@ -402,6 +404,7 @@
                 <property name="receives-default">True</property>
                 <property name="margin-start">10</property>
                 <property name="margin-end">10</property>
+                <property name="margin-top">5</property>
               </object>
               <packing>
                 <property name="left-attach">2</property>
@@ -445,6 +448,7 @@ leave empty to search all languages</property>
                 <property name="receives-default">True</property>
                 <property name="margin-start">10</property>
                 <property name="margin-end">10</property>
+                <property name="margin-top">5</property>
                 <property name="active">True</property>
               </object>
               <packing>
@@ -460,6 +464,7 @@ leave empty to search all languages</property>
                 <property name="receives-default">True</property>
                 <property name="margin-start">10</property>
                 <property name="margin-end">10</property>
+                <property name="margin-top">5</property>
               </object>
               <packing>
                 <property name="left-attach">2</property>
@@ -474,6 +479,7 @@ leave empty to search all languages</property>
                 <property name="receives-default">True</property>
                 <property name="margin-start">10</property>
                 <property name="margin-end">10</property>
+                <property name="margin-top">5</property>
               </object>
               <packing>
                 <property name="left-attach">1</property>
@@ -488,6 +494,7 @@ leave empty to search all languages</property>
                 <property name="receives-default">True</property>
                 <property name="margin-start">10</property>
                 <property name="margin-end">10</property>
+                <property name="margin-top">5</property>
                 <property name="active">True</property>
               </object>
               <packing>
@@ -496,7 +503,22 @@ leave empty to search all languages</property>
               </packing>
             </child>
             <child>
-              <placeholder/>
+              <object class="GtkToggleButton" id="toggle_use_release_title_when_release_has_more_than_one_vn">
+                <property name="label" translatable="yes">Use release title when 
+release has more than one VN
+(even in VN mode)</property>
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="receives-default">True</property>
+                <property name="margin-start">10</property>
+                <property name="margin-end">10</property>
+                <property name="margin-top">5</property>
+                <property name="active">True</property>
+              </object>
+              <packing>
+                <property name="left-attach">2</property>
+                <property name="top-attach">2</property>
+              </packing>
             </child>
             <child>
               <placeholder/>
