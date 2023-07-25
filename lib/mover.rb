@@ -42,7 +42,7 @@ module Mover
     end
     producer = str_producer.chomp(' & ')
     producer = replace_special_characters(producer)
-    producer = producer.empty? ? 'UNKNOWN_PRODUCER' : producer
+    producer = producer.empty? ? '!UNKNOWN_PRODUCER' : producer
     # puts "producer was marked as: #{producer}"
 
     date = mark_date(vn)
@@ -124,14 +124,14 @@ module Mover
     when 0
       # YYMMDD
       date = vn[:date].split('-').join[2..-1]
-      date.length == 6 ? date : 'UNKNOWN_DATE'
+      date.length == 6 ? date : '!UNKNOWN_DATE'
     when 1
       # YYYY-MM-DD
       vn[:date]
     when 2
       # YYYY
       date = vn[:date].split('-').join[0..3]
-      date.length == 4 ? date : 'UNKNOWN_DATE'
+      date.length == 4 ? date : '!UNKNOWN_DATE'
     end
   end
 
