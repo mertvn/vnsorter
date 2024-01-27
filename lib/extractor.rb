@@ -30,6 +30,16 @@ module Extractor
         vnsorter_file.default_proc = proc { |h, k| h.key?(k.to_s) ? h[k.to_s] : nil }
       end
 
+      # TODO: support other SI kinds
+      if folder.start_with?('SI(VndbRid=')
+        found_vn = { location: "#{directory}/#{folder}".encode('UTF-8'),
+                     vnsorter_file: vnsorter_file,
+                     SI: folder.gsub('SI(VndbRid=', '').gsub(')', '') }
+        # p found_vn
+        @found_vns << found_vn
+        next
+      end
+
       # add whitespace after brackets,
       # replace periods with whitespace,
       # split by whitespace, but keep the whitespace if it's inside brackets or parentheses

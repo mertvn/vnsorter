@@ -71,6 +71,31 @@ def start_search(extracted)
       next
     end
 
+    if folder[:SI]
+      require_relative 'sisearch'
+      puts 'new SI search'
+      match = Search.match_by_si(folder[:SI], folder[:location])
+      case match
+      when 'empty'
+        puts 'No results from SISearch'
+        next
+      when 'autoskip'
+        puts 'Found multiple results, autoskipping'
+        next
+      when 'next'
+        next
+      when 'skip'
+        next
+      when 'stop'
+        break
+      else
+        map[folder[:location]] = match
+        create_vnsorter_file(folder[:location], match) if $CONFIG['vnsorter_file']
+        # && File.directory?(folder[:location])
+        next
+      end
+    end
+
     unless folder[:producer].empty? || folder[:date].empty?
       puts 'new all search'
       match = Search.match_by_all(folder[:producer], folder[:date], folder[:location], folder[:title][0])

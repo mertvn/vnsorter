@@ -53,8 +53,8 @@ module Search
       end
     else
       return 'autoskip' if releases[0][:vn].length > 1 &&
-        $CONFIG['autoskip'] &&
-        ($CONFIG['choice_title'] == 2 || $CONFIG['choice_title'] == 3)
+                           $CONFIG['autoskip'] &&
+                           ($CONFIG['choice_title'] == 2 || $CONFIG['choice_title'] == 3)
 
       puts ''
       puts 'Found perfect match automatically with AllSearch'
@@ -77,6 +77,52 @@ module Search
     if same_vn?(releases) && ($CONFIG['choice_title'] == 2 || $CONFIG['choice_title'] == 3)
       puts ''
       puts 'Found perfect match automatically because VN mode was enabled'
+      puts ''
+      return releases[0]
+    end
+
+    # Couldn't match automatically, asking user unless autoskip is enabled
+    return 'autoskip' if $CONFIG['autoskip']
+
+    if $GUI
+      GUIChoose.gui_choose(releases, current_folder)
+      case $GUI_CHOOSE_RETURN
+      when 'stop'
+        'stop'
+      when 'skip'
+        'skip'
+      when 'next'
+        'next'
+      else
+        $GUI_CHOOSE_RETURN
+      end
+    else
+      display_query_results(releases)
+      puts "Folder: #{current_folder}"
+      ask_user_release(selected, releases) while selected.empty?
+      selected[0]
+    end
+  end
+
+  def match_by_si(si, current_folder)
+    selected = []
+    releases = SISearch.si_query(si)
+    # releases = TitleSearchDb.title_query(title)
+    return 'empty' if releases.empty?
+
+    # if VN mode is enabled
+    # check if all the releases found belong to the same VN
+    # if so, automatically select the first release because we don't care about releases
+    if same_vn?(releases) && ($CONFIG['choice_title'] == 2 || $CONFIG['choice_title'] == 3)
+      puts ''
+      puts 'Found perfect match automatically because VN mode was enabled'
+      puts ''
+      return releases[0]
+    end
+
+    if releases.length == 1
+      puts ''
+      puts 'Found perfect match automatically because releases.length == 1'
       puts ''
       return releases[0]
     end
