@@ -38,16 +38,23 @@ module AllSearch
     producer_options = '{ "results": 25 }'
     producer_final = (REQ_PRODUCER + producer_filter + producer_options).encode('UTF-8')
 
-    VNDB.send(producer_final)
-    parsed_producers << VNDB.parse(VNDB.read)
-    # puts JSON.pretty_generate(parsed_producers)
+    if $PRODUCER_DICT.key?(producer_final)
+      # puts "using cached producer #{producer_final}"
+      producer_ids = $PRODUCER_DICT[producer_final]
+    else
+      VNDB.send(producer_final)
+      parsed_producers << VNDB.parse(VNDB.read)
+      # puts JSON.pretty_generate(parsed_producers)
 
-    # the naming could be better here
-    # keep the repetition with get_releases_with_producer_and_date
-    parsed_producers.each do |producers|
-      producers['items'].each do |producer|
-        producer_ids << producer['id']
+      # the naming could be better here
+      # keep the repetition with get_releases_with_producer_and_date
+      parsed_producers.each do |producers|
+        producers['items'].each do |producer|
+          producer_ids << producer['id']
+        end
       end
+
+      $PRODUCER_DICT[producer_final] = producer_ids
     end
 
     producer_ids

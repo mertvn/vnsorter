@@ -238,6 +238,7 @@ def write_move_logs(map)
   File.open("./logs/map_moved #{@time}.json", 'w') { |f| f.write JSON.pretty_generate(map_moved) }
 end
 
+$PRODUCER_DICT = {}
 $GUI = true
 if ARGV[0] == '-nogui'
   $GUI = false
